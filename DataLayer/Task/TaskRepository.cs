@@ -17,5 +17,9 @@ namespace DataLayer
             taskContext = context;
         }
 
+        public IEnumerable<Task> GetTasksByDescription(string description)
+        {
+            return taskContext.GetTaskByDescription(description);
+        }
     }
 }

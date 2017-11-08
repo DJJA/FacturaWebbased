@@ -14,5 +14,6 @@ namespace LogicLayer
         void Update(Customer customer);
         Customer GetCustomerById(int id);
         List<Customer> GetCustomersByLastName(string lastname);
+        List<Customer> GetCustomersByZipcode(string zipcode);
     }
 }

@@ -27,5 +27,10 @@ namespace LogicLayer
         {
             taskRepository.Add(task);
         }
+
+        public List<Task> GetTasksByDescription(string description)
+        {
+            return taskRepository.GetTasksByDescription(description).ToList();
+        }
     }
 }

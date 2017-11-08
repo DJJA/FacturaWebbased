@@ -18,7 +18,7 @@ namespace DataLayer
         private Customer customer;
         private List<Customer> customers;
 
-        
+
         public override IEnumerable<Customer> GetAll()
         {
             customers = new List<Customer>();
@@ -52,7 +52,7 @@ namespace DataLayer
 
                 return customers;
             }
-            catch(SqlException sqlException)
+            catch (SqlException sqlException)
             {
                 switch (sqlException.Number)
                 {
@@ -74,7 +74,7 @@ namespace DataLayer
 
             try
             {
-                
+
                 cmd = new SqlCommand("spManageCustomer", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@id", SqlDbType.Int).Value = 5;
@@ -88,7 +88,7 @@ namespace DataLayer
                 cmd.Parameters.Add("@phoneNumber", SqlDbType.Text).Value = customer.PhoneNumber;
                 cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
 
-             
+
                 conn.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -96,9 +96,9 @@ namespace DataLayer
             {
                 switch (sqlException.Number)
                 {
-                    case 2627: 
+                    case 2627:
                         throw new CustomerException("Er bestaat al een klant met dit email");
-                        
+
                     case 547:
                         throw new CustomerException("Het email adres voldoet niet aan de eisen van een email");
                     default:
@@ -193,8 +193,49 @@ namespace DataLayer
 
         public IEnumerable<Customer> GetCustomersByZipcode(string zipcode)
         {
-            throw new NotFiniteNumberException();
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                customers = new List<Customer>();
+                conn.Open();
+                cmd = new SqlCommand($"SELECT * FROM funcCustomerByZipcode('{zipcode}')", conn);
 
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Address address = new Address(
+                        streetName: rdr["street"].ToString(),
+                        place: rdr["place"].ToString(),
+                        zipCode: rdr["zipCode"].ToString()
+                    );
+
+                    customer = new Customer(
+                        id: Convert.ToInt16(rdr["id"]),
+                        firstName: rdr["firstname"].ToString(),
+                        lastName: rdr["lastname"].ToString(),
+                        email: rdr["email"].ToString(),
+                        phoneNumber: rdr["phonenumber"].ToString(),
+                        address: address
+                    );
+                    customers.Add(customer);
+                }
+
+                return customers;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new CustomerException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
         public IEnumerable<Customer> GetCustomersByLastName(string lastname)
@@ -210,9 +251,9 @@ namespace DataLayer
                 while (rdr.Read())
                 {
                     Address address = new Address(
-                        streetName: rdr.GetString(5),
-                        place: rdr.GetString(6),
-                        zipCode: rdr.GetString(7)
+                        streetName: rdr["street"].ToString(),
+                        place: rdr["place"].ToString(),
+                        zipCode: rdr["zipCode"].ToString()
                     );
 
                     customer = new Customer(
@@ -245,3 +286,4 @@ namespace DataLayer
         }
     }
 }
+

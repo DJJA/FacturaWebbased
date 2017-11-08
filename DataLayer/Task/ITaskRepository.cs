@@ -8,6 +8,7 @@ namespace DataLayer
 {
     public interface ITaskRepository : IRepository<Task> 
     {
-        
+        IEnumerable<Task> GetTasksByDescription(string description);
+
     }
 }

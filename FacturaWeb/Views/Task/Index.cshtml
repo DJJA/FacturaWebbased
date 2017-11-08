@@ -13,6 +13,14 @@
     <br /><br />
 }
 
+@using (@Html.BeginForm("Index", "Task", FormMethod.Get))
+{
+    <div class="pull-right">
+        <b>Zoeken op dienstomschrijving:</b><br/>
+        @Html.TextBox("search") <input type="submit" value="Search"/>
+    </div>
+}
+
 <style type="text/css">
     td {
         padding: 0 15px 0 15px;
@@ -22,6 +30,9 @@
         padding: 0 15px 0 15px;
     }
 </style>
+<br/>
+<br/>
+<br/>
 <table class="table table-bordered">
     <thead>
     <tr>

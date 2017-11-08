@@ -1,8 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "CreateNewTask";
+    ViewBag.Title = "Nieuwe dienst toevoegen";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateNewTask</h2>
+<h2>@ViewBag.Title</h2>
 
+<br />
+@using (Html.BeginForm("SaveTaskToDb", "Task", FormMethod.Post))
+{
+    <br />
+    <input type="text" name="tbDescription" placeholder="Omschrijving" /><br />
+    <br />
+
+    <input type="submit" value="Toevoegen" />
+}

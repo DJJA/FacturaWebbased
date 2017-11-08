@@ -61,10 +61,11 @@ namespace DataLayer
             try
             {
 
-                cmd = new SqlCommand("spManageCustomer", conn);
+                cmd = new SqlCommand("spManageTask", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
+
                 cmd.Parameters.Add("@id", SqlDbType.Int).Value = 0;
-                cmd.Parameters.Add("@description", SqlDbType.Text).Value = task.Description;
+                cmd.Parameters.Add("@description", SqlDbType.Text).Value = entity.Description;
                 cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
 
 
@@ -76,13 +77,50 @@ namespace DataLayer
                 switch (sqlException.Number)
                 {
                     case 2627:
-                        throw new TaskException("Er bestaat al een klant met dit email");
+                        throw new TaskException("Er bestaat al een dienst met dit __");
 
                     case 547:
                         throw new TaskException("Het email adres voldoet niet aan de eisen van een email");
                     default:      
                         throw new TaskException(sqlException.Number.ToString());
                 }
+            }
+        }
+
+        public IEnumerable<Task> GetTaskByDescription(string description)
+        {
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                tasks = new List<Task>();
+                conn.Open();
+                cmd = new SqlCommand($"SELECT * FROM funcTaskByDescription('{description}')", conn);
+
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    task = new Task(
+                            id: Convert.ToInt16(rdr["id"]),
+                            description: rdr["description"].ToString()
+                        );
+                    tasks.Add(task);
+                }
+
+                return tasks;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new TaskException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new TaskException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
             }
         }
     }

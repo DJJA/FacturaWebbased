@@ -28,6 +28,11 @@ namespace DataLayer
             return customerContext.GetCustomersByLastName(lastname);
         }
 
+        public IEnumerable<Customer> GetCustomersByZipcode(string zipcode)
+        {
+            return customerContext.GetCustomersByZipcode(zipcode);
+        }
+
         public IEnumerable<Customer> GetTopCustomers(int count)
         {
             //var context = (IDbCustomerContext)Context;

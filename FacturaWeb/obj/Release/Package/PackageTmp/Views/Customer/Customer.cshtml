@@ -15,6 +15,17 @@
     <br /><br />
 }
 
+@using (@Html.BeginForm("Customer", "Customer", FormMethod.Get))
+{
+    <div class="pull-right">
+    <b>Zoeken op:</b>
+    @Html.RadioButton("searchby", "zipcode") <text>Postcode</text>
+    @Html.RadioButton("searchby", "lastname", true)<text>Achternaam</text><br/>
+    @Html.TextBox("search") <input type="submit" value="Search"/>
+    </div>
+}
+
+
 <style type="text/css">
     td {
         padding: 0 15px 0 15px;
@@ -23,7 +34,12 @@
     th {
         padding: 0 15px 0 15px;
     }
+
 </style>
+
+<br/>
+<br/>
+<br/>
 <table class="table table-bordered">
     <thead>
         <tr>

@@ -41,5 +41,10 @@ namespace LogicLayer
         {
             return customerRepository.GetCustomersByLastName(lastname).ToList();
         }
+
+        public List<Customer> GetCustomersByZipcode(string zipcode)
+        {
+            return customerRepository.GetCustomersByZipcode(zipcode).ToList();
+        }
     }
 }

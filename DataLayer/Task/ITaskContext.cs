@@ -8,6 +8,6 @@ namespace DataLayer
 {
     public interface ITaskContext : IContext<Task>
     {
-
+        IEnumerable<Task> GetTaskByDescription(string description);
     }
 }

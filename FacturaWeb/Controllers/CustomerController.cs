@@ -16,12 +16,31 @@ namespace FacturaWeb.Controllers
 
 
         // GET: Customer
-        public ActionResult Customer()
+        public ActionResult Customer(string searchby, string search)
         {
             InvoiceCustomerViewModel viewModel = new InvoiceCustomerViewModel()
             {
                 Customers = customerLogic.GetAllCustomers()
             };
+
+            if (searchby == "lastname")
+            {
+                InvoiceCustomerViewModel searchModel = new InvoiceCustomerViewModel()
+                {
+                    Customers = customerLogic.GetCustomersByLastName(search)
+                };
+
+                return View(searchModel);
+            }
+            else if (searchby == "zipcode") //de zipcode search functie nog maken in de database
+            {
+                InvoiceCustomerViewModel searchModel = new InvoiceCustomerViewModel()
+                {
+                    Customers = customerLogic.GetCustomersByZipcode(search)
+                };
+
+                return View(searchModel);
+            }
 
             return View(viewModel);
         }
