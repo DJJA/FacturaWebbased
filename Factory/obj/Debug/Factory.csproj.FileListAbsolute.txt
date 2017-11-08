@@ -1,0 +1,12 @@
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\obj\Debug\Factory.csprojResolveAssemblyReference.cache
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\obj\Debug\Factory.csproj.CoreCompileInputs.cache
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\Factory.dll
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\Factory.pdb
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\DataLayer.dll
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\LogicLayer.dll
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\Models.dll
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\DataLayer.pdb
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\LogicLayer.pdb
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\bin\Debug\Models.pdb
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\obj\Debug\Factory.dll
+C:\Users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Factory\obj\Debug\Factory.pdb

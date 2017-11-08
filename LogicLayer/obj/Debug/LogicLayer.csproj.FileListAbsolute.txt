@@ -1,0 +1,10 @@
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\bin\Debug\LogicLayer.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\bin\Debug\LogicLayer.pdb
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\bin\Debug\DataLayer.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\bin\Debug\Models.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\bin\Debug\DataLayer.pdb
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\bin\Debug\Models.pdb
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\obj\Debug\LogicLayer.csprojResolveAssemblyReference.cache
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\obj\Debug\LogicLayer.csproj.CoreCompileInputs.cache
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\obj\Debug\LogicLayer.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\LogicLayer\obj\Debug\LogicLayer.pdb

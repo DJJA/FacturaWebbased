@@ -1,0 +1,8 @@
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\bin\Debug\DataLayer.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\bin\Debug\DataLayer.pdb
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\bin\Debug\Models.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\bin\Debug\Models.pdb
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\obj\Debug\DataLayer.csprojResolveAssemblyReference.cache
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\obj\Debug\DataLayer.csproj.CoreCompileInputs.cache
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\obj\Debug\DataLayer.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\DataLayer\obj\Debug\DataLayer.pdb

@@ -211,15 +211,15 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\FactuurProgramma\Factory\FacturaWeb.Factory.csproj">
+    <ProjectReference Include="..\Factory\FacturaWeb.Factory.csproj">
       <Project>{026752c2-bfba-4847-9119-6926a21733a6}</Project>
       <Name>FacturaWeb.Factory</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FactuurProgramma\LogicLayer\FacturaWeb.LogicLayer.csproj">
+    <ProjectReference Include="..\LogicLayer\FacturaWeb.LogicLayer.csproj">
       <Project>{bae32cb7-5a45-4278-b1b8-ef72b2a0d5d7}</Project>
       <Name>FacturaWeb.LogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\FactuurProgramma\Models\FacturaWeb.Models.csproj">
+    <ProjectReference Include="..\Models\FacturaWeb.Models.csproj">
       <Project>{6ef1881a-f617-44fa-a74a-6b56470eee4f}</Project>
       <Name>FacturaWeb.Models</Name>
     </ProjectReference>

@@ -1,0 +1,6 @@
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Models\bin\Debug\Models.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Models\bin\Debug\Models.pdb
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Models\obj\Debug\Models.csprojResolveAssemblyReference.cache
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Models\obj\Debug\Models.csproj.CoreCompileInputs.cache
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Models\obj\Debug\Models.dll
+c:\users\daphne\documents\visual studio 2017\Projects\FactuurProgramma\Models\obj\Debug\Models.pdb
