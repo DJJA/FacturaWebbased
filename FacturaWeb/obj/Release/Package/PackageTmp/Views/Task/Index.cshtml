@@ -1,0 +1,46 @@
+﻿@using Models
+@model FacturaWeb.ViewModels.TaskViewModel
+@{
+    ViewBag.Title = "Diensten overzicht";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (@Html.BeginForm("CreateNewTask", "Task", FormMethod.Post))
+{
+    <input type="submit" value="Nieuwe dienst" />
+    <br /><br />
+}
+
+<style type="text/css">
+    td {
+        padding: 0 15px 0 15px;
+    }
+
+    th {
+        padding: 0 15px 0 15px;
+    }
+</style>
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Dienstnr</th>
+        <th>Omschrijving</th>
+        
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Task task in @Model.Tasks)
+    {
+        <tr>
+            <th scope="row">@task.Id</th>
+            <td>@task.Description</td>
+
+            @*<td>@Html.ActionLink("Bewerken", "UpdateCustomer", task)</td>*@
+
+        </tr>
+    }
+    </tbody>
+</table>
+

@@ -1,0 +1,12 @@
+D:\Software projects\Factura Web\Factory\bin\Release\Factory.dll
+D:\Software projects\Factura Web\Factory\bin\Release\Factory.pdb
+D:\Software projects\Factura Web\Factory\bin\Release\DataLayer.dll
+D:\Software projects\Factura Web\Factory\bin\Release\LogicLayer.dll
+D:\Software projects\Factura Web\Factory\bin\Release\Models.dll
+D:\Software projects\Factura Web\Factory\bin\Release\DataLayer.pdb
+D:\Software projects\Factura Web\Factory\bin\Release\LogicLayer.pdb
+D:\Software projects\Factura Web\Factory\bin\Release\Models.pdb
+D:\Software projects\Factura Web\Factory\obj\Release\FacturaWeb.Factory.csprojResolveAssemblyReference.cache
+D:\Software projects\Factura Web\Factory\obj\Release\FacturaWeb.Factory.csproj.CoreCompileInputs.cache
+D:\Software projects\Factura Web\Factory\obj\Release\Factory.dll
+D:\Software projects\Factura Web\Factory\obj\Release\Factory.pdb

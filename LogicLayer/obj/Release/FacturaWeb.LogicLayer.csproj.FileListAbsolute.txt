@@ -1,0 +1,10 @@
+D:\Software projects\Factura Web\LogicLayer\bin\Release\LogicLayer.dll
+D:\Software projects\Factura Web\LogicLayer\bin\Release\LogicLayer.pdb
+D:\Software projects\Factura Web\LogicLayer\bin\Release\DataLayer.dll
+D:\Software projects\Factura Web\LogicLayer\bin\Release\Models.dll
+D:\Software projects\Factura Web\LogicLayer\bin\Release\DataLayer.pdb
+D:\Software projects\Factura Web\LogicLayer\bin\Release\Models.pdb
+D:\Software projects\Factura Web\LogicLayer\obj\Release\FacturaWeb.LogicLayer.csprojResolveAssemblyReference.cache
+D:\Software projects\Factura Web\LogicLayer\obj\Release\FacturaWeb.LogicLayer.csproj.CoreCompileInputs.cache
+D:\Software projects\Factura Web\LogicLayer\obj\Release\LogicLayer.dll
+D:\Software projects\Factura Web\LogicLayer\obj\Release\LogicLayer.pdb

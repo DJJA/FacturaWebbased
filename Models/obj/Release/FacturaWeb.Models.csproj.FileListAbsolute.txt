@@ -1,0 +1,6 @@
+D:\Software projects\Factura Web\Models\bin\Release\Models.dll
+D:\Software projects\Factura Web\Models\bin\Release\Models.pdb
+D:\Software projects\Factura Web\Models\obj\Release\FacturaWeb.Models.csprojResolveAssemblyReference.cache
+D:\Software projects\Factura Web\Models\obj\Release\FacturaWeb.Models.csproj.CoreCompileInputs.cache
+D:\Software projects\Factura Web\Models\obj\Release\Models.dll
+D:\Software projects\Factura Web\Models\obj\Release\Models.pdb

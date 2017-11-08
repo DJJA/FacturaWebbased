@@ -1,0 +1,25 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Nieuwe klant toevoegen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+<br />
+@using (Html.BeginForm("SaveCustomerToDb", "Customer", FormMethod.Post))
+{
+    <br />
+        <input type="text" name="tbFirstname" placeholder="Voornaam" />
+        <input type="text" name="tbPrefix" placeholder="Voorvoegsel" />
+        <input type="text" name="tbSurname" placeholder="Achternaam" /> <br /><br />
+        <input type="text" name="tbStreet" placeholder="Straat + nummer" />
+        <input type="text" name="tbPlace" placeholder="Plaats" />
+        <input type="text" name="tbZipcode" placeholder="Postcode" /><br /> <br />
+        <input type="text" name="tbEmail" placeholder="Email" />
+        <input type="text" name="tbPhonenumber" placeholder="Telefoonnummer" /><br />
+    <br />
+
+        <input type="submit" value="Toevoegen" />
+}
+

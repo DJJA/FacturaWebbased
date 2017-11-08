@@ -38,7 +38,7 @@ namespace FacturaWeb.Controllers
             string phone = collection["tbPhonenumber"];
 
             var address = new Address(street, place, zipcode);
-            var customer = new Customer(0, firstname, prefix, surname, email, phone, address);
+            var customer = new Customer(0, firstname, surname, prefix, email, phone, address);
             customerLogic.Insert(customer);
             return RedirectToAction("Customer");
         }
@@ -55,7 +55,8 @@ namespace FacturaWeb.Controllers
             string phone = collection["tbPhonenumber"];
 
             var address = new Address(street, place, zipcode);
-            var customer = new Customer(id, firstname, prefix, surname, email, phone, address);
+            var customer = new Customer(id, firstname, surname, prefix, email, phone, address);
+
             customerLogic.Update(customer);
 
             return RedirectToAction("Customer");

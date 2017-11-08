@@ -40,14 +40,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CustomerRepository.cs" />
+    <Compile Include="Task\TaskRepository.cs" />
+    <Compile Include="Customer\CustomerRepository.cs" />
     <Compile Include="IContext.cs" />
-    <Compile Include="ICustomerRepository.cs" />
-    <Compile Include="ICustomerContext.cs" />
+    <Compile Include="Task\ITaskRepository.cs" />
+    <Compile Include="Task\ITaskContext.cs" />
+    <Compile Include="Customer\ICustomerRepository.cs" />
+    <Compile Include="Customer\ICustomerContext.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="Task\SqlTaskContext.cs" />
     <Compile Include="SqlContext.cs" />
-    <Compile Include="SqlCustomerContext.cs" />
+    <Compile Include="Customer\SqlCustomerContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -56,5 +60,6 @@
       <Name>FacturaWeb.Models</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
