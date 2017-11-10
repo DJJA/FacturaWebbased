@@ -1,0 +1,188 @@
+﻿@using Models
+@model FacturaWeb.ViewModels.InvoiceViewModel
+@{
+    ViewBag.Title = "CreateInvoice";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nieuw factuur maken</h2>
+<html>
+<head>
+    <script src="jquery-3.2.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <style>
+        tbody {
+            height: 400px !important;
+            overflow-y: auto;
+            display: block;
+        }
+        thead, tbody tr{
+            display:table;
+            width:100%;
+            table-layout:fixed;/* even columns width , fix width of table too*/
+        }
+
+        header {
+            background: #FFFFFF;
+            color: #919191;
+            padding: 15px;
+            line-height: 30px;
+            max-width: calc(770px - 30px);
+            border-radius: 3px;
+            margin: auto;
+        }
+
+        .containert {
+            width: 100%;
+            max-width: 100%;
+            margin: auto;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+
+
+
+        .left-header, .right-header {
+            background: #58C5B3;
+            font-size: 10px;
+            padding: 15px;
+            color: #FFFFFF;
+        }
+
+        .left-text, .right-text {
+            background: #FFFFFF;
+            padding: 5px;
+            font-size: 15px;
+        }
+        .fl-l
+        {
+            float:left;
+            word-break: break-all;
+            width: 35%;
+            margin: 5px;
+        }
+        .fl-ll {
+            float: left;
+            word-break: break-all;
+            width: 25%;
+            margin: 5px;
+        }
+        .fl-lm {
+            float: left;
+            word-break: break-all;
+            width: 25%;
+            margin: 5px;
+        }
+        .smallersize {
+            width: 45px;
+        }
+        .hover-table .tr-data:hover{
+            background-color: lightgrey;
+        }
+        .clickable-row {
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="containert">
+        <div class="fl-ll">
+            <div class="left-header">
+                Selecteer dienst
+            </div>
+            <div class="left-text">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Dienst</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Task task in Model.Tasks)
+                        {
+                            <tr>
+                                <td>@task.Description</td>
+                                <td class="smallersize"><button class="btnAdd">+</button></td>
+                                <input type="hidden" class="taskDescription" value="@task.Description" />
+                                <input type="hidden" class="taskId" value="@task.Id" />
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="fl-lm">
+            <div class="right-header">
+                Selecteer klant
+            </div>
+            <div class="right-text">
+                <table class="table table-bordered hover-table">
+                    <thead>
+                        <tr>
+                            <th>Klant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Customer customer in Model.Customers)
+                        {
+                            <tr class="tr-data clickable-row" data-href='url://www.google.nl/'>
+                                <td>@customer.FirstName</td>
+                                <td>@customer.Preposition</td>
+                                <td>@customer.LastName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="fl-l">
+            <div class="right-header">
+                Diensten per factuur
+            </div>
+            @using (@Html.BeginForm("Add", "Invoice", FormMethod.Get))
+            {
+                <div class="right-text">
+                    <div id="paragraph">
+                        
+                        
+                    </div>
+                </div>
+                <button>toevoegen</button>
+            }
+        </div>
+    </div>
+    
+
+</body>
+
+
+</html>
+<script>
+    $(document).ready(function () {
+        $(document).ready(function () {
+            $(".btnAdd").click(function () {
+                var task = $(this).closest('tr').find('.taskDescription').val();
+                var taskId = $(this).closest('tr').find('.taskId').val();
+                var taskcode = "<div><button class=\"btnRemove\">-</button>  <input type=\"number\" class=\" \" value=\"1\" style=\"width:50px\"  />   "
+                    + task
+                    +"<input type=\"hidden\" name=\"taskId\" value=\""+ taskId + "\"/>"
+                    +"</br></div>";
+                $("#paragraph").append(taskcode);
+            });
+        });
+
+        $('.clickable-row').click(function () {
+            var href = $(this).find("a").attr("href");
+            if (href) {
+                window.location = href;
+            }
+        });
+
+        $("#paragraph").on("click", ".btnRemove", function (e) {
+            e.preventDefault(); $(this).parent('div').remove();
+        })
+    });
+</script>

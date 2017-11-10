@@ -21,5 +21,10 @@ namespace DataLayer
         {
             return taskContext.GetTaskByDescription(description);
         }
+
+        public Task GetTaskById(int id)
+        {
+            return taskContext.GetTaskById(id);
+        }
     }
 }

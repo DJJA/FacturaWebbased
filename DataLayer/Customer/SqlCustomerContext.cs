@@ -17,7 +17,7 @@ namespace DataLayer
         private SqlDataReader rdr;
         private Customer customer;
         private List<Customer> customers;
-
+        //TODO: kijken of de SqlDbTypes in de sp queries goed zijn
 
         public override IEnumerable<Customer> GetAll()
         {
@@ -68,7 +68,7 @@ namespace DataLayer
             }
         }
 
-        public void Insert(Customer customer)
+        public override void Insert(Customer customer)
         {
             conn = new SqlConnection(ConnectionString);
 
@@ -107,7 +107,7 @@ namespace DataLayer
             }
         }
 
-        public void Update(Customer customer)
+        public override void Update(Customer customer)
         {
             conn = new SqlConnection(ConnectionString);
 

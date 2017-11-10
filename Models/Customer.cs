@@ -27,6 +27,11 @@ namespace Models
         //    Address = address;
         //    Invoices = invoices;
         //}
+        public Customer(string firstname, string lastname)
+        {
+            LastName = lastname;
+            FirstName = firstname;
+        }
 
         public Customer(int id, string firstName, string lastName, string preposition, string email, string phoneNumber, Address address)
         {

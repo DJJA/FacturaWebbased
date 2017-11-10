@@ -1,0 +1,42 @@
+﻿@using Models
+@model FacturaWeb.ViewModels.InvoiceCustomerViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Facturen overzicht</h2>
+
+@using (Html.BeginForm("CreateInvoice", "Invoice", FormMethod.Get))
+{
+    <input type="submit" value="Nieuw factuur"/><br/><br/>
+}
+
+<table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>Factuurnummer</th>
+        <th>Naam</th>
+        <th>Achternaam</th>
+        <th>Factuur verzonden op</th>
+        <th>Factuur betaald op</th>
+        <th>Bedrag</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (Invoice invoice in @Model.InvoicesPerCustomer)
+    {
+        <tr>
+            <th scope="row">@invoice.Id</th>
+            <td>@invoice.Customer.FirstName</td>
+            <td>@invoice.Customer.LastName</td>
+            <td>@invoice.DateSend</td>
+            <td>@invoice.DatePayed</td>
+            <td>@invoice.TotalPrice</td>
+
+            @*<td>@Html.ActionLink("Bewerken", "UpdateCustomer", invoice)</td>*@
+
+        </tr>
+    }
+    </tbody>
+</table>

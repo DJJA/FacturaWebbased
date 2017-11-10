@@ -11,7 +11,7 @@ namespace DataLayer
 {
     public class CustomerRepository : Repository<Customer>, ICustomerRepository
     {
-        private ICustomerContext customerContext;
+        private readonly ICustomerContext customerContext;
         public CustomerRepository(ICustomerContext context)
             : base(context)
         {

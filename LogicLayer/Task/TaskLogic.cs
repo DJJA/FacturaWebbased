@@ -32,5 +32,10 @@ namespace LogicLayer
         {
             return taskRepository.GetTasksByDescription(description).ToList();
         }
+
+        public Task GetTaskById(int id)
+        {
+            return taskRepository.GetTaskById(id);
+        }
     }
 }

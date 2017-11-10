@@ -40,6 +40,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Invoice\IInvoiceContext.cs" />
+    <Compile Include="Invoice\IInvoiceRepository.cs" />
+    <Compile Include="Invoice\SqlInvoiceContext.cs" />
+    <Compile Include="Invoice\InvoiceRepository.cs" />
     <Compile Include="Task\TaskRepository.cs" />
     <Compile Include="Customer\CustomerRepository.cs" />
     <Compile Include="IContext.cs" />

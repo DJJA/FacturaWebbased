@@ -18,6 +18,7 @@ namespace DataLayer
             }
         }
 
+        //TODO: kijken of ze abstract kunnen
         public virtual IEnumerable<TEntity> GetAll()
         {
             throw new NotImplementedException();
@@ -33,7 +34,7 @@ namespace DataLayer
             throw new NotImplementedException();
         }
 
-        public TEntity GetById(int id)
+        public virtual TEntity GetById(int id)
         {
             throw new NotImplementedException();
         }

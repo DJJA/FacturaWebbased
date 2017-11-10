@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Invoice\IInvoiceLogic.cs" />
+    <Compile Include="Invoice\InvoiceLogic.cs" />
     <Compile Include="Task\TaskLogic.cs" />
     <Compile Include="Customer\CustomerLogic.cs" />
     <Compile Include="Task\ITaskLogic.cs" />

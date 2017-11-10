@@ -11,6 +11,7 @@ namespace LogicLayer
         List<Task> GetAllTasks();
         void Insert(Task task);
         List<Task> GetTasksByDescription(string description);
+        Task GetTaskById(int id);
 
     }
 }
