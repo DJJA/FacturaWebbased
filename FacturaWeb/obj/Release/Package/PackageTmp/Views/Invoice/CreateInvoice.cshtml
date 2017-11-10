@@ -1,5 +1,5 @@
 ﻿@using Models
-@model FacturaWeb.ViewModels.TaskViewModel
+@model FacturaWeb.ViewModels.InvoiceViewModel
 @{
     ViewBag.Title = "CreateInvoice";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -15,12 +15,12 @@
         tbody {
             height: 400px !important;
             overflow-y: auto;
-            display: inline-block;
+            display: block;
         }
-
-        #paragraph {
-            width: 100%;
-            margin: 0;
+        thead, tbody tr{
+            display:table;
+            width:100%;
+            table-layout:fixed;/* even columns width , fix width of table too*/
         }
 
         header {
@@ -41,17 +41,7 @@
             overflow: hidden;
         }
 
-        .left, .right .middle{
-            float: left;
-            overflow: hidden;
-            border-radius: 3px;
-            margin-right: 10px;
-            max-width: calc(50% - 5px);
-        }
 
-        .right {
-            margin-right: 0px;
-        }
 
         .left-header, .right-header {
             background: #58C5B3;
@@ -75,8 +65,23 @@
         .fl-ll {
             float: left;
             word-break: break-all;
-            width: 20%;
+            width: 25%;
             margin: 5px;
+        }
+        .fl-lm {
+            float: left;
+            word-break: break-all;
+            width: 25%;
+            margin: 5px;
+        }
+        .smallersize {
+            width: 45px;
+        }
+        .hover-table .tr-data:hover{
+            background-color: lightgrey;
+        }
+        .clickable-row {
+            cursor: pointer;
         }
 
     </style>
@@ -93,7 +98,6 @@
                     <thead>
                         <tr>
                             <th>Dienst</th>
-
                         </tr>
                     </thead>
                     <tbody>
@@ -101,7 +105,7 @@
                         {
                             <tr>
                                 <td>@task.Description</td>
-                                <td><button class="btnAdd">+</button></td>
+                                <td class="smallersize"><button class="btnAdd">+</button></td>
                                 <input type="hidden" class="taskDescription" value="@task.Description" />
                                 <input type="hidden" class="taskId" value="@task.Id" />
                             </tr>
@@ -110,12 +114,28 @@
                 </table>
             </div>
         </div>
-        <div class="fl-l">
+        <div class="fl-lm">
             <div class="right-header">
-                Klanten
+                Selecteer klant
             </div>
             <div class="right-text">
-                Content
+                <table class="table table-bordered hover-table">
+                    <thead>
+                        <tr>
+                            <th>Klant</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (Customer customer in Model.Customers)
+                        {
+                            <tr class="tr-data clickable-row" data-href='url://www.google.nl/'>
+                                <td>@customer.FirstName</td>
+                                <td>@customer.Preposition</td>
+                                <td>@customer.LastName</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
             </div>
         </div>
         <div class="fl-l">
@@ -132,20 +152,11 @@
                 </div>
                 <button>toevoegen</button>
             }
-            
-             
-
-
         </div>
     </div>
-
-
-
+    
 
 </body>
-
-
-
 
 
 </html>
@@ -163,8 +174,15 @@
             });
         });
 
-        $("#paragraph").on("click", ".btnRemove", function (e) {
-            e.preventDefault(); $(this).parent('div').remove();
-        })
+        $('.clickable-row').click(function() {
+            alert("The paragraph is now hidden");
+        });
+
+        $("#paragraph").on("click",
+            ".btnRemove",
+            function(e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+            });
     });
 </script>

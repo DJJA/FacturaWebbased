@@ -1,0 +1,28 @@
+﻿@model FacturaWeb.ViewModels.InvoiceViewModel
+    
+<div id="cusDetails">
+    <h3><b>Klant details</b></h3>
+    <text><b>Naam</b> <br/> @Model.Customer.FirstName @Model.Customer.Preposition @Model.Customer.LastName</text>
+    <br/><br/>
+    <text><b>Adres:</b> <br/>@Model.Customer.Address.StreetName <br/> @Model.Customer.Address.ZipCode @Model.Customer.Address.Place</text>
+    <br/><br/>
+    <text><b>Email:</b> <br/> @Model.Customer.Email</text>
+    <br/><br/>
+    <text><b>Telefoonnummer:</b> <br/>@Model.Customer.PhoneNumber</text>
+    <br/>
+    <br/>
+    
+    <button id="otherCustomer">Andere klant</button>
+</div>
+
+<script>
+    $(document).ready(function() {
+
+        $('#otherCustomer').click(function() {
+
+            
+
+        });
+
+    });
+</script>

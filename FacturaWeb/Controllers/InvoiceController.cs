@@ -50,6 +50,22 @@ namespace FacturaWeb.Controllers
             return View(viewModel);
         }
 
+        public ActionResult AllCustomersView(InvoiceViewModel view)
+        {
+            return PartialView("AllCustomersView", view);
+        }
+
+        public ActionResult CustomerDetails(string customerId, InvoiceViewModel model)
+        {
+            var id = Convert.ToInt16(customerId);
+            var viewModel = new InvoiceViewModel()
+            {
+                Customer = customerLogic.GetCustomerById(id)
+            };
+
+            return PartialView("CustomerDetails", viewModel);
+        }
+
         public ActionResult AddedTasks()
         {
             return PartialView("AddedTasks");

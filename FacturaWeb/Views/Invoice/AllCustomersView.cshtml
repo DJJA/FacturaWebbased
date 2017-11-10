@@ -1,0 +1,65 @@
+﻿@using Models
+@model FacturaWeb.ViewModels.InvoiceViewModel
+
+    <div class="right-header">
+        Selecteer klant
+    </div>
+<div class="right-text">
+    <table class="table table-bordered hover-table">
+        <thead>
+        <tr>
+            <th>Klant</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Customer customer in Model.Customers)
+        {
+            <tr class="tr-data clickable-row" >
+                <td>@customer.FirstName</td>
+                <td>@customer.Preposition</td>
+                <td>@customer.LastName</td>
+                <input type="hidden" class="customerId" value="@customer.ID"/>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+<script src="jquery-3.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+<script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('.clickable-row').click(function() {
+
+            var dataId = $(this).closest('tr').find('.customerId').val();
+             
+
+            $.ajax({
+                url: '@Url.Action("CustomerDetails")',
+                data: { 'customerId': dataId },
+                type: "post",
+                //UpdateTagetId: "active-part",
+                cache: false,
+                success: function (result) {
+                    $('#active-part').html(result);
+                }
+            });
+            //var child = $('#cusDetails').clone();
+
+            //$('#active-part').html("hi" + child);
+
+        });
+     
+    });
+
+</script>
+
+

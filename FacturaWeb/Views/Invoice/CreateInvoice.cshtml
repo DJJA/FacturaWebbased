@@ -83,6 +83,9 @@
         .clickable-row {
             cursor: pointer;
         }
+        #otherCustomer {
+            float: right;
+        }
 
     </style>
 </head>
@@ -114,29 +117,8 @@
                 </table>
             </div>
         </div>
-        <div class="fl-lm">
-            <div class="right-header">
-                Selecteer klant
-            </div>
-            <div class="right-text">
-                <table class="table table-bordered hover-table">
-                    <thead>
-                        <tr>
-                            <th>Klant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (Customer customer in Model.Customers)
-                        {
-                            <tr class="tr-data clickable-row" data-href='url://www.google.nl/'>
-                                <td>@customer.FirstName</td>
-                                <td>@customer.Preposition</td>
-                                <td>@customer.LastName</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div id="active-part" class="fl-lm">
+            @Html.Partial("AllCustomersView", Model)
         </div>
         <div class="fl-l">
             <div class="right-header">
@@ -173,16 +155,12 @@
                 $("#paragraph").append(taskcode);
             });
         });
-
-        $('.clickable-row').click(function () {
-            var href = $(this).find("a").attr("href");
-            if (href) {
-                window.location = href;
-            }
-        });
-
-        $("#paragraph").on("click", ".btnRemove", function (e) {
-            e.preventDefault(); $(this).parent('div').remove();
-        })
+        
+        $("#paragraph").on("click",
+            ".btnRemove",
+            function(e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+            });
     });
 </script>
