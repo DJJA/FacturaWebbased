@@ -11,6 +11,8 @@
     <script src="jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
     <style>
         tbody {
             height: 400px !important;
@@ -83,6 +85,9 @@
         .clickable-row {
             cursor: pointer;
         }
+        #otherCustomer {
+            float: right;
+        }
 
     </style>
 </head>
@@ -114,29 +119,8 @@
                 </table>
             </div>
         </div>
-        <div class="fl-lm">
-            <div class="right-header">
-                Selecteer klant
-            </div>
-            <div class="right-text">
-                <table class="table table-bordered hover-table">
-                    <thead>
-                        <tr>
-                            <th>Klant</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (Customer customer in Model.Customers)
-                        {
-                            <tr class="tr-data clickable-row" data-href='url://www.google.nl/'>
-                                <td>@customer.FirstName</td>
-                                <td>@customer.Preposition</td>
-                                <td>@customer.LastName</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+        <div id="active-part" class="fl-lm">
+            @Html.Partial("AllCustomersView")
         </div>
         <div class="fl-l">
             <div class="right-header">
@@ -175,7 +159,19 @@
         });
 
         $('.clickable-row').click(function() {
-            alert("The paragraph is now hidden");
+
+            var dataId = $(this).closest('tr').find('.customerId').val();
+
+            $.ajax({
+                url: '@Url.Action("CustomerDetails")',
+                data: { 'customerId': dataId },
+                type: "post",
+                //UpdateTagetId: "active-part",
+                cache: false,
+                success: function (result) {
+                    $('#active-part').html(result);
+                }
+            });
         });
 
         $("#paragraph").on("click",
@@ -184,5 +180,6 @@
                 e.preventDefault();
                 $(this).parent('div').remove();
             });
+
     });
 </script>

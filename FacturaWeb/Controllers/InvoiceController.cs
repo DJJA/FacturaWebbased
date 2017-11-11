@@ -36,7 +36,6 @@ namespace FacturaWeb.Controllers
                 tasks.Add(taskLogic.GetTaskById(taskid));
             }
             
-            
         }
 
         public ActionResult CreateInvoice()
@@ -50,17 +49,40 @@ namespace FacturaWeb.Controllers
             return View(viewModel);
         }
 
-        public ActionResult AllCustomersView(InvoiceViewModel view)
+        public ActionResult AllCustomersView()
         {
+            var view = new InvoiceViewModel()
+            {
+                Customers = customerLogic.GetAllCustomers()
+            };
+
             return PartialView("AllCustomersView", view);
         }
 
-        public ActionResult CustomerDetails(string customerId, InvoiceViewModel model)
+        public ActionResult SwitchCustomerPartial(string hiddenCheck)
+        {
+            InvoiceViewModel viewModel = new InvoiceViewModel()
+            {
+                Customers =  customerLogic.GetAllCustomers()
+            };
+
+            if (hiddenCheck == "back")
+            {
+                return PartialView("AllCustomersView", viewModel);
+            }
+            else
+            {
+                return PartialView("CustomerDetails");
+            }
+        }
+
+        public ActionResult CustomerDetails(string customerId)
         {
             var id = Convert.ToInt16(customerId);
             var viewModel = new InvoiceViewModel()
             {
-                Customer = customerLogic.GetCustomerById(id)
+                Customer = customerLogic.GetCustomerById(id),
+                Customers = customerLogic.GetAllCustomers()
             };
 
             return PartialView("CustomerDetails", viewModel);

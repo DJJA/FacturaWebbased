@@ -11,6 +11,8 @@
     <script src="jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <script src="@Url.Content("~/Scripts/jquery.unobtrusive-ajax.js")" type="text/javascript"></script>
+
     <style>
         tbody {
             height: 400px !important;
@@ -118,7 +120,7 @@
             </div>
         </div>
         <div id="active-part" class="fl-lm">
-            @Html.Partial("AllCustomersView", Model)
+            @Html.Partial("AllCustomersView")
         </div>
         <div class="fl-l">
             <div class="right-header">
@@ -137,7 +139,7 @@
         </div>
     </div>
     
-
+    <input type="date" class="datePickerTasks"/>
 </body>
 
 
@@ -155,12 +157,29 @@
                 $("#paragraph").append(taskcode);
             });
         });
-        
+
+        $('.clickable-row').click(function() {
+
+            var dataId = $(this).closest('tr').find('.customerId').val();
+
+            $.ajax({
+                url: '@Url.Action("CustomerDetails")',
+                data: { 'customerId': dataId },
+                type: "post",
+                //UpdateTagetId: "active-part",
+                cache: false,
+                success: function (result) {
+                    $('#active-part').html(result);
+                }
+            });
+        });
+
         $("#paragraph").on("click",
             ".btnRemove",
             function(e) {
                 e.preventDefault();
                 $(this).parent('div').remove();
             });
+
     });
 </script>
