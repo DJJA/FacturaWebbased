@@ -15,7 +15,7 @@
 
     <style>
         tbody {
-            height: 400px !important;
+            height: 370px !important;
             overflow-y: auto;
             display: block;
         }
@@ -93,53 +93,57 @@
 </head>
 <body>
 
-    <div class="containert">
-        <div class="fl-ll">
-            <div class="left-header">
-                Selecteer dienst
-            </div>
-            <div class="left-text">
-                <table class="table table-bordered">
-                    <thead>
-                        <tr>
-                            <th>Dienst</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (Task task in Model.Tasks)
-                        {
-                            <tr>
-                                <td>@task.Description</td>
-                                <td class="smallersize"><button class="btnAdd">+</button></td>
-                                <input type="hidden" class="taskDescription" value="@task.Description" />
-                                <input type="hidden" class="taskId" value="@task.Id" />
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+<div class="containert">
+    <div class="fl-ll">
+        <div class="left-header">
+            Selecteer dienst
         </div>
-        <div id="active-part" class="fl-lm">
-            @Html.Partial("AllCustomersView")
-        </div>
-        <div class="fl-l">
-            <div class="right-header">
-                Diensten per factuur
-            </div>
-            @using (@Html.BeginForm("Add", "Invoice", FormMethod.Get))
-            {
-                <div class="right-text">
-                    <div id="paragraph">
-                        
-                        
-                    </div>
-                </div>
-                <button>toevoegen</button>
-            }
+        <div class="left-text">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Dienst</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (Task task in Model.Tasks)
+                {
+                    <tr>
+                        <td>@task.Description</td>
+                        <td class="smallersize"><button class="btnAdd">+</button></td>
+                        <input type="hidden" class="taskDescription" value="@task.Description" />
+                        <input type="hidden" class="taskId" value="@task.Id" />
+                    </tr>
+                }
+                </tbody>
+            </table>
         </div>
     </div>
+    <div id="active-part" class="fl-lm">
+        @Html.Partial("AllCustomersView")
+    </div>
+    <div class="fl-l">
+        <div class="right-header">
+            Diensten per factuur
+        </div>
+        @using (@Html.BeginForm("Add", "Invoice", FormMethod.Get))
+        {
+            <div class="right-text">
+                <div id="paragraph">
+                        
+                        
+                </div>
+            </div>
+            <button>toevoegen</button>
+        }
+    </div>
+</div>
+    @using (Html.BeginForm())
+    {
+        <button> Factuur aanmaken </button>
+        
+    }
     
-    <input type="date" class="datePickerTasks"/>
 </body>
 
 
@@ -150,10 +154,15 @@
             $(".btnAdd").click(function () {
                 var task = $(this).closest('tr').find('.taskDescription').val();
                 var taskId = $(this).closest('tr').find('.taskId').val();
-                var taskcode = "<div><button class=\"btnRemove\">-</button>  <input type=\"number\" class=\" \" value=\"1\" style=\"width:50px\"  />   "
+
+                var taskcode =
+                    "<div><button class=\"btnRemove\">-</button> " +
+                    "<input type=\"date\" class=\"datePickerTask\" style=\"width:150px\"/>  " +
+                    "<input type=\"number\" class=\" amountTask\" value=\"1\" style=\"width:50px\"  />   "
                     + task
                     +"<input type=\"hidden\" name=\"taskId\" value=\""+ taskId + "\"/>"
-                    +"</br></div>";
+                    + "</br></div>";
+
                 $("#paragraph").append(taskcode);
             });
         });
