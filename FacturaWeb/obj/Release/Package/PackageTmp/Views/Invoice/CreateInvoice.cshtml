@@ -5,7 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Nieuw factuur maken</h2>
 <html>
 <head>
     <script src="jquery-3.2.1.min.js"></script>
@@ -15,16 +14,17 @@
 
     <style>
         tbody {
-            height: 400px !important;
+            height: 250px !important;
             overflow-y: auto;
             display: block;
         }
-        thead, tbody tr{
-            display:table;
-            width:100%;
-            table-layout:fixed;/* even columns width , fix width of table too*/
-        }
 
+            thead, tbody tr {
+                display: table;
+                width: 100%;
+                table-layout: fixed; /* even columns width , fix width of table too*/
+            }
+        
         header {
             background: #FFFFFF;
             color: #919191;
@@ -41,6 +41,7 @@
             margin: auto;
             margin-top: 15px;
             overflow: hidden;
+            padding: 0px;
         }
 
 
@@ -57,18 +58,23 @@
             padding: 5px;
             font-size: 15px;
         }
-        .fl-l
-        {
-            float:left;
+
+        .fl-l {
             word-break: break-all;
-            width: 35%;
-            margin: 5px;
+
         }
+
         .fl-ll {
             float: left;
             word-break: break-all;
             width: 25%;
             margin: 5px;
+        }
+
+        .scrollert {
+            word-break: break-all;
+            height: 95px !important;
+            overflow-y: auto;
         }
         .fl-lm {
             float: left;
@@ -76,19 +82,26 @@
             width: 25%;
             margin: 5px;
         }
-        .smallersize {
-            width: 45px;
-        }
-        .hover-table .tr-data:hover{
-            background-color: lightgrey;
-        }
-        .clickable-row {
-            cursor: pointer;
-        }
-        #otherCustomer {
+
+        .floatyleft {
             float: right;
         }
 
+        .smallersize {
+            width: 45px;
+        }
+
+        .hover-table .tr-data:hover {
+            background-color: lightgrey;
+        }
+
+        .clickable-row {
+            cursor: pointer;
+        }
+
+        #otherCustomer {
+            float: right;
+        }
     </style>
 </head>
 <body>
@@ -122,23 +135,26 @@
         <div id="active-part" class="fl-lm">
             @Html.Partial("AllCustomersView")
         </div>
-        <div class="fl-l">
-            <div class="right-header">
-                Diensten per factuur
-            </div>
-            @using (@Html.BeginForm("Add", "Invoice", FormMethod.Get))
-            {
-                <div class="right-text">
-                    <div id="paragraph">
-                        
-                        
-                    </div>
-                </div>
-                <button>toevoegen</button>
-            }
-        </div>
+
     </div>
-    
+
+    <div class="fl-l">
+        <div class="right-header">
+            Diensten per factuur
+        </div>
+
+        <div class="right-text scrollert">
+            <div id="paragraph">
+
+
+            </div>
+        </div>
+
+
+    </div>
+    <br />
+    <button class="btnCreateInvoice"> Factuur aanmaken </button>
+
 
 </body>
 
@@ -147,16 +163,62 @@
 <script>
     $(document).ready(function () {
         $(document).ready(function () {
+
+            $(".btnCreateInvoice").click(function() {
+                var customer = $('#customerInd').text();
+                var data = $('input[name="taskId[]"]').serialize();
+                var dates = $('input[name="datePickerTask[]"]').serialize();
+                var totalPrice = $('input[name="totalPrice[]"]').serialize();
+                var amountTask = $('input[name="amountTask[]"]').serialize();
+
+                unitids = [];
+                $('select[name="units[]"]').each(function (i, e) { unitids.push($(e).val()); });
+
+                taskids = [];
+                $('input[name="taskId[]"]').each(function (i, e) { taskids.push($(e).val()); });
+
+
+                    $.ajax({
+                        url: '@Url.Action("CreateInvoiceForCustomer")',
+                        data: {
+                            'customerInd': customer,
+                            'tasks': data,
+                            'dates': dates,
+                            'totalPrice': totalPrice,
+                            'amountTask': amountTask,
+                            'tasky': taskids,
+                            'units': unitids
+                },
+                    type: "post",
+                    cache: false,
+                    success: function (result) {
+                        $('#active').html(result);
+                    }
+
+                });
+            });
+
+            
+       
             $(".btnAdd").click(function () {
                 var task = $(this).closest('tr').find('.taskDescription').val();
                 var taskId = $(this).closest('tr').find('.taskId').val();
-                var taskcode = "<div><button class=\"btnRemove\">-</button>  <input type=\"number\" class=\" \" value=\"1\" style=\"width:50px\"  />   "
+                var taskcode =
+                    "<div><button class=\"btnRemove\">-</button> "
+                    +"<input type=\"date\" name=\"datePickerTask[]\" style=\"width:150px\" />  "
+                    +"<input type=\"number\" min=\"0.01\" name=\"amountTask[]\" value=\"1\" style=\"width:50px\"/>   "
+                    +"<select name=\"units[]\"> <option>Stuks</option><option>Hectare</option><option>Uren</option></select>      "
                     + task
-                    +"<input type=\"hidden\" name=\"taskId\" value=\""+ taskId + "\"/>"
+                    +"<input name=\"totalPrice[]\" class=\"floatyleft\" type=\"number\" min=\"0.01\" step=\"0.01\" max=\"2500\" value=\"25.67\" />"
+                    +"<text class=\"floatyleft\">  €  </text>"
+                    +"<input type=\"hidden\" name=\"taskId[]\" value=\"" + taskId + "\"/>"
                     +"</br></div>";
+
                 $("#paragraph").append(taskcode);
             });
         });
+
+       
 
         $('.clickable-row').click(function() {
 

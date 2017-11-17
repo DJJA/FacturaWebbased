@@ -19,10 +19,7 @@ namespace DataLayer
         }
 
         //TODO: kijken of ze abstract kunnen
-        public virtual IEnumerable<TEntity> GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract IEnumerable<TEntity> GetAll();
 
         public virtual void Insert(TEntity entity)
         {

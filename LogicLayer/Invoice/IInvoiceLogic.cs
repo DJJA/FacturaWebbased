@@ -10,5 +10,7 @@ namespace LogicLayer
     public interface IInvoiceLogic
     {
         List<Invoice> GetAllInvoices();
+        void CreateInvoice(Invoice invoice);
+        List<string> GetId(string ids, List<string> list);
     }
 }

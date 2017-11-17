@@ -74,20 +74,22 @@ namespace DataLayer
         {
             conn = new SqlConnection(ConnectionString);
 
-            foreach (var task in invoice.Tasks)
-            {
+            
                 try
                 {
+                    foreach (var task in invoice.Tasks)
+                    {
+                        cmd = new SqlCommand("spInsertTaskToInvoice", conn);
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@TaskId", SqlDbType.Int).Value = task.Id;
+                        cmd.Parameters.Add("@InvoiceId", SqlDbType.Int).Value = invoice.Id;
+                        cmd.Parameters.Add("@date", SqlDbType.Date).Value = task.Date;
+                        cmd.Parameters.Add("@amount", SqlDbType.Decimal).Value = task.Amount;
+                        cmd.Parameters.Add("@price", SqlDbType.Money).Value = task.Price;
 
-                    cmd = new SqlCommand("spInsertTaskToInvoice", conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@TaskId", SqlDbType.Int).Value = task.Id;
-                    cmd.Parameters.Add("@InvoiceId", SqlDbType.Int).Value = invoice.Id;
-
-
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-
+                        conn.Open();
+                        cmd.ExecuteNonQuery();
+                    }
                 }
                 catch (SqlException sqlException)
                 {
@@ -101,12 +103,13 @@ namespace DataLayer
                 {
                     conn.Close();
                 }
-            }
+            
         }
 
         public override void Insert(Invoice invoice)
         {
-
+            conn = new SqlConnection(ConnectionString);
+            //TODO: using gebruiken ipv con open en close
             try
             {
                 cmd = new SqlCommand("spManageInvoice", conn);
@@ -119,20 +122,18 @@ namespace DataLayer
                 cmd.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = invoice.TotalPrice;
                 cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
 
-                SqlParameter outScore =
-                    new SqlParameter("@InvoiceId", SqlDbType.Int) {Direction = ParameterDirection.Output};
-
-                invoice.Id = Convert.ToInt16(outScore.Value);
+                SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
+                output.Direction = ParameterDirection.Output;
+                cmd.Parameters.Add(output);
 
                 conn.Open();
                 cmd.ExecuteNonQuery();
-
-                InsertTasksToInvoice(invoice);
             }
             catch (SqlException sqlException)
             {
                 switch (sqlException.Number)
                 {
+                    //TODO: Errorafhandeling 
                     default:
                         throw new CustomerException(sqlException.Number.ToString());
                 }
@@ -141,6 +142,9 @@ namespace DataLayer
             {
                 conn.Close();
             }
+
+            invoice.Id = Convert.ToInt16(cmd.Parameters["@InvoiceId"].Value.ToString());
+            InsertTasksToInvoice(invoice);
         }
 
         public override void Update(Invoice invoice)

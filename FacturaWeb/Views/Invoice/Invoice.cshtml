@@ -4,6 +4,31 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    td {
+        padding: 0 15px 0 15px;
+    }
+
+    th {
+        padding: 0 15px 0 15px;
+    }
+
+    tbody {
+        height: 370px !important;
+        overflow-y: auto;
+        display: block;
+    }
+    ::-webkit-scrollbar {
+        width: 0px;
+    }
+
+        thead, tbody tr {
+            display: table;
+            width: 100%;
+            table-layout: fixed; /* even columns width , fix width of table too*/
+        }
+</style>
+
 <h2>Facturen overzicht</h2>
 
 @using (Html.BeginForm("CreateInvoice", "Invoice", FormMethod.Get))

@@ -2,6 +2,7 @@
     
 <div id="cusDetails">
     <h3><b>Klant details</b></h3>
+    Klantnummer: <p class="customerInd" id="customerInd" name="customerInd">@Model.Customer.ID</p>
     <text><b>Naam</b> <br/> @Model.Customer.FirstName @Model.Customer.Preposition @Model.Customer.LastName</text>
     <br/><br/>
     <text><b>Adres:</b> <br/>@Model.Customer.Address.StreetName <br/> @Model.Customer.Address.ZipCode @Model.Customer.Address.Place</text>
@@ -20,6 +21,7 @@
 </div>
 
 
+
 <script>
     var bool = false;
     $(document).ready(function() {
@@ -32,7 +34,6 @@
                 url: '@Url.Action("SwitchCustomerPartial")',
                 data: { 'hiddenCheck' : dataId },
                 type: "post",
-                //UpdateTagetId: "active-part",
                 cache: false,
                 success: function (result) {
                     $('#active-part').html(result);
