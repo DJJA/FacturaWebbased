@@ -41,7 +41,6 @@ namespace Models
         public List<Task> Tasks { get; set; }
         public DateTime DateSend { get; set; }
         public DateTime DatePayed { get; set; }
-        public int Amount { get; set; }
         public decimal TotalPrice { get; set; }
 
     }
