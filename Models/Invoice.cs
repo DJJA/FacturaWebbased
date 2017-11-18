@@ -16,17 +16,26 @@ namespace Models
             DatePayed = datePayed;
             TotalPrice = totalPrice;
         }
-        public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed, decimal totalPrice, List<Task> tasks)
+        public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed, List<Task> tasks)
         {
             Id = id;
             Customer = customer;
             DateSend = dateSend;
             DatePayed = datePayed;
-            TotalPrice = totalPrice;
+            TotalPrice = CalculateTotalPrice(tasks);
             Tasks = tasks;
         }
 
-        //customerID, dateSend, datePayed, amount, totalPrice
+        public decimal CalculateTotalPrice(List<Task> tasks)
+        {
+            foreach(var task in tasks)
+            {
+                TotalPrice += (task.Amount * task.Price);
+            }
+
+            return TotalPrice;
+        }
+
         public int Id { get; set; }
         public Customer Customer { get; set; }
         public List<Task> Tasks { get; set; }
@@ -34,9 +43,6 @@ namespace Models
         public DateTime DatePayed { get; set; }
         public int Amount { get; set; }
         public decimal TotalPrice { get; set; }
-
-       
-        
 
     }
 }

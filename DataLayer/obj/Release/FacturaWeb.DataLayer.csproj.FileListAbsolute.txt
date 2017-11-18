@@ -6,3 +6,10 @@ D:\Software projects\Factura Web\DataLayer\obj\Release\FacturaWeb.DataLayer.cspr
 D:\Software projects\Factura Web\DataLayer\obj\Release\FacturaWeb.DataLayer.csproj.CoreCompileInputs.cache
 D:\Software projects\Factura Web\DataLayer\obj\Release\DataLayer.dll
 D:\Software projects\Factura Web\DataLayer\obj\Release\DataLayer.pdb
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Release\DataLayer.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Release\DataLayer.pdb
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Release\Models.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Release\Models.pdb
+D:\FacturaWebBased\FacturaWebbased\DataLayer\obj\Release\FacturaWeb.DataLayer.csprojResolveAssemblyReference.cache
+D:\FacturaWebBased\FacturaWebbased\DataLayer\obj\Release\DataLayer.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\obj\Release\DataLayer.pdb

@@ -37,10 +37,7 @@ namespace DataLayer
                             lastname: rdr["lastname"].ToString(),
                             firstname: rdr["firstname"].ToString()
                         );
-                    //if (rdr["dateSend"] != null)
-                    //{
-                        
-                    //}
+
                     invoice = new Invoice(
                         id: Convert.ToInt16(rdr["id"]),
                         dateSend: DateTime.Now, 
@@ -89,6 +86,7 @@ namespace DataLayer
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
+                        conn.Close();
                     }
                 }
                 catch (SqlException sqlException)
@@ -118,9 +116,7 @@ namespace DataLayer
                 cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = invoice.Customer.ID;
                 cmd.Parameters.Add("@DateSend", SqlDbType.DateTime).Value = invoice.DateSend;
                 cmd.Parameters.Add("@DatePayed", SqlDbType.DateTime).Value = invoice.DatePayed;
-                cmd.Parameters.Add("@Amount", SqlDbType.Int).Value = invoice.Amount;
                 cmd.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = invoice.TotalPrice;
-                cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
 
                 SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
                 output.Direction = ParameterDirection.Output;

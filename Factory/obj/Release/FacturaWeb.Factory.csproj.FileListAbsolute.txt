@@ -10,3 +10,14 @@ D:\Software projects\Factura Web\Factory\obj\Release\FacturaWeb.Factory.csprojRe
 D:\Software projects\Factura Web\Factory\obj\Release\FacturaWeb.Factory.csproj.CoreCompileInputs.cache
 D:\Software projects\Factura Web\Factory\obj\Release\Factory.dll
 D:\Software projects\Factura Web\Factory\obj\Release\Factory.pdb
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\Factory.dll
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\Factory.pdb
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\DataLayer.dll
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\LogicLayer.dll
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\Models.dll
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\DataLayer.pdb
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\LogicLayer.pdb
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Release\Models.pdb
+D:\FacturaWebBased\FacturaWebbased\Factory\obj\Release\FacturaWeb.Factory.csprojResolveAssemblyReference.cache
+D:\FacturaWebBased\FacturaWebbased\Factory\obj\Release\Factory.dll
+D:\FacturaWebBased\FacturaWebbased\Factory\obj\Release\Factory.pdb

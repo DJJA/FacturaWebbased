@@ -98,7 +98,7 @@ namespace FacturaWeb.Controllers
 
 
 
-        public void CreateInvoiceForCustomer(string customerInd, string tasks, string dates, string totalPrice, string amountTask, string[] tasky, string[] units)
+        public ActionResult CreateInvoiceForCustomer(string customerInd, string tasks, string dates, string totalPrice, string amountTask, string[] tasky, string[] units)
         {
             List<Task> tasksOnInvoice = new List<Task>();
 
@@ -119,9 +119,9 @@ namespace FacturaWeb.Controllers
                 for (int i = 0; i < tasksList.Count; i++)
                 {
                     Task task = taskLogic.GetTaskById(Convert.ToInt16(tasksList[i]));
-                    task.Amount = Convert.ToDecimal(amountsList[i].Replace('.', ','));
+                    task.Amount = Convert.ToDecimal(amountsList[i]);
                     task.Date = Convert.ToDateTime(datesList[i]);
-                    task.Price = Convert.ToDecimal(pricesList[i].Replace('.', ','));
+                    task.Price = Convert.ToDecimal(pricesList[i]);
                     task.Unit = (Unit)Enum.Parse(typeof(Unit), unitsList[i].ToString());
                     tasksOnInvoice.Add(task);
                 }
@@ -132,11 +132,12 @@ namespace FacturaWeb.Controllers
                 customer: customerLogic.GetCustomerById(Convert.ToInt16(customerInd)),
                 dateSend: DateTime.Now,
                 datePayed: DateTime.Now,
-                totalPrice: 50,
                 tasks: tasksOnInvoice
                 );
 
             invoiceLogic.CreateInvoice(invoice);
+
+            return View("Invoice", "Invoice");
         }
 
     }
