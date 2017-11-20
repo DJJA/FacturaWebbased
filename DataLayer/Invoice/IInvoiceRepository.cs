@@ -10,6 +10,7 @@ namespace DataLayer
     public interface IInvoiceRepository : IRepository<Invoice>
     {
         Invoice GetTasksOnInvoice(Invoice recentInvoice);
+        IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId);
     }
 
 

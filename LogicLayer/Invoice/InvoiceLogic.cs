@@ -77,5 +77,10 @@ namespace LogicLayer
         {
             return invoiceRepository.GetTasksOnInvoice(invoice);
         }
+
+        public List<Invoice> GetInvoicesPercustomer(int customerId)
+        {
+            return invoiceRepository.GetInvoicesPerCustomer(customerId).ToList();
+        }
     }
 }

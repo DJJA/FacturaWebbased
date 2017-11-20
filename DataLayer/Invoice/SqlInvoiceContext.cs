@@ -111,18 +111,20 @@ namespace DataLayer
             conn = new SqlConnection(ConnectionString);
             try
             {
-                conn.Open();
-                cmd = new SqlCommand($"SELECT * FROM funcTasksOnInvoice({recentInvoice.Id})", conn);
+                int id = recentInvoice.Id;
+                cmd = new SqlCommand($"SELECT * FROM funcTasksOnInvoice({id})", conn);
 
+                conn.Open();
+               
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
-                    string DOR = rdr["date"].ToString();
+                    string DOR = this.rdr["date"].ToString();
                     Task task = new Task(
-                            description: rdr["description"].ToString(),
+                            description: this.rdr["description"].ToString(),
                             date: DateTime.Parse(DOR),
-                            amount: Convert.ToDecimal(rdr["amount"]),
-                            price: Convert.ToDecimal(rdr["price"])
+                            amount: Convert.ToDecimal(this.rdr["amount"]),
+                            price: Convert.ToDecimal(this.rdr["price"])
                         );
                     tasks.Add(task);
                     recentInvoice.Tasks = tasks;
@@ -204,7 +206,7 @@ namespace DataLayer
                 while (rdr.Read())
                 {
                     Customer invoiceCustomer= new Customer(
-                        id: 5
+                        id: Convert.ToInt16(rdr["customerid"])
                     );
 
                     invoice = new Invoice(
@@ -234,5 +236,51 @@ namespace DataLayer
             }
         }
 
+        public IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId)
+        {
+            //TODO: factuurtabel aanpassen dat niet elke keer de klant erin komt te staan. 
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                cmd = new SqlCommand($"SELECT * FROM funcInvoicesByCustomer({customerId})", conn);
+
+                conn.Open();
+
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    //TODO: voorvoegsel toevoegen
+                    customer = new Customer(
+                            firstname: rdr["firstname"].ToString(),
+                            lastname: rdr["lastname"].ToString()
+                        );
+                    string DOR = this.rdr["dateSend"].ToString();
+                    invoice = new Invoice(
+                            id: Convert.ToInt16(rdr["id"]),
+                            customer: customer,
+                            dateSend: DateTime.Parse(DOR),
+                            datePayed: DateTime.Parse(DOR),
+                            totalPrice: Convert.ToDecimal(rdr["totalprice"])
+                        );
+                    invoices.Add(invoice);
+                }
+
+                return invoices;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new CustomerException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
     }
 }

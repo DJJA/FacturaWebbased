@@ -14,3 +14,12 @@ D:\Software projects\Factura Web\DataLayer\bin\Debug\Microsoft.CodeDom.Providers
 D:\Software projects\Factura Web\DataLayer\obj\Debug\FacturaWeb.DataLayer.csprojResolveAssemblyReference.cache
 D:\Software projects\Factura Web\DataLayer\obj\Debug\FacturaWeb.DataLayer.csproj.CoreCompileInputs.cache
 D:\Software projects\Factura Web\DataLayer\obj\Debug\DataLayer.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Debug\DataLayer.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Debug\DataLayer.pdb
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Debug\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Debug\Models.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Debug\Models.pdb
+D:\FacturaWebBased\FacturaWebbased\DataLayer\bin\Debug\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\FacturaWebBased\FacturaWebbased\DataLayer\obj\Debug\FacturaWeb.DataLayer.csprojResolveAssemblyReference.cache
+D:\FacturaWebBased\FacturaWebbased\DataLayer\obj\Debug\DataLayer.dll
+D:\FacturaWebBased\FacturaWebbased\DataLayer\obj\Debug\DataLayer.pdb

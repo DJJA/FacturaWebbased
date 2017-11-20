@@ -27,6 +27,12 @@ namespace FacturaWeb.Controllers
             return View(view);
         }
 
+        public ActionResult InvoicesPerCustomer(int id)
+        {
+
+            invoiceLogic.GetInvoicesPercustomer(id);
+            return View();
+        }
         public ActionResult InvoiceDetails(int id)
         {
             Invoice invoice = invoiceLogic.GetById(id);
@@ -34,7 +40,7 @@ namespace FacturaWeb.Controllers
             Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
 
             invoice.Customer = customer;
-
+            invoice.Tasks = invoiceTasks.Tasks;
 
             return View(invoice);
         }

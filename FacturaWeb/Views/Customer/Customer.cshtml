@@ -27,25 +27,20 @@
 }
 
 
-<style type="text/css">
-    /*tbody {
-        height: 370px !important;
-        overflow-y: auto;
-        display: block;
+<style>
+    .hover-table .tr-data:hover {
+        background-color: lightgrey;
     }
-        thead, tbody tr {
-            display: table;
-            width: 100%;
-            table-layout: fixed; //even columns width , fix width of table too
-        } */
 
-    
-    </style>
+    .clickable-row {
+        cursor: pointer;
+    }    
+</style>
 
 <br/>
 <br/>
 <br/>
-<table class="table table-bordered">
+<table class="table table-bordered hover-table">
     <thead>
         <tr>
             <th>Klantnr</th>
@@ -57,13 +52,12 @@
             <th>Postcode</th>
             <th>Email</th>
             <th>Telefoon</th>
-            
         </tr>
     </thead>
     <tbody>
         @foreach (Customer customer in @Model.Customers)
         {
-            <tr>
+            <tr class="tr-data clickable-row" onclick="location.href = '@Url.Action("InvoicesPerCustomer", "Invoice", new { @id = customer.ID })'">
                 <th scope="row">@customer.ID</th>
                 <td>@customer.FirstName</td>
                 <td>@customer.Preposition</td>
@@ -75,7 +69,6 @@
                 <td>@customer.PhoneNumber</td>
 
                 <td>@Html.ActionLink("Bewerken", "UpdateCustomer", customer)</td>
-
             </tr>
         }
     </tbody>

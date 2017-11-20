@@ -14,5 +14,6 @@ namespace LogicLayer
         List<string> GetId(string ids, List<string> list);
         Invoice GetById(int id);
         Invoice GetTasksOnInvoice(Invoice invoice);
+        List<Invoice> GetInvoicesPercustomer(int customerId);
     }
 }
