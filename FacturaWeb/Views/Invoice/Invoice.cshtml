@@ -61,7 +61,7 @@
     <tbody>
     @foreach (Invoice invoice in @Model.InvoicesPerCustomer)
     {
-            <tr class="tr-data clickable-row" onclick="location.href = '@Url.Action("InvoiceDetails", "Invoice", new { @id = invoice.Id.ToString("N") })'">
+            <tr class="tr-data clickable-row" onclick="location.href = '@Url.Action("InvoiceDetails", "Invoice", new { @id = invoice.Id })'">
                 <th scope="row">@invoice.Id</th>
                 <td>@invoice.Customer.FirstName</td>
                 <td>@invoice.Customer.LastName</td>
@@ -73,7 +73,3 @@
     }
     </tbody>
 </table>
-
-<script>
-
-</script>

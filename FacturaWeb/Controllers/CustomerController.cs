@@ -86,7 +86,7 @@ namespace FacturaWeb.Controllers
         {
             if (customerViewModel.Id != 0)
             {
-                var customer = customerLogic.GetCustomerById(customerViewModel.Id);
+                var customer = customerLogic.GetById(customerViewModel.Id);
                 customerViewModel.Customer = customer;
                 return View(customerViewModel);
             }

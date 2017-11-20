@@ -145,7 +145,7 @@ namespace DataLayer
             }
         }
 
-        public Customer GetCustomerById(int id)
+        public override Customer GetById(int id)
         {
             conn = new SqlConnection(ConnectionString);
             try

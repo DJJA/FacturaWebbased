@@ -32,9 +32,9 @@ namespace LogicLayer
             customerRepository.Update(customer);
         }
 
-        public Customer GetCustomerById(int id)
+        public Customer GetById(int id)
         {
-            return customerRepository.GetCustomerById(id);
+            return customerRepository.GetById(id);
         }
 
         public List<Customer> GetCustomersByLastName(string lastname)

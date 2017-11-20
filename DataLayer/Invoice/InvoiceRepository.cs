@@ -17,5 +17,9 @@ namespace DataLayer
             this.invoiceContext = context;
         }
 
+        public Invoice GetTasksOnInvoice(Invoice recentInvoice)
+        {
+            return invoiceContext.GetTasksOnInvoice(recentInvoice);
+        }
     }
 }

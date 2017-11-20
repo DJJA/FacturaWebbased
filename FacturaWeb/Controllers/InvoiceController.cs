@@ -27,9 +27,16 @@ namespace FacturaWeb.Controllers
             return View(view);
         }
 
-        public ActionResult InvoiceDetails(string id)
+        public ActionResult InvoiceDetails(int id)
         {
-            return View();
+            Invoice invoice = invoiceLogic.GetById(id);
+            Customer customer = customerLogic.GetById(invoice.Customer.ID);
+            Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
+
+            invoice.Customer = customer;
+
+
+            return View(invoice);
         }
 
         public void Add(ICollection<string> taskId)
@@ -86,7 +93,7 @@ namespace FacturaWeb.Controllers
             var id = Convert.ToInt16(customerId);
             var viewModel = new InvoiceViewModel()
             {
-                Customer = customerLogic.GetCustomerById(id),
+                Customer = customerLogic.GetById(id),
                 Customers = customerLogic.GetAllCustomers()
             };
 
@@ -134,7 +141,7 @@ namespace FacturaWeb.Controllers
 
             var invoice = new Invoice(
                 id: 0,
-                customer: customerLogic.GetCustomerById(Convert.ToInt16(customerInd)),
+                customer: customerLogic.GetById(Convert.ToInt16(customerInd)),
                 dateSend: DateTime.Now,
                 datePayed: DateTime.Now,
                 totalPrice: 50,

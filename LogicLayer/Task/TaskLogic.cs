@@ -35,7 +35,7 @@ namespace LogicLayer
 
         public Task GetTaskById(int id)
         {
-            return taskRepository.GetTaskById(id);
+            return taskRepository.GetById(id);
         }
     }
 }

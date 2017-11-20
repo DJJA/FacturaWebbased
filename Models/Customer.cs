@@ -33,6 +33,12 @@ namespace Models
             FirstName = firstname;
         }
 
+        public Customer(int id)
+        {
+            //TODO: vraag models 
+            ID = id;
+        }
+
         public Customer(int id, string firstName, string lastName, string preposition, string email, string phoneNumber, Address address)
         {
             ID = id;

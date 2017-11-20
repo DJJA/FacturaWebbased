@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization.Formatters;
 using System.Text;
-using System.Threading.Tasks;
 using Models;
 
 namespace DataLayer
@@ -23,7 +22,6 @@ namespace DataLayer
         public override IEnumerable<Invoice> GetAll()
         {
             invoices = new List<Invoice>();
-
             conn = new SqlConnection(ConnectionString);
             try
             {
@@ -37,14 +35,14 @@ namespace DataLayer
                             lastname: rdr["lastname"].ToString(),
                             firstname: rdr["firstname"].ToString()
                         );
-                    //if (rdr["dateSend"] != null)
-                    //{
-                        
-                    //}
+
+
+                    //TODO: kijken naar datums, of deze ook NULL kunnen zijn en de correctheid
+                    string DOR = rdr["dateSend"].ToString();
                     invoice = new Invoice(
                         id: Convert.ToInt16(rdr["id"]),
-                        dateSend: DateTime.Now, 
-                        datePayed: DateTime.MinValue, 
+                        dateSend: DateTime.Parse(DOR),
+                        datePayed: DateTime.Parse(DOR),
                         customer: customer,
                         totalPrice: Convert.ToDecimal(rdr["TotalPrice"])
 
@@ -106,6 +104,49 @@ namespace DataLayer
             
         }
 
+        public Invoice GetTasksOnInvoice(Invoice recentInvoice)
+        {
+            List<Task> tasks = new List<Task>();
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                conn.Open();
+                cmd = new SqlCommand($"SELECT * FROM funcTasksOnInvoice({recentInvoice.Id})", conn);
+
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    string DOR = rdr["date"].ToString();
+                    Task task = new Task(
+                            description: rdr["description"].ToString(),
+                            date: DateTime.Parse(DOR),
+                            amount: Convert.ToDecimal(rdr["amount"]),
+                            price: Convert.ToDecimal(rdr["price"])
+                        );
+                    tasks.Add(task);
+                    recentInvoice.Tasks = tasks;
+
+                    invoice = recentInvoice;
+                }
+
+                return invoice;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new CustomerException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         public override void Insert(Invoice invoice)
         {
             conn = new SqlConnection(ConnectionString);
@@ -118,7 +159,6 @@ namespace DataLayer
                 cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = invoice.Customer.ID;
                 cmd.Parameters.Add("@DateSend", SqlDbType.DateTime).Value = invoice.DateSend;
                 cmd.Parameters.Add("@DatePayed", SqlDbType.DateTime).Value = invoice.DatePayed;
-                cmd.Parameters.Add("@Amount", SqlDbType.Int).Value = invoice.Amount;
                 cmd.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = invoice.TotalPrice;
                 cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
 
@@ -154,7 +194,44 @@ namespace DataLayer
 
         public override Invoice GetById(int id)
         {
-            throw new NotImplementedException();
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                conn.Open();
+                cmd = new SqlCommand($"SELECT * FROM funcInvoiceById({id})", conn);
+
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    Customer invoiceCustomer= new Customer(
+                        id: 5
+                    );
+
+                    invoice = new Invoice(
+                        id: Convert.ToInt16(rdr["id"]),
+                        customer: invoiceCustomer,
+                        dateSend: Convert.ToDateTime(rdr["dateSend"]),
+                        datePayed: Convert.ToDateTime(rdr["datePayed"]),
+                        totalPrice: Convert.ToDecimal(rdr["totalPrice"])   
+                    );
+                }
+
+                return invoice;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new CustomerException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
         }
 
     }

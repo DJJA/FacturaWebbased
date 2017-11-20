@@ -12,5 +12,6 @@ namespace FacturaWeb.ViewModels
         public List<Invoice> Invoices { get; set; }
         public List<Customer> Customers { get; set; }
         public Customer Customer { get; set; }
+        
     }
 }
