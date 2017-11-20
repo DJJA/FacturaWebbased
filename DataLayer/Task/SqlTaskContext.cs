@@ -87,6 +87,47 @@ namespace DataLayer
             }
         }
 
+
+        public override void Update(Task entity)
+        {
+            string code; 
+        }
+
+        public override Task GetById(int id)
+        {
+            
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                conn.Open();
+                cmd = new SqlCommand($"SELECT * FROM Task WHERE id ={id}", conn);
+
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    task = new Task(
+                        id: Convert.ToInt16(rdr["id"]),
+                        description: rdr["description"].ToString()
+                    );
+                }
+                return task;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new TaskException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new TaskException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+        }
+
         public IEnumerable<Task> GetTaskByDescription(string description)
         {
             conn = new SqlConnection(ConnectionString);
@@ -107,40 +148,6 @@ namespace DataLayer
                 }
 
                 return tasks;
-            }
-            catch (SqlException sqlException)
-            {
-                switch (sqlException.Number)
-                {
-                    case 1:
-                        throw new TaskException("Er kon geen verbinding gemaakt worden");
-                    default:
-                        throw new TaskException(sqlException.Number.ToString());
-                }
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-
-        public Task GetTaskById(int id)
-        {
-            conn = new SqlConnection(ConnectionString);
-            try
-            {
-                conn.Open();
-                cmd = new SqlCommand($"SELECT * FROM Task WHERE id ={id}", conn);
-
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    task = new Task(
-                        id: Convert.ToInt16(rdr["id"]),
-                        description: rdr["description"].ToString()
-                    );
-                }
-                return task;
             }
             catch (SqlException sqlException)
             {

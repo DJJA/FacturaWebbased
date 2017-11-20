@@ -186,11 +186,10 @@ D:\Software projects\Factura Web\FacturaWeb\bin\Microsoft.AI.DependencyCollector
 D:\Software projects\Factura Web\FacturaWeb\bin\Microsoft.AI.ServerTelemetryChannel.xml
 D:\Software projects\Factura Web\FacturaWeb\bin\Microsoft.AI.WindowsServer.xml
 D:\Software projects\Factura Web\FacturaWeb\bin\Microsoft.AI.Web.xml
-D:\Software projects\Factura Web\FacturaWeb\bin\DataLayer.pdb
 D:\Software projects\Factura Web\FacturaWeb\obj\Debug\FacturaWeb.csprojResolveAssemblyReference.cache
 D:\Software projects\Factura Web\FacturaWeb\obj\Debug\FacturaWeb.csproj.CoreCompileInputs.cache
 D:\Software projects\Factura Web\FacturaWeb\obj\Debug\FacturaWeb.dll
-D:\Software projects\Factura Web\FacturaWeb\obj\Debug\FacturaWeb.pdb
 D:\Software projects\Factura Web\FacturaWeb\bin\FacturaWeb.dll.config
 D:\Software projects\Factura Web\FacturaWeb\bin\FacturaWeb.dll
 D:\Software projects\Factura Web\FacturaWeb\bin\FacturaWeb.pdb
+D:\Software projects\Factura Web\FacturaWeb\obj\Debug\FacturaWeb.pdb

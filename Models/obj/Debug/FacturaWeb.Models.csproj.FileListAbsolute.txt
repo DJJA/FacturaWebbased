@@ -6,7 +6,8 @@ C:\Users\daphne\Documents\Visual Studio 2017\Projects\FactuurProgramma\Models\ob
 C:\Users\daphne\Documents\Visual Studio 2017\Projects\FactuurProgramma\Models\obj\Debug\Models.pdb
 D:\Software projects\Factura Web\Models\bin\Debug\Models.dll
 D:\Software projects\Factura Web\Models\bin\Debug\Models.pdb
-D:\Software projects\Factura Web\Models\obj\Debug\FacturaWeb.Models.csprojResolveAssemblyReference.cache
+D:\Software projects\Factura Web\Models\bin\Debug\Models.dll.CodeAnalysisLog.xml
+D:\Software projects\Factura Web\Models\bin\Debug\Models.dll.lastcodeanalysissucceeded
 D:\Software projects\Factura Web\Models\obj\Debug\FacturaWeb.Models.csproj.CoreCompileInputs.cache
 D:\Software projects\Factura Web\Models\obj\Debug\Models.dll
 D:\Software projects\Factura Web\Models\obj\Debug\Models.pdb

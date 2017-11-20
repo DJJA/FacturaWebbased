@@ -1,0 +1,19 @@
+﻿@using Models
+@model Models.Invoice
+@{
+    ViewBag.Title = "InvoiceDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Factuur overzicht van </h2>
+
+<text>Totale prijs: @Model.TotalPrice</text>
+
+
+
+<text>achternaam: @Model.Customer.LastName</text>
+
+@*@foreach (Task task in @Model.Tasks)
+{
+    <text>dienst: @task.Description</text>
+}*@

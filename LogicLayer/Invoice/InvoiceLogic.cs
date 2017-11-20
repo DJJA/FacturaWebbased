@@ -67,5 +67,15 @@ namespace LogicLayer
 
             return ids;
         }
+
+        public Invoice GetById(int id)
+        {
+            return invoiceRepository.GetById(id);
+        }
+
+        public Invoice GetTasksOnInvoice(Invoice invoice)
+        {
+            return invoiceRepository.GetTasksOnInvoice(invoice);
+        }
     }
 }

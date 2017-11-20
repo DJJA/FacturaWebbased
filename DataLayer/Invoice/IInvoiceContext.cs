@@ -10,5 +10,6 @@ namespace DataLayer
     public interface IInvoiceContext : IContext<Invoice>
     {
         void InsertTasksToInvoice(Invoice invoice);
+        Invoice GetTasksOnInvoice(Invoice invoice);
     }
 }

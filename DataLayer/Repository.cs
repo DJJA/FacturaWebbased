@@ -29,13 +29,6 @@ namespace DataLayer
             return Context.GetAll();
         }
 
-        public TEntity FindByEntity(TEntity entity)
-        {
-            
-            //TODO: deze nog aanpassen
-            return Context.GetById(1);
-        }
-
         public void Add(TEntity entity)
         {
             Context.Insert(entity);
@@ -44,6 +37,11 @@ namespace DataLayer
         public void Update(TEntity entity)
         {
             Context.Update(entity);
+        }
+
+        public TEntity GetById(int id)
+        {
+            return Context.GetById(id);
         }
     }
 }

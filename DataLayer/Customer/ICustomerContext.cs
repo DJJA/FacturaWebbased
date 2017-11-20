@@ -9,7 +9,6 @@ namespace DataLayer
 {
     public interface ICustomerContext : IContext<Customer>
     {
-        Customer GetCustomerById(int id);
         IEnumerable<Customer> GetCustomersByZipcode(string zipcode);
         IEnumerable<Customer> GetCustomersByLastName(string lastname);
     }

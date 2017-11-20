@@ -12,5 +12,7 @@ namespace LogicLayer
         List<Invoice> GetAllInvoices();
         void CreateInvoice(Invoice invoice);
         List<string> GetId(string ids, List<string> list);
+        Invoice GetById(int id);
+        Invoice GetTasksOnInvoice(Invoice invoice);
     }
 }

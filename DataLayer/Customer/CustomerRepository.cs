@@ -18,9 +18,9 @@ namespace DataLayer
             customerContext = context;
         }
 
-        public Customer GetCustomerById(int id)
+        public Customer GetById(int id)
         {
-            return customerContext.GetCustomerById(id);
+            return customerContext.GetById(id);
         }
 
         public IEnumerable<Customer> GetCustomersByLastName(string lastname)

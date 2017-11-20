@@ -22,5 +22,13 @@ namespace Models
             Description = description;
             Id = id;
         }
+
+        public Task(string description, decimal amount, decimal price, DateTime date)
+        {
+            Description = description;
+            Amount = amount;
+            Price = price;
+            Date = date;
+        }
     }
 }

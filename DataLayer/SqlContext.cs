@@ -18,27 +18,12 @@ namespace DataLayer
             }
         }
 
-        //TODO: kijken of ze abstract kunnen
         public abstract IEnumerable<TEntity> GetAll();
 
-        public virtual void Insert(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Insert(TEntity entity);
 
-        public virtual void Update(TEntity entity) 
-        {
-            throw new NotImplementedException();
-        }
+        public abstract void Update(TEntity entity);
 
-        public virtual TEntity GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual TEntity FindByEntity(TEntity entity)
-        {
-            throw new NotImplementedException();
-        }
+        public abstract TEntity GetById(int id);
     }
 }
