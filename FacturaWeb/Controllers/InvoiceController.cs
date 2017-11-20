@@ -27,6 +27,11 @@ namespace FacturaWeb.Controllers
             return View(view);
         }
 
+        public ActionResult InvoiceDetails(string id)
+        {
+            return View();
+        }
+
         public void Add(ICollection<string> taskId)
         {
             List<Task> tasks = new List<Task>();
