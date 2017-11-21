@@ -1,0 +1,4 @@
+D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\Fakes\iTextSharp.fakes : warning : Cannot generate stub for iTextSharp.PdfGenerator: Could not resolve assembly 'itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca'. Are you missing an assembly reference?.
+D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\Fakes\iTextSharp.fakes : warning : Cannot generate stub for <PrivateImplementationDetails>: type is sealed.
+D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\Fakes\iTextSharp.fakes : warning : Cannot generate shim for iTextSharp.PdfGenerator: Could not resolve assembly 'itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca'. Are you missing an assembly reference?.
+D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\Fakes\iTextSharp.fakes : warning : Cannot generate shim for <PrivateImplementationDetails>: type is not supported because of internal limitations.

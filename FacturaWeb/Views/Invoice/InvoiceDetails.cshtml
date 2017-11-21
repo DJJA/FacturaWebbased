@@ -1,5 +1,5 @@
 ﻿@using Models
-@model Models.Invoice
+@model Invoice
 @{
     ViewBag.Title = "InvoiceDetails";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -53,3 +53,8 @@
 
     }
 </table>
+@using (Html.BeginForm("pdfje", "Invoice"))
+{ 
+    <button>pdf</button>
+    <input type="hidden" name="id" value="@Model.Id"/>
+}

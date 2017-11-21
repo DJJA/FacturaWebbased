@@ -1,0 +1,6 @@
+D:\Software projects\FacturaWeb\FacturaWebbased\iTextSharp\bin\Debug\iTextSharp.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\iTextSharp\bin\Debug\iTextSharp.pdb
+D:\Software projects\FacturaWeb\FacturaWebbased\iTextSharp\bin\Debug\itextsharp.xml
+D:\Software projects\FacturaWeb\FacturaWebbased\iTextSharp\obj\Debug\iTextSharp.csproj.CoreCompileInputs.cache
+D:\Software projects\FacturaWeb\FacturaWebbased\iTextSharp\obj\Debug\iTextSharp.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\iTextSharp\obj\Debug\iTextSharp.pdb

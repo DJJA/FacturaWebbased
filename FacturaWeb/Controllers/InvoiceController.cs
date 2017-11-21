@@ -17,6 +17,7 @@ namespace FacturaWeb.Controllers
         private ITaskLogic taskLogic = TaskFactory.ManageTasks();
         private ICustomerLogic customerLogic = CustomerFactory.ManageCustomers();
 
+
         public ActionResult Invoice()
         {
             InvoiceCustomerViewModel view = new InvoiceCustomerViewModel()
@@ -25,6 +26,19 @@ namespace FacturaWeb.Controllers
             };
 
             return View(view);
+        }
+
+        public void Pdfje(string id)
+        {
+            Invoice invoice = invoiceLogic.GetById(Convert.ToInt16(id));
+            Customer customer = customerLogic.GetById(invoice.Customer.ID);
+            Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
+
+            invoice.Customer = customer;
+            invoice.Tasks = invoiceTasks.Tasks;
+
+            invoiceLogic.GeneratePdf(invoice);
+            //pdf.CreatePdfInvoice();
         }
 
         public ActionResult InvoicesPerCustomer(int id)

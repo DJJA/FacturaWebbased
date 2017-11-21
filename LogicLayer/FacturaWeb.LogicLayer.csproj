@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Invoice\IInvoiceLogic.cs" />
     <Compile Include="Invoice\InvoiceLogic.cs" />
+    <Compile Include="PdfGenerator.cs" />
     <Compile Include="Task\TaskLogic.cs" />
     <Compile Include="Customer\CustomerLogic.cs" />
     <Compile Include="Task\ITaskLogic.cs" />
@@ -57,6 +61,9 @@
       <Project>{6ef1881a-f617-44fa-a74a-6b56470eee4f}</Project>
       <Name>FacturaWeb.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

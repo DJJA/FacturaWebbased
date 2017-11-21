@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DataLayer;
 using Models;
 
+
 namespace LogicLayer
 {
     public class InvoiceLogic : IInvoiceLogic
@@ -24,6 +25,12 @@ namespace LogicLayer
         public void CreateInvoice(Invoice invoice)
         {
             invoiceRepository.Add(invoice);
+        }
+
+        public void GeneratePdf(Invoice invoice)
+        {
+            PdfGenerator pdf = new PdfGenerator();
+            pdf.CreatePdfInvoice(invoice);
         }
 
         //TODO: unittest schrijven voor getID
