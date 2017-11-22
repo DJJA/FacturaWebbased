@@ -388,3 +388,6 @@ D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.
 D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.csproj.CoreCompileInputs.cache
 D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.dll
 D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.pdb
+D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\itextsharp.dll
+D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\Microsoft.QualityTools.Testing.Fakes.dll
+D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\itextsharp.xml

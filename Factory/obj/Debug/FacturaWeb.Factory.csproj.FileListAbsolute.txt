@@ -46,3 +46,5 @@ D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\FacturaWeb.Fac
 D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\FacturaWeb.Factory.csproj.CoreCompileInputs.cache
 D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\Factory.dll
 D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\Factory.pdb
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Debug\itextsharp.dll
+D:\FacturaWebBased\FacturaWebbased\Factory\bin\Debug\itextsharp.xml

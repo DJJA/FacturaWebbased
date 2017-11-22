@@ -41,3 +41,5 @@ D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\FacturaWeb.
 D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\FacturaWeb.LogicLayer.csproj.CoreCompileInputs.cache
 D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\LogicLayer.dll
 D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\LogicLayer.pdb
+D:\FacturaWebBased\FacturaWebbased\LogicLayer\bin\Debug\itextsharp.dll
+D:\FacturaWebBased\FacturaWebbased\LogicLayer\bin\Debug\itextsharp.xml
