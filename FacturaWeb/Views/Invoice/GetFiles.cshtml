@@ -1,0 +1,13 @@
+﻿@using Models
+@model PdfInvoice
+
+@{
+    ViewBag.Title = "GetFiles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>GetFiles</h2>
+
+<li>
+       <a target="_blank" href="~/DocHandler.ashx?ID=1" title="@Model.Name_File"> @Model.Name_File</a>
+</li>

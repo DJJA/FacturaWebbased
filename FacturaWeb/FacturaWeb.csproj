@@ -48,9 +48,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="itextsharp, Version=5.5.12.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
-      <HintPath>..\packages\iTextSharp.5.5.12\lib\itextsharp.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -154,6 +151,9 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
     <Compile Include="Controllers\TaskController.cs" />
+    <Compile Include="DocHandler.ashx.cs">
+      <DependentUpon>DocHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="ErrorHandler\AiHandleErrorAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -178,6 +178,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Connected Services\Application Insights\ConnectedService.json" />
+    <Content Include="DocHandler.ashx" />
     <None Include="Properties\PublishProfiles\FacturaWeb - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\JavaScript.js" />
@@ -217,6 +218,7 @@
     <Content Include="Views\Invoice\CustomerDetails.cshtml" />
     <Content Include="Views\Invoice\InvoiceDetails.cshtml" />
     <Content Include="Views\Invoice\InvoicesPerCustomer.cshtml" />
+    <Content Include="Views\Invoice\GetFiles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -246,6 +248,10 @@
     <ProjectReference Include="..\Models\FacturaWeb.Models.csproj">
       <Project>{6ef1881a-f617-44fa-a74a-6b56470eee4f}</Project>
       <Name>FacturaWeb.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PdfInvoiceCreator\FacturaWeb.PdfInvoiceCreator.csproj">
+      <Project>{2fe9ac9e-52b0-4f92-8405-15aa34df9f69}</Project>
+      <Name>FacturaWeb.PdfInvoiceCreator</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

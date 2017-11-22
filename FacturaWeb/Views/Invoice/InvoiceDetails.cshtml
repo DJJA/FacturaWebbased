@@ -53,8 +53,10 @@
 
     }
 </table>
-@using (Html.BeginForm("pdfje", "Invoice"))
-{ 
-    <button>pdf</button>
-    <input type="hidden" name="id" value="@Model.Id"/>
+
+
+@using (Html.BeginForm("test", "Invoice"))
+{
+    <button>pdfje</button>
+    <input type="hidden" name="id" value="@Model.Id" />
 }

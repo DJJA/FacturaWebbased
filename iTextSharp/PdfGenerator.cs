@@ -6,29 +6,44 @@ using System.Text;
 using System.Threading.Tasks;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
+using Models;
 
-namespace iTextSharp
+namespace FacturaWeb.PdfGenerator
 {
     public class PdfGenerator
     {
-        FileStream fs = new FileStream(@"D:\\test.pdf", FileMode.Create, FileAccess.Write, FileShare.None);
 
+        //file path
+        //string dir = System.IO.Path.GetDirectoryName(
+        //    System.Reflection.Assembly.GetExecutingAssembly().Location);
+        //string file = dir + @"\TestFile.txt";
 
-        public void CreatePdfInvoice()
+        //FileStream fst = new FileStream(Server.MapPath("~/imgName.jpg"), FileMode.Open, FileAccess.Read, FileShare.Read);
+
+        Document doc = new Document();
+        public Document CreatePdfInvoice(Invoice invoice)
         {
-            Document doc = new Document();
+
+            FileStream fs = new FileStream(@"D:\Test.pdf", FileMode.Create, FileAccess.Write, FileShare.None);
+            //FileStream fts = new FileStream(Request.PhysicalApplicationPath + @"\1.pdf", FileMode.Create);
+
+
+            //PdfWriter.GetInstance(doc, fts);
+            //doc.Open();
+            //doc.Add(new Paragraph("Hello World"));
+            //doc.Close();
+            //Response.Redirect("~/1.pdf");
 
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
             doc.Open();
 
             Element elemnt = new Element();
 
-
             doc.AddTitle("FactuurTitel");
             doc.AddHeader("hoi", "header");
 
             doc.Add(CreateCompanyDetails());
-            doc.Add(CreateCustomerDetails());
+            doc.Add(CreateCustomerDetails(invoice));
 
             PdfPTable table = new PdfPTable(1);
             table.AddCell("");
@@ -36,30 +51,68 @@ namespace iTextSharp
             table.LockedWidth = true;
 
             doc.Add(CreatePdfTitel());
+            doc.Add(CreatePdfInvoiceDetails(invoice));
             doc.Add(table);
-            doc.Add(CreatePdfInvoiceDetails());
 
-            doc.Add(CreateTable());
+            doc.Add(CreateTable(invoice));
+
             doc.Add(CreatePaymentText());
 
             doc.Close();
-
+            return doc;
         }
-        public Paragraph CreatePdfTitel()
+
+        //PdfInvoice invoicePdf = new PdfInvoice();
+
+
+        //invoicePdf.ContentType = postedFile.ContentType;
+        //    invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
+        //    invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
+        //    HttpPostedFileBase file = postedFile;
+        //byte[] document = new byte[file.ContentLength];
+        //file.InputStream.Read(document, 0, file.ContentLength);
+        //    invoicePdf.FileData = document;
+        //    invoicePdf.FileSize = document.Length;
+        //    invoicePdf.DisplayName = postedFile.FileName;
+
+        //    invoiceLogic.InsertInvoiceFile(invoicePdf);
+
+        private Paragraph CreateCustomerDetails(Invoice invoice)
         {
-            Paragraph titlepara = new Paragraph(new Chunk("Factuur", FontFactory.GetFont("Arial", 14f, Font.BOLD)));
-            titlepara.Alignment = Element.ALIGN_LEFT;
-            titlepara.SpacingBefore = 100f;
-            titlepara.SpacingAfter = 5f;
+            Paragraph cusDetails = new Paragraph(
+                $"{invoice.Customer.FirstName} {invoice.Customer.Preposition} {invoice.Customer.LastName} \n" +
+                $"{invoice.Customer.Address.StreetName}\n" +
+                $"{invoice.Customer.Address.ZipCode} {invoice.Customer.Address.Place} \n" +
+                $"");
 
-            return titlepara;
+            cusDetails.Alignment = Element.ALIGN_LEFT;
+            cusDetails.IndentationLeft = 100;
+
+            return cusDetails;
         }
-        public Paragraph CreatePdfInvoiceDetails()
+
+        private Paragraph CreateCompanyDetails()
+        {
+            Paragraph details = new Paragraph(
+                "CTW A.J. van de Laar \n " +
+                "Albert Kuijpersstraat 10 \n" +
+                "5712CK Someren-Eind \n" +
+                "adrie.vd.laar@hotmail.com \n" +
+                "BTW nr: " + "932480 \n" +
+                "KvK nr: \n" +
+                "IBAN: "
+            );
+
+            details.Alignment = Element.ALIGN_RIGHT;
+
+            return details;
+        }
+        public Paragraph CreatePdfInvoiceDetails(Invoice invoice)
         {
             Paragraph detailed = new Paragraph(
-                "Factuur datum: \n" +
-                "Factuur nummer: "
-                );
+                $"Factuur datum:  {invoice.DateSend} \n" +
+                $"Factuur nummer: {invoice.Id}"
+            );
             detailed.Alignment = Element.ALIGN_LEFT;
             //detailed.SpacingBefore = 100f;
             detailed.SpacingAfter = 50f;
@@ -67,11 +120,10 @@ namespace iTextSharp
             return detailed;
         }
 
-
-        private PdfPTable CreateTable()
+        private PdfPTable CreateTable(Invoice invoice)
         {
 
-            PdfPTable table = new PdfPTable(new float[] { 200f, 30f, 30f, 30f });
+            PdfPTable table = new PdfPTable(new float[] { 195f, 20f, 30f, 40f });
             table.TotalWidth = 500f;
             table.LockedWidth = true;
 
@@ -79,7 +131,7 @@ namespace iTextSharp
             PdfPCell definition = new PdfPCell(new Phrase(new Chunk("Omschrijving", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
             PdfPCell amount = new PdfPCell(new Phrase(new Chunk("Aantal", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
             PdfPCell pricePerPiece = new PdfPCell(new Phrase(new Chunk("Stuks prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
-            PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totaal prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
+            //PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totaal prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
 
 
             table.DefaultCell.Border = Rectangle.NO_BORDER;
@@ -88,49 +140,31 @@ namespace iTextSharp
             definition.Border = Rectangle.NO_BORDER;
             amount.Border = Rectangle.NO_BORDER;
             pricePerPiece.Border = Rectangle.NO_BORDER;
-            totalPrice.Border = Rectangle.NO_BORDER;
+
 
             table.AddCell(definition);
             table.AddCell(amount);
+            table.AddCell("");
             table.AddCell(pricePerPiece);
-            table.AddCell(totalPrice);
 
-            table.AddCell("hallo");
-            table.AddCell("hallo");
-            table.AddCell("hallo");
-            table.AddCell("hallo");
+            foreach (var task in invoice.Tasks)
+            {
+                table.AddCell(task.Description);
+                table.AddCell($"à {task.Amount}");
+                table.AddCell(task.Unit.ToString());
+                table.AddCell($"€ {task.Price.ToString("0.##")}");
+            }
+
+            //TODO: Totaalprijs toevoegen en rechts uitlijnen
+            //PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totaal prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
+            //totalPrice.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
+            //totalPrice.Border = Rectangle.NO_BORDER;
+
+            //table.AddCell($"{totalPrice} {invoice.TotalPrice}");
+
 
 
             return table;
-        }
-
-        private Paragraph CreateCompanyDetails()
-        {
-            Paragraph details = new Paragraph(
-                "Aj van de Laar \n " +
-                "Albert kuijpersstraat 10 \n" +
-                "5712CK Someren-Eind \n" +
-                "email@email.nl \n" +
-                "BTW nr: " + "932480 \n" +
-                "KvK nr: \n" +
-                "IBAN: "
-                );
-
-            details.Alignment = Element.ALIGN_RIGHT;
-
-            return details;
-        }
-
-        private Paragraph CreateCustomerDetails()
-        {
-            Paragraph cusDetails = new Paragraph(
-                "poppetje" + "\n"
-                + "hoi");
-
-            cusDetails.Alignment = Element.ALIGN_LEFT;
-            cusDetails.IndentationLeft = 100;
-
-            return cusDetails;
         }
 
         private Paragraph CreatePaymentText()
@@ -146,6 +180,16 @@ namespace iTextSharp
             paragraph.Alignment = Element.ALIGN_BOTTOM;
 
             return paragraph;
+        }
+
+        public Paragraph CreatePdfTitel()
+        {
+            Paragraph titlepara = new Paragraph(new Chunk("Factuur", FontFactory.GetFont("Arial", 14f, Font.BOLD)));
+            titlepara.Alignment = Element.ALIGN_LEFT;
+            titlepara.SpacingBefore = 100f;
+            titlepara.SpacingAfter = 5f;
+
+            return titlepara;
         }
     }
 }
