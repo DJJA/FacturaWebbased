@@ -8,7 +8,7 @@ namespace Models
 {
     public class Invoice
     {
-        public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed,decimal totalPrice)
+        public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed, decimal totalPrice)
         {
             Id = id;
             Customer = customer;

@@ -165,10 +165,18 @@
 
             $(".btnCreateInvoice").click(function() {
                 var customer = $('#customerInd').text();
-                var data = $('input[name="taskId[]"]').serialize();
-                var dates = $('input[name="datePickerTask[]"]').serialize();
-                var totalPrice = $('input[name="totalPrice[]"]').serialize();
-                var amountTask = $('input[name="amountTask[]"]').serialize();
+                //var data = $('input[name="taskId[]"]').serialize();
+                //var dates = $('input[name="datePickerTask[]"]').serialize();
+                //var totalPrice = $('input[name="totalPrice[]"]').serialize();
+                //var amountTask = $('input[name="amountTask[]"]').serialize();
+                amounts = [];
+                $('input[name="amountTask[]"]').each(function (i, e) { amounts.push($(e).val()); });
+                
+                totalPrices = [];
+                $('input[name="totalPrice[]"]').each(function (i, e) { totalPrices.push($(e).val()); });
+
+                dates = [];
+                $('input[name="datePickerTask[]"]').each(function (i, e) { dates.push($(e).val()); });
 
                 unitids = [];
                 $('select[name="units[]"]').each(function (i, e) { unitids.push($(e).val()); });
@@ -181,11 +189,10 @@
                         url: '@Url.Action("CreateInvoiceForCustomer")',
                         data: {
                             'customerInd': customer,
-                            'tasks': data,
                             'dates': dates,
-                            'totalPrice': totalPrice,
-                            'amountTask': amountTask,
-                            'tasky': taskids,
+                            'totalPrices': totalPrices,
+                            'amounts': amounts,
+                            'tasks': taskids,
                             'units': unitids
                 },
                     type: "post",

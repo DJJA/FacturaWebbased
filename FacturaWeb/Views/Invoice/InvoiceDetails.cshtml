@@ -29,7 +29,7 @@
         </tr>
         <tr>
             <td><b>Totaal prijs</b></td>
-            <td>€ @Model.TotalPrice.ToString("0.##").Replace(".", ",")</td>
+            <td>€ @Model.TotalPrice</td>
         </tr>
     </table>
 </div>
@@ -47,8 +47,8 @@
         <tr>
             <td>@task.Date</td>
             <td>@task.Description</td>
-            <td>@task.Amount.ToString("0.##").Replace(".", ",")</td>
-            <td>€ @task.Price.ToString("0.##").Replace(".", ",")</td>
+            <td>@task.Amount</td>
+            <td>€ @task.Price</td>
         </tr>
 
     }

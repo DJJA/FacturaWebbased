@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -181,20 +182,15 @@ namespace FacturaWeb.Controllers
         }
 
         private List<string> ids = new List<string>();
-        public ActionResult CreateInvoiceForCustomer(string customerInd, string tasks, string dates, string totalPrice, string amountTask, string[] tasky, string[] units)
+        public ActionResult CreateInvoiceForCustomer(string customerInd, string[] dates, string[] totalPrices, string[] amounts, string[] tasks, string[] units)
         {
             List<Task> tasksOnInvoice = new List<Task>();
 
-            List<string> datesList = new List<string>();
-            List<string> pricesList = new List<string>();
-            List<string> amountsList = new List<string>();
-            List<string> tasksList = new List<string>();
+            List<string> datesList = new List<string>(dates);
+            List<string> pricesList = new List<string>(totalPrices);
+            List<string> amountsList = new List<string>(amounts);
+            List<string> tasksList = new List<string>(tasks);
             List<string> unitsList = new List<string>(units);
-
-            datesList = invoiceLogic.GetId(dates, datesList);
-            pricesList = invoiceLogic.GetId(totalPrice, pricesList);
-            amountsList = invoiceLogic.GetId(amountTask, amountsList);
-            tasksList = invoiceLogic.GetId(tasks, tasksList);
 
             if (tasksList.Count == amountsList.Count && tasksList.Count == datesList.Count &&
                 tasksList.Count == pricesList.Count)
@@ -202,9 +198,9 @@ namespace FacturaWeb.Controllers
                 for (int i = 0; i < tasksList.Count; i++)
                 {
                     Task task = taskLogic.GetTaskById(Convert.ToInt16(tasksList[i]));
-                    task.Amount = Convert.ToDecimal(amountsList[i].ToString().Replace('.', ','));
+                    task.Amount = Convert.ToDecimal(amountsList[i]);
                     task.Date = Convert.ToDateTime(datesList[i]);
-                    task.Price = Convert.ToDecimal(pricesList[i].ToString().Replace('.', ',')); 
+                    task.Price = Convert.ToDecimal(pricesList[i]); //TODO: localhost, moet punt met komma vervangenworden. azure niet.
                     task.Unit = (Unit)Enum.Parse(typeof(Unit), unitsList[i].ToString());
                     tasksOnInvoice.Add(task);
                 }

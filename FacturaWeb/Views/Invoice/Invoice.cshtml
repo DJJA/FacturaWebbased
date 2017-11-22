@@ -67,7 +67,7 @@
                 <td>@invoice.Customer.LastName</td>
                 <td>@invoice.DateSend</td>
                 <td>@invoice.DatePayed</td>
-                <td>€ @invoice.TotalPrice.ToString().Replace(".", ",")</td>
+                <td>€ @invoice.TotalPrice</td>
                 <input type="hidden" class="invoiceId" value="@invoice.Id" />
             </tr>
     }

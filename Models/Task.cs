@@ -19,8 +19,9 @@ namespace Models
 
         public decimal TotalPrice
         {
-            get { return Convert.ToDecimal((Amount * Price).ToString("0.00").Replace('.', ',')); }
-            set {  }
+            get { return Convert.ToDecimal((Amount * Price).ToString("0.00")); }
+            set { }
+
         }
 
         public Task(int id, string description)
