@@ -1,0 +1,6 @@
+D:\FacturaWebBased\FacturaWebbased\iTextSharp\obj\Release\iTextSharp.csprojResolveAssemblyReference.cache
+D:\FacturaWebBased\FacturaWebbased\iTextSharp\bin\Release\iTextSharp.dll
+D:\FacturaWebBased\FacturaWebbased\iTextSharp\bin\Release\iTextSharp.pdb
+D:\FacturaWebBased\FacturaWebbased\iTextSharp\bin\Release\itextsharp.xml
+D:\FacturaWebBased\FacturaWebbased\iTextSharp\obj\Release\iTextSharp.dll
+D:\FacturaWebBased\FacturaWebbased\iTextSharp\obj\Release\iTextSharp.pdb

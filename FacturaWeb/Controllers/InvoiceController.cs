@@ -7,16 +7,17 @@ using Factory;
 using FacturaWeb.ViewModels;
 using LogicLayer;
 using Models;
+using System.IO;
+using PdfInvoiceCreator;
+
 
 namespace FacturaWeb.Controllers
 {
     public class InvoiceController : Controller
     {
-        // GET: Invoice
         private IInvoiceLogic invoiceLogic = InvoiceFactory.ManageInvoices();
         private ITaskLogic taskLogic = TaskFactory.ManageTasks();
         private ICustomerLogic customerLogic = CustomerFactory.ManageCustomers();
-
 
         public ActionResult Invoice()
         {
@@ -24,11 +25,11 @@ namespace FacturaWeb.Controllers
             {
                 InvoicesPerCustomer = invoiceLogic.GetAllInvoices()
             };
-
             return View(view);
         }
 
-        public void Pdfje(string id)
+        [HttpPost]
+        public ActionResult Pdfje(string id, HttpPostedFileBase postedFile)
         {
             Invoice invoice = invoiceLogic.GetById(Convert.ToInt16(id));
             Customer customer = customerLogic.GetById(invoice.Customer.ID);
@@ -37,8 +38,62 @@ namespace FacturaWeb.Controllers
             invoice.Customer = customer;
             invoice.Tasks = invoiceTasks.Tasks;
 
-            invoiceLogic.GeneratePdf(invoice);
+            PdfInvoice invoicePdf = new PdfInvoice();
+
+            invoicePdf.ContentType = postedFile.ContentType;
+
+
+
+
+            invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
+            invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
+            HttpPostedFileBase file = postedFile;
+            byte[] document = new byte[file.ContentLength];
+            file.InputStream.Read(document, 0, file.ContentLength);
+            invoicePdf.FileData = document;
+            invoicePdf.FileSize = document.Length;
+            invoicePdf.DisplayName = postedFile.FileName;
+
+            invoiceLogic.InsertInvoiceFile(invoicePdf);
+
+
+            PdfInvoice pdfie = new PdfInvoice();
+            List<PdfInvoice> pdfs = new List<PdfInvoice>();
+            pdfs = invoiceLogic.GetInvoiceFile();
+            pdfie = pdfs[1];
+            return View("GetFiles", pdfie);
+            //invoiceLogic.GeneratePdf(invoice);
             //pdf.CreatePdfInvoice();
+        }
+
+        public void test(string id)
+        {
+            InvoicePdfCreator creator = new InvoicePdfCreator();
+            Invoice invoice = invoiceLogic.GetById(Convert.ToInt32(id));
+            Customer customer = customerLogic.GetById(invoice.Customer.ID);
+            Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
+
+            invoice.Customer = customer;
+            invoice.Tasks = invoiceTasks.Tasks;
+
+            try
+            {
+                Response.Buffer = true;
+                Response.ContentType = "application/pdf";
+                Response.AddHeader("content-disposition", "attachment;filename=test.pdf");
+                Response.Cache.SetCacheability(HttpCacheability.NoCache);
+                Response.BinaryWrite(creator.CreatePdf(invoice));  //pdfgenerator doc return type
+                Response.End();
+            }
+            catch
+            {
+
+            }
+        }
+
+        public ActionResult GetFiles()
+        {
+            return View();
         }
 
         public ActionResult InvoicesPerCustomer(int id)
@@ -126,22 +181,18 @@ namespace FacturaWeb.Controllers
         }
 
         private List<string> ids = new List<string>();
-
-
-
-
         public ActionResult CreateInvoiceForCustomer(string customerInd, string tasks, string dates, string totalPrice, string amountTask, string[] tasky, string[] units)
         {
             List<Task> tasksOnInvoice = new List<Task>();
 
             List<string> datesList = new List<string>();
-            List <string> pricesList = new List<string>();
-            List <string> amountsList = new List<string>();
+            List<string> pricesList = new List<string>();
+            List<string> amountsList = new List<string>();
             List<string> tasksList = new List<string>();
             List<string> unitsList = new List<string>(units);
 
             datesList = invoiceLogic.GetId(dates, datesList);
-            pricesList =invoiceLogic.GetId(totalPrice, pricesList);
+            pricesList = invoiceLogic.GetId(totalPrice, pricesList);
             amountsList = invoiceLogic.GetId(amountTask, amountsList);
             tasksList = invoiceLogic.GetId(tasks, tasksList);
 

@@ -282,5 +282,96 @@ namespace DataLayer
                 conn.Close();
             }
         }
+
+        public void InsertInvoiceFile(PdfInvoice invoice)
+        {
+            using (SqlConnection connection = new SqlConnection())
+            {
+                connection.ConnectionString = ConnectionString;
+                connection.Open();
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = connection;
+                string commandText = @"insert into Documents(Name_File,DisplayName,Extension,ContentType,FileData,FileSize,UploadDate) values(@Name_File,@DisplayName,@Extension,@ContentType,@FileData,@FileSize,getdate())";
+                cmd.CommandText = commandText;
+                cmd.CommandType = CommandType.Text;
+
+                cmd.Parameters.Add("@Name_File", SqlDbType.VarChar);
+                cmd.Parameters["@Name_File"].Value = invoice.Name_File;
+
+                cmd.Parameters.Add("@DisplayName", SqlDbType.VarChar);
+                cmd.Parameters["@DisplayName"].Value = invoice.DisplayName;
+
+                cmd.Parameters.Add("@Extension", SqlDbType.VarChar);
+                cmd.Parameters["@Extension"].Value = invoice.Extension;
+
+                cmd.Parameters.Add("@ContentType", SqlDbType.VarChar);
+                cmd.Parameters["@ContentType"].Value = invoice.ContentType;
+
+                cmd.Parameters.Add("@FileData", SqlDbType.VarBinary);
+                cmd.Parameters["@FileData"].Value = invoice.FileData;
+
+                cmd.Parameters.Add("@FileSize", SqlDbType.BigInt);
+                cmd.Parameters["@FileSize"].Value = invoice.FileSize;
+
+                cmd.ExecuteNonQuery();
+                cmd.Dispose();
+                connection.Close();
+            }
+        }
+
+        public IEnumerable<PdfInvoice> GetInvoiceFile()
+        {
+            PdfInvoice pdf = new PdfInvoice();
+            List<PdfInvoice> pdfs = new List<PdfInvoice>();
+
+            SqlConnection objConn = new SqlConnection(ConnectionString);
+            objConn.Open();
+            string sTSQL = "select * from Documents";
+            SqlCommand objCmd = new SqlCommand(sTSQL, objConn);
+            objCmd.CommandType = CommandType.Text;
+            SqlDataAdapter ada = new SqlDataAdapter(objCmd);
+            DataTable dt = new DataTable();
+            ada.Fill(dt);
+            objConn.Close();
+            objCmd.Dispose();
+
+            conn = new SqlConnection(ConnectionString);
+            try
+            {
+                cmd = new SqlCommand($"select * from Documents", conn);
+
+                conn.Open();
+
+                rdr = cmd.ExecuteReader();
+                while (rdr.Read())
+                {
+                    pdf.ContentType = rdr["ContentType"].ToString();
+                    pdf.Name_File = rdr["Name_File"].ToString();
+
+                    byte[] toBytes = Encoding.ASCII.GetBytes(rdr["FileData"].ToString());
+                    pdf.FileData = toBytes;
+                    pdf.Extension = rdr["Extension"].ToString();
+
+                    pdfs.Add(pdf);
+                }
+
+                return pdfs;
+            }
+            catch (SqlException sqlException)
+            {
+                switch (sqlException.Number)
+                {
+                    case 1:
+                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
+                    default:
+                        throw new CustomerException(sqlException.Number.ToString());
+                }
+            }
+            finally
+            {
+                conn.Close();
+            }
+
+        }
     }
 }

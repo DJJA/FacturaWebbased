@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="Address.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="PdfInvoice.cs" />
     <Compile Include="TaskException.cs" />
     <Compile Include="CustomerException.cs" />
     <Compile Include="Invoice.cs" />

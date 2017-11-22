@@ -1,0 +1,8 @@
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\PdfInvoiceCreator.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\PdfInvoiceCreator.pdb
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\itextsharp.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\Models.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\Models.pdb
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\itextsharp.xml
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.pdb

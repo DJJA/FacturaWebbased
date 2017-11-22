@@ -8,27 +8,36 @@ using iTextSharp.text;
 using iTextSharp.text.pdf;
 using Models;
 
-namespace LogicLayer
+namespace FacturaWeb.PdfGenerator
 {
-    class PdfGenerator
+    public class PdfCreation
     {
-        Document doc = new Document();
 
-        public void CreatePdfInvoice(Invoice invoice)
+        //file path
+        //string dir = System.IO.Path.GetDirectoryName(
+        //    System.Reflection.Assembly.GetExecutingAssembly().Location);
+        //string file = dir + @"\TestFile.txt";
+
+        //FileStream fst = new FileStream(Server.MapPath("~/imgName.jpg"), FileMode.Open, FileAccess.Read, FileShare.Read);
+
+        Document doc = new Document();
+        public Document CreatePdfInvoice(Invoice invoice)
         {
-            //file path
-            //string dir = System.IO.Path.GetDirectoryName(
-            //    System.Reflection.Assembly.GetExecutingAssembly().Location);
-            //string file = dir + @"\TestFile.txt";
 
             FileStream fs = new FileStream(@"D:\Test.pdf", FileMode.Create, FileAccess.Write, FileShare.None);
+            //FileStream fts = new FileStream(Request.PhysicalApplicationPath + @"\1.pdf", FileMode.Create);
 
+
+            //PdfWriter.GetInstance(doc, fts);
+            //doc.Open();
+            //doc.Add(new Paragraph("Hello World"));
+            //doc.Close();
+            //Response.Redirect("~/1.pdf");
 
             PdfWriter writer = PdfWriter.GetInstance(doc, fs);
             doc.Open();
 
             Element elemnt = new Element();
-
 
             doc.AddTitle("FactuurTitel");
             doc.AddHeader("hoi", "header");
@@ -48,10 +57,25 @@ namespace LogicLayer
             doc.Add(CreateTable(invoice));
 
             doc.Add(CreatePaymentText());
-            
-            doc.Close();
 
+            doc.Close();
+            return doc;
         }
+
+        //PdfInvoice invoicePdf = new PdfInvoice();
+
+
+        //invoicePdf.ContentType = postedFile.ContentType;
+        //    invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
+        //    invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
+        //    HttpPostedFileBase file = postedFile;
+        //byte[] document = new byte[file.ContentLength];
+        //file.InputStream.Read(document, 0, file.ContentLength);
+        //    invoicePdf.FileData = document;
+        //    invoicePdf.FileSize = document.Length;
+        //    invoicePdf.DisplayName = postedFile.FileName;
+
+        //    invoiceLogic.InsertInvoiceFile(invoicePdf);
 
         private Paragraph CreateCustomerDetails(Invoice invoice)
         {
@@ -116,7 +140,7 @@ namespace LogicLayer
             definition.Border = Rectangle.NO_BORDER;
             amount.Border = Rectangle.NO_BORDER;
             pricePerPiece.Border = Rectangle.NO_BORDER;
-            
+
 
             table.AddCell(definition);
             table.AddCell(amount);
@@ -135,7 +159,7 @@ namespace LogicLayer
             //PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totaal prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
             //totalPrice.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
             //totalPrice.Border = Rectangle.NO_BORDER;
-            
+
             //table.AddCell($"{totalPrice} {invoice.TotalPrice}");
 
 

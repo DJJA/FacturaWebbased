@@ -1,0 +1,9 @@
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Debug\PdfInvoiceCreator.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Debug\PdfInvoiceCreator.pdb
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Debug\itextsharp.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Debug\Models.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Debug\Models.pdb
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Debug\itextsharp.xml
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Debug\FacturaWeb.PdfInvoiceCreator.csprojResolveAssemblyReference.cache
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Debug\PdfInvoiceCreator.dll
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Debug\PdfInvoiceCreator.pdb
