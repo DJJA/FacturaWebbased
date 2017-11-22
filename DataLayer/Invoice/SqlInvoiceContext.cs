@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -84,6 +85,7 @@ namespace DataLayer
                         cmd.Parameters.Add("@date", SqlDbType.Date).Value = task.Date;
                         cmd.Parameters.Add("@amount", SqlDbType.Decimal).Value = task.Amount;
                         cmd.Parameters.Add("@price", SqlDbType.Money).Value = task.Price;
+                        cmd.Parameters.Add("@unit", SqlDbType.Int).Value = (int)task.Unit;
 
                         conn.Open();
                         cmd.ExecuteNonQuery();
@@ -111,20 +113,22 @@ namespace DataLayer
             conn = new SqlConnection(ConnectionString);
             try
             {
-                int id = recentInvoice.Id;
-                cmd = new SqlCommand($"SELECT * FROM funcTasksOnInvoice({id})", conn);
+                
+                cmd = new SqlCommand($"SELECT * FROM funcTasksOnInvoice({recentInvoice.Id})", conn);
 
                 conn.Open();
                
                 rdr = cmd.ExecuteReader();
                 while (rdr.Read())
                 {
+                    
                     string DOR = this.rdr["date"].ToString();
                     Task task = new Task(
                             description: this.rdr["description"].ToString(),
                             date: DateTime.Parse(DOR),
                             amount: Convert.ToDecimal(this.rdr["amount"]),
-                            price: Convert.ToDecimal(this.rdr["price"])
+                            price: Convert.ToDecimal(this.rdr["price"]),
+                            unit: (Unit)Convert.ToInt16(rdr["unit"])
                         );
                     tasks.Add(task);
                     recentInvoice.Tasks = tasks;

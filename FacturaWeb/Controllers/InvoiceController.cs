@@ -202,9 +202,9 @@ namespace FacturaWeb.Controllers
                 for (int i = 0; i < tasksList.Count; i++)
                 {
                     Task task = taskLogic.GetTaskById(Convert.ToInt16(tasksList[i]));
-                    task.Amount = Convert.ToDecimal(amountsList[i]);
+                    task.Amount = Convert.ToDecimal(amountsList[i].ToString().Replace('.', ','));
                     task.Date = Convert.ToDateTime(datesList[i]);
-                    task.Price = Convert.ToDecimal(pricesList[i]);
+                    task.Price = Convert.ToDecimal(pricesList[i].ToString().Replace('.', ',')); 
                     task.Unit = (Unit)Enum.Parse(typeof(Unit), unitsList[i].ToString());
                     tasksOnInvoice.Add(task);
                 }

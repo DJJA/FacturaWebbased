@@ -1,0 +1,75 @@
+﻿@using Models
+@model FacturaWeb.ViewModels.InvoiceCustomerViewModel
+@{
+    ViewBag.Title = "Klanten overzicht";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>@ViewBag.Title</h2>
+
+
+@using (@Html.BeginForm("CreateNewCustomer", "Customer", FormMethod.Post))
+{
+    <input type="submit" value="Nieuwe klant" />
+    <br /><br />
+}
+
+@using (@Html.BeginForm("Customer", "Customer", FormMethod.Get))
+{
+    <div class="pull-right">
+    <b>Zoeken op:</b>
+    @Html.RadioButton("searchby", "zipcode") <text>Postcode</text>
+    @Html.RadioButton("searchby", "lastname", true)<text>Achternaam</text><br/>
+    @Html.TextBox("search") <input type="submit" value="Search"/>
+    </div>
+}
+
+
+<style>
+    .hover-table .tr-data:hover {
+        background-color: lightgrey;
+    }
+
+    .clickable-row {
+        cursor: pointer;
+    }    
+</style>
+
+<br/>
+<br/>
+<br/>
+<table class="table table-bordered hover-table">
+    <thead>
+        <tr>
+            <th>Klantnr</th>
+            <th>Naam</th>
+            <th>Voorvoegsel</th>
+            <th>Achternaam</th>
+            <th>Straat</th>
+            <th>Plaats</th>
+            <th>Postcode</th>
+            <th>Email</th>
+            <th>Telefoon</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Customer customer in @Model.Customers)
+        {
+            <tr class="tr-data clickable-row" onclick="location.href = '@Url.Action("InvoicesPerCustomer", "Invoice", new { @id = customer.ID })'">
+                <th scope="row">@customer.ID</th>
+                <td>@customer.FirstName</td>
+                <td>@customer.Preposition</td>
+                <td>@customer.LastName</td>
+                <td>@customer.Address.StreetName</td>
+                <td>@customer.Address.Place</td>
+                <td>@customer.Address.ZipCode</td>
+                <td>@customer.Email</td>
+                <td>@customer.PhoneNumber</td>
+
+                <td>@Html.ActionLink("Bewerken", "UpdateCustomer", customer)</td>
+            </tr>
+        }
+    </tbody>
+</table>

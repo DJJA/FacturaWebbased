@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Models;
 using iTextSharp.text.pdf;
 using System.IO;
+using System.Linq.Expressions;
 
 namespace PdfInvoiceCreator
 {
@@ -32,6 +33,7 @@ namespace PdfInvoiceCreator
                     document.Add(CreatePdfTitel());
                     document.Add(CreatePdfInvoiceDetails(invoice));
                     document.Add(CreateTable(invoice));
+                    document.Add(CreateTotalPriceTable(invoice));
                     document.Add(CreatePaymentText());
                 }
                 return ms.ToArray();
@@ -104,21 +106,6 @@ namespace PdfInvoiceCreator
             return result;
         }
 
-        //PdfInvoice invoicePdf = new PdfInvoice();
-
-
-        //invoicePdf.ContentType = postedFile.ContentType;
-        //    invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
-        //    invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
-        //    HttpPostedFileBase file = postedFile;
-        //byte[] document = new byte[file.ContentLength];
-        //file.InputStream.Read(document, 0, file.ContentLength);
-        //    invoicePdf.FileData = document;
-        //    invoicePdf.FileSize = document.Length;
-        //    invoicePdf.DisplayName = postedFile.FileName;
-
-        //    invoiceLogic.InsertInvoiceFile(invoicePdf);
-
         private Paragraph CreateCustomerDetails(Invoice invoice)
         {
             Paragraph cusDetails = new Paragraph(
@@ -135,14 +122,17 @@ namespace PdfInvoiceCreator
 
         private Paragraph CreateCompanyDetails()
         {
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
+
+            Font font = new Font(bf, 10, Font.NORMAL);
             Paragraph details = new Paragraph(
                 "CTW A.J. van de Laar \n " +
                 "Albert Kuijpersstraat 10 \n" +
                 "5712CK Someren-Eind \n" +
-                "adrie.vd.laar@hotmail.com \n" +
+                "adrie.vd.laar@hotmail.nl \n" +
                 "BTW nr: " + "932480 \n" +
                 "KvK nr: \n" +
-                "IBAN: "
+                "IBAN: ", font
             );
 
             details.Alignment = Element.ALIGN_RIGHT;
@@ -151,71 +141,137 @@ namespace PdfInvoiceCreator
         }
         public Paragraph CreatePdfInvoiceDetails(Invoice invoice)
         {
+            string date = invoice.DateSend.ToShortDateString();
             Paragraph detailed = new Paragraph(
-                $"Factuur datum:  {invoice.DateSend} \n" +
+                $"Factuur datum:  {invoice.DateSend.ToShortDateString()} \n" +
                 $"Factuur nummer: {invoice.Id}"
             );
             detailed.Alignment = Element.ALIGN_LEFT;
-            //detailed.SpacingBefore = 100f;
             detailed.SpacingAfter = 50f;
 
             return detailed;
         }
 
+        private PdfPTable CreateTotalPriceTable(Invoice invoice)
+        {
+            PdfPTable table = new PdfPTable(new float[] { 150f, 30f, 35f, 50f, 45f });
+            table.TotalWidth = 500f;
+            table.LockedWidth = true;
+
+            table.DefaultCell.Border = Rectangle.NO_BORDER;
+
+            PdfPCell exclBtw = new PdfPCell(new Phrase(new Chunk("excl. btw:", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
+            exclBtw.HorizontalAlignment = Element.ALIGN_RIGHT;
+            exclBtw.VerticalAlignment = Element.ALIGN_BOTTOM;
+            exclBtw.Border = Rectangle.TOP_BORDER;
+            exclBtw.FixedHeight = 35f;
+
+            table.AddCell("");
+            table.AddCell("");
+            table.AddCell("");
+            table.AddCell(exclBtw);
+
+            PdfPCell cellInvoiceTotalPrice = new PdfPCell(new Phrase($"€ {invoice.TotalPrice}"));
+            cellInvoiceTotalPrice.HorizontalAlignment = Element.ALIGN_RIGHT;
+            cellInvoiceTotalPrice.VerticalAlignment = Element.ALIGN_BOTTOM;
+            cellInvoiceTotalPrice.Border = Rectangle.TOP_BORDER;
+            cellInvoiceTotalPrice.FixedHeight = 35f;
+
+            table.AddCell(cellInvoiceTotalPrice);
+
+
+
+            PdfPCell inclBtw = new PdfPCell(new Phrase(new Chunk("Totaal incl. btw:", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
+            inclBtw.HorizontalAlignment = Element.ALIGN_RIGHT;
+            inclBtw.VerticalAlignment = Element.ALIGN_BOTTOM;
+            inclBtw.Border = Rectangle.NO_BORDER;
+
+            table.AddCell("");
+            table.AddCell("");
+            table.AddCell("");
+            table.AddCell(inclBtw);
+
+            decimal btw = 1.21m;
+            decimal inclbtw = Convert.ToDecimal((invoice.TotalPrice * btw).ToString("0.00"));
+
+            PdfPCell cellInvoiceinclTotalPrice = new PdfPCell(new Phrase($"€ {inclbtw}"));
+            cellInvoiceinclTotalPrice.HorizontalAlignment = Element.ALIGN_RIGHT;
+            cellInvoiceinclTotalPrice.VerticalAlignment = Element.ALIGN_BOTTOM;
+            cellInvoiceinclTotalPrice.Border = Rectangle.NO_BORDER;
+
+            table.AddCell(cellInvoiceinclTotalPrice);
+
+            return table;
+        }
+
         private PdfPTable CreateTable(Invoice invoice)
         {
 
-            PdfPTable table = new PdfPTable(new float[] { 195f, 20f, 30f, 40f });
+            PdfPTable table = new PdfPTable(new float[] { 150f, 30f, 35f, 5f, 30f, 5f, 35f });
             table.TotalWidth = 500f;
             table.LockedWidth = true;
 
 
             PdfPCell definition = new PdfPCell(new Phrase(new Chunk("Omschrijving", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
             PdfPCell amount = new PdfPCell(new Phrase(new Chunk("Aantal", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
-            PdfPCell pricePerPiece = new PdfPCell(new Phrase(new Chunk("Stuks prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
+            PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totale prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
+            PdfPCell pricePerPiece = new PdfPCell(new Phrase(new Chunk("Stukprijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
             //PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totaal prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
 
 
             table.DefaultCell.Border = Rectangle.NO_BORDER;
 
-
+            totalPrice.Border = Rectangle.NO_BORDER;
+            totalPrice.HorizontalAlignment = Element.ALIGN_RIGHT;
             definition.Border = Rectangle.NO_BORDER;
             amount.Border = Rectangle.NO_BORDER;
             pricePerPiece.Border = Rectangle.NO_BORDER;
+            pricePerPiece.HorizontalAlignment = Element.ALIGN_RIGHT;
+
 
 
             table.AddCell(definition);
             table.AddCell(amount);
             table.AddCell("");
+            table.AddCell("");
             table.AddCell(pricePerPiece);
+            table.AddCell("");
+            table.AddCell(totalPrice);
+
+            
 
             foreach (var task in invoice.Tasks)
             {
                 table.AddCell(task.Description);
                 table.AddCell($"à {task.Amount}");
                 table.AddCell(task.Unit.ToString());
-                table.AddCell($"€ {task.Price.ToString("0.##")}");
+
+                table.AddCell("€");
+                PdfPCell cellTaskPricePiece = new PdfPCell(new Phrase($"{task.Price}"));
+                cellTaskPricePiece.HorizontalAlignment = Element.ALIGN_RIGHT;
+                cellTaskPricePiece.Border = Rectangle.NO_BORDER;
+
+                table.AddCell(cellTaskPricePiece);
+
+                PdfPCell cellTaskTotalPrice = new PdfPCell(new Phrase($"{task.TotalPrice}"));
+                cellTaskTotalPrice.HorizontalAlignment = Element.ALIGN_RIGHT;
+                cellTaskTotalPrice.Border = Rectangle.NO_BORDER;
+                table.AddCell("€");
+                table.AddCell(cellTaskTotalPrice);
             }
-
-            //TODO: Totaalprijs toevoegen en rechts uitlijnen
-            //PdfPCell totalPrice = new PdfPCell(new Phrase(new Chunk("Totaal prijs", FontFactory.GetFont("Arial", 10f, Font.BOLD))));
-            //totalPrice.HorizontalAlignment = PdfPCell.ALIGN_RIGHT;
-            //totalPrice.Border = Rectangle.NO_BORDER;
-
-            //table.AddCell($"{totalPrice} {invoice.TotalPrice}");
-
-
 
             return table;
         }
 
         private Paragraph CreatePaymentText()
         {
-            Paragraph paragraph;
+            BaseFont bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED);
 
-            paragraph = new Paragraph(
+            Font font = new Font(bf, 8, Font.NORMAL);
+
+            Paragraph paragraph = new Paragraph(
                 "Gelieve het factuurbedrag binnen 14 dagen na factuurdatum over te maken op rekeningnummer xxxxxxxx t.n.v. xxxxxx te xxxxx. \n" +
-                "Mocht u het niet eens zijn met deze factuur, gelieve binnen 5 werkdagen schriftelijk te reageren.");
+                "Mocht u het niet eens zijn met deze factuur, gelieve binnen 5 werkdagen schriftelijk te reageren.", font);
 
             //paragraph.Alignment = Element.ALIGN_TOP;
             paragraph.SpacingBefore = 200;

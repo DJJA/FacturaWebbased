@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public enum Unit { Hectare, Stuks, Uren }
+    public enum Unit { Hectare = 1, Stuks = 2, Uren = 3 }
 
     public class Task
     {
@@ -15,7 +15,13 @@ namespace Models
         public decimal Amount { get; set; }
         public decimal Price { get; set; }
         public DateTime Date { get; set; }
-        public Unit Unit { get; set; }  
+        public Unit Unit { get; set; }
+
+        public decimal TotalPrice
+        {
+            get { return Convert.ToDecimal((Amount * Price).ToString("0.00").Replace('.', ',')); }
+            set {  }
+        }
 
         public Task(int id, string description)
         {
@@ -26,9 +32,24 @@ namespace Models
         public Task(string description, decimal amount, decimal price, DateTime date)
         {
             Description = description;
-            Amount = amount;
-            Price = price;
+            Amount = Convert.ToDecimal(amount.ToString("0.00"));
+            Price = Convert.ToDecimal(price.ToString("0.00"));
             Date = date;
+            CalculateTotalPrice(Price, Amount); //properties omdat die afgerond zijn
+        }
+        public Task(string description, decimal amount, decimal price, DateTime date, Unit unit)
+        {
+            Description = description;
+            Amount = Convert.ToDecimal(amount.ToString("0.00"));
+            Price = Convert.ToDecimal(price.ToString("0.00"));
+            Date = date;
+            Unit = unit;
+            CalculateTotalPrice(Price, Amount); //properties omdat die afgerond zijn
+        }
+
+        private void CalculateTotalPrice(decimal price, decimal amount)
+        {
+            TotalPrice = Convert.ToDecimal((price * amount).ToString("0.00"));
         }
     }
 }

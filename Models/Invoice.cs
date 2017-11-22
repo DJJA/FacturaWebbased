@@ -14,7 +14,7 @@ namespace Models
             Customer = customer;
             DateSend = dateSend;
             DatePayed = datePayed;
-            TotalPrice = totalPrice;
+            TotalPrice = Convert.ToDecimal(totalPrice.ToString("0.00"));
         }
         public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed, List<Task> tasks)
         {
@@ -22,9 +22,10 @@ namespace Models
             Customer = customer;
             DateSend = dateSend;
             DatePayed = datePayed;
-            TotalPrice = CalculateTotalPrice(tasks);
+            TotalPrice = Convert.ToDecimal(CalculateTotalPrice(tasks).ToString("0.00"));
             Tasks = tasks;
         }
+
 
         public decimal CalculateTotalPrice(List<Task> tasks)
         {
