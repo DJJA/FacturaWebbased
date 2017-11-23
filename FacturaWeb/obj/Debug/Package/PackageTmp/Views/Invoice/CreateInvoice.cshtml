@@ -46,7 +46,7 @@
 
 
         .left-header, .right-header {
-            background: #58C5B3;
+            background: #8B0000;
             font-size: 10px;
             padding: 15px;
             color: #FFFFFF;
@@ -165,40 +165,38 @@
 
             $(".btnCreateInvoice").click(function() {
                 var customer = $('#customerInd').text();
-                //var data = $('input[name="taskId[]"]').serialize();
-                //var dates = $('input[name="datePickerTask[]"]').serialize();
-                //var totalPrice = $('input[name="totalPrice[]"]').serialize();
-                //var amountTask = $('input[name="amountTask[]"]').serialize();
+
                 amounts = [];
                 $('input[name="amountTask[]"]').each(function (i, e) { amounts.push($(e).val()); });
-                
                 totalPrices = [];
                 $('input[name="totalPrice[]"]').each(function (i, e) { totalPrices.push($(e).val()); });
-
                 dates = [];
                 $('input[name="datePickerTask[]"]').each(function (i, e) { dates.push($(e).val()); });
-
                 unitids = [];
                 $('select[name="units[]"]').each(function (i, e) { unitids.push($(e).val()); });
-
                 taskids = [];
                 $('input[name="taskId[]"]').each(function (i, e) { taskids.push($(e).val()); });
 
 
-                    $.ajax({
-                        url: '@Url.Action("CreateInvoiceForCustomer")',
-                        data: {
-                            'customerInd': customer,
-                            'dates': dates,
-                            'totalPrices': totalPrices,
-                            'amounts': amounts,
-                            'tasks': taskids,
-                            'units': unitids
-                },
+                $.ajax({
+                    url: '@Url.Action("CreateInvoiceForCustomer")',
+                    data: {
+                        'customerInd': customer,
+                        'dates': dates,
+                        'totalPrices': totalPrices,
+                        'amounts': amounts,
+                        'tasks': taskids,
+                        'units': unitids
+                    },
                     type: "post",
                     cache: false,
-                    success: function (result) {
-                        $('#active').html(result);
+                    success: function (data) {
+                        alert( data + "wow echt goed"); // display the error message in the span tag
+                        window.location.href = '/Invoice/Invoice'; // redirect to another page
+                    },
+                    error: function() {
+                        alert("toegevoegd"); // display the error message in the span tag
+                        window.location.href = '/invoice/invoice';
                     }
 
                 });

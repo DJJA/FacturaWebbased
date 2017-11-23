@@ -39,11 +39,12 @@ namespace DataLayer
 
 
                     //TODO: kijken naar datums, of deze ook NULL kunnen zijn en de correctheid
-                    string DOR = rdr["dateSend"].ToString();
+                    string DS = rdr["dateSend"].ToString();
+
                     invoice = new Invoice(
                         id: Convert.ToInt16(rdr["id"]),
-                        dateSend: DateTime.Parse(DOR),
-                        datePayed: DateTime.Parse(DOR),
+                        dateSend: DateTime.Parse(DS),
+                        datePayed: ReadPaymentDate(rdr["datePayed"].ToString()),
                         customer: customer,
                         totalPrice: Convert.ToDecimal(rdr["TotalPrice"])
 
@@ -160,13 +161,22 @@ namespace DataLayer
             //TODO: using gebruiken ipv con open en close
             try
             {
+                
                 cmd = new SqlCommand("spManageInvoice", conn);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add("@id", SqlDbType.Int).Value = 0;
                 cmd.Parameters.Add("@CustomerId", SqlDbType.Int).Value = invoice.Customer.ID;
                 cmd.Parameters.Add("@DateSend", SqlDbType.DateTime).Value = invoice.DateSend;
-                cmd.Parameters.Add("@DatePayed", SqlDbType.DateTime).Value = invoice.DatePayed;
                 cmd.Parameters.Add("@TotalPrice", SqlDbType.Money).Value = invoice.TotalPrice;
+
+                if (invoice.DatePayed == default(DateTime))
+                {
+                    cmd.Parameters.Add("@DatePayed", SqlDbType.DateTime).Value = DBNull.Value; 
+                }
+                else
+                {
+                    cmd.Parameters.Add("@DatePayed", SqlDbType.DateTime).Value = invoice.DatePayed;
+                }
 
                 SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
                 output.Direction = ParameterDirection.Output;
@@ -184,6 +194,10 @@ namespace DataLayer
                         throw new CustomerException(sqlException.Number.ToString());
                 }
             }
+            catch (Exception ex)
+            {
+                throw new CustomerException(ex.Message);
+            }
             finally
             {
                 conn.Close();
@@ -196,6 +210,21 @@ namespace DataLayer
         public override void Update(Invoice invoice)
         {
             throw new NotImplementedException();
+        }
+
+        private DateTime ReadPaymentDate(string date)
+        {
+            string DP = date;
+
+            DateTime dt;
+            if (DP == string.Empty)
+            {
+                return new DateTime();
+            }
+            else
+            {
+                return DateTime.Parse(DP);
+            }
         }
 
         public override Invoice GetById(int id)
@@ -213,11 +242,12 @@ namespace DataLayer
                         id: Convert.ToInt16(rdr["customerid"])
                     );
 
+
                     invoice = new Invoice(
                         id: Convert.ToInt16(rdr["id"]),
                         customer: invoiceCustomer,
                         dateSend: Convert.ToDateTime(rdr["dateSend"]),
-                        datePayed: Convert.ToDateTime(rdr["datePayed"]),
+                        datePayed: ReadPaymentDate(rdr["datePayed"].ToString()),
                         totalPrice: Convert.ToDecimal(rdr["totalPrice"])   
                     );
                 }
@@ -258,12 +288,13 @@ namespace DataLayer
                             firstname: rdr["firstname"].ToString(),
                             lastname: rdr["lastname"].ToString()
                         );
-                    string DOR = this.rdr["dateSend"].ToString();
+                    string DS = this.rdr["dateSend"].ToString();
+
                     invoice = new Invoice(
                             id: Convert.ToInt16(rdr["id"]),
                             customer: customer,
-                            dateSend: DateTime.Parse(DOR),
-                            datePayed: DateTime.Parse(DOR),
+                            dateSend: DateTime.Parse(DS),
+                            datePayed: ReadPaymentDate(rdr["datePayed"].ToString()),
                             totalPrice: Convert.ToDecimal(rdr["totalprice"])
                         );
                     invoices.Add(invoice);

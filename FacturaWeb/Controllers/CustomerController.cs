@@ -58,7 +58,15 @@ namespace FacturaWeb.Controllers
 
             var address = new Address(street, place, zipcode);
             var customer = new Customer(0, firstname, surname, prefix, email, phone, address);
-            customerLogic.Insert(customer);
+            try
+            {
+                customerLogic.Insert(customer);
+            }
+            catch(CustomerException ex)
+            {
+                ViewBag.ErrorMessage = ex.Message;
+            }
+            
             return RedirectToAction("Customer");
         }
         public ActionResult UpdateCustomerInDb(FormCollection collection)

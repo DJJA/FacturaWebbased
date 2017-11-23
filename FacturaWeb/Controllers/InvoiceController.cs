@@ -210,7 +210,7 @@ namespace FacturaWeb.Controllers
                 id: 0,
                 customer: customerLogic.GetById(Convert.ToInt16(customerInd)),
                 dateSend: DateTime.Now,
-                datePayed: DateTime.Now,
+                datePayed: default(DateTime),
                 tasks: tasksOnInvoice
                 );
 
