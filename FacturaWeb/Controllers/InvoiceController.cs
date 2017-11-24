@@ -28,45 +28,7 @@ namespace FacturaWeb.Controllers
             };
             return View(view);
         }
-
-        [HttpPost]
-        //public ActionResult Pdfje(string id, HttpPostedFileBase postedFile)
-        //{
-        //    Invoice invoice = invoiceLogic.GetById(Convert.ToInt16(id));
-        //    Customer customer = customerLogic.GetById(invoice.Customer.ID);
-        //    Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
-
-        //    invoice.Customer = customer;
-        //    invoice.Tasks = invoiceTasks.Tasks;
-
-        //    PdfInvoice invoicePdf = new PdfInvoice();
-
-        //    invoicePdf.ContentType = postedFile.ContentType;
-
-
-
-
-        //    invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
-        //    invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
-        //    HttpPostedFileBase file = postedFile;
-        //    byte[] document = new byte[file.ContentLength];
-        //    file.InputStream.Read(document, 0, file.ContentLength);
-        //    invoicePdf.FileData = document;
-        //    invoicePdf.FileSize = document.Length;
-        //    invoicePdf.DisplayName = postedFile.FileName;
-
-        //    invoiceLogic.InsertInvoiceFile(invoicePdf);
-
-
-        //    PdfInvoice pdfie = new PdfInvoice();
-        //    List<PdfInvoice> pdfs = new List<PdfInvoice>();
-        //    pdfs = invoiceLogic.GetInvoiceFile();
-        //    pdfie = pdfs[1];
-        //    return View("GetFiles", pdfie);
-        //    //invoiceLogic.GeneratePdf(invoice);
-        //    //pdf.CreatePdfInvoice();
-        //}
-
+        //TODO: test weghalen
         public void test(string id)
         {
             InvoicePdfCreator creator = new InvoicePdfCreator();
@@ -81,7 +43,7 @@ namespace FacturaWeb.Controllers
             {
                 Response.Buffer = true;
                 Response.ContentType = "application/pdf";
-                Response.AddHeader("content-disposition", "attachment;filename=test.pdf");
+                Response.AddHeader("content-disposition", $"attachment;filename={invoice.Id}_{invoice.Customer.LastName}.pdf");
                 Response.Cache.SetCacheability(HttpCacheability.NoCache);
                 Response.BinaryWrite(creator.CreatePdf(invoice));  //pdfgenerator doc return type
                 Response.End();
@@ -92,6 +54,28 @@ namespace FacturaWeb.Controllers
             }
         }
 
+        public ActionResult InvoicePayed(int id)
+        {
+            
+            Invoice invoice = invoiceLogic.GetById(id);
+            Customer customer = customerLogic.GetById(invoice.Customer.ID);
+            Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
+
+            invoice.Customer = customer;
+            invoice.Tasks = invoiceTasks.Tasks;
+
+            invoiceLogic.InvoicePayed(invoice);
+            //TODO: update invoice with paydate
+
+            return RedirectToAction("Invoice");
+        }
+
+        public ActionResult Confirmation(int id)
+        {
+            Invoice invoice = invoiceLogic.GetById(id);
+
+            return View("Confirmation", invoice);
+        }
       
         public ActionResult InvoicesPerCustomer(int id)
         {

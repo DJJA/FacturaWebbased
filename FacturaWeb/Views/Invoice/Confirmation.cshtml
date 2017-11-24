@@ -1,0 +1,71 @@
+﻿@{
+    Layout = null;
+}
+@using Models;
+@model Invoice
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Confirmation</title>
+</head>
+<body>
+    <div>
+        @*<form action="@Url.Action("InvoicePayed", "Invoice", new { @id = @Model.Id })" method="post">*@
+            <p>Voer het factuurnummer in: <input type="text" name="invoiceId" id="invoiceId" placeholder="Factuurnummer"  value=""/> </p>
+
+            <p> Voer het bedrag in: <input type="text" name="totalPrice" id="totalPrice" placeholder="Totaal bedrag" value=""/> </p>
+
+            <button onclick="closeWin()">Betaaldatum toevoegen</button>
+        @*</form>*@
+    </div>
+</body>
+</html>
+
+
+
+<script>
+
+    function payInvoice(id) {
+    $.ajax({
+        url: '@Url.Action("InvoicePayed", "Invoice")',
+        type: 'POST',
+        // we set cache: false because GET requests are often cached by browsers
+        // IE is particularly aggressive in that respect
+        cache: false,
+        data: { id: id },
+        success: function () {
+            alert("Factuur is betaald");
+        }
+        error: function () {
+            alert("gaat weers mis");
+        }
+    });
+
+    function closeWin() {
+        var totalprice;
+        var invoiceid;
+        totalprice = document.getElementById('totalPrice').value;
+        invoiceid = document.getElementById('invoiceId').value;
+
+        if (totalprice == @Model.TotalPrice) {
+            if (invoiceid == @Model.Id){
+
+                payInvoice(@Model.Id);
+
+                this.close();
+            }
+        }
+
+        else {
+            alert("Gegevens zijn niet juist");
+        }
+
+    }
+
+
+}
+
+</script>

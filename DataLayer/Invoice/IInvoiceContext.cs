@@ -11,6 +11,7 @@ namespace DataLayer
     {
         void InsertTasksToInvoice(Invoice invoice);
         Invoice GetTasksOnInvoice(Invoice invoice);
+        void InvoicePayed(Invoice invoice);
         //IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId);
     }
 }

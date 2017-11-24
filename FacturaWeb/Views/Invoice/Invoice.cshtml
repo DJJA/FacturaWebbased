@@ -61,15 +61,22 @@
     <tbody>
     @foreach (Invoice invoice in @Model.InvoicesPerCustomer)
     {
-            <tr class="tr-data clickable-row" onclick="location.href = '@Url.Action("InvoiceDetails", "Invoice", new { @id = invoice.Id })'">
+        <tr class="tr-data clickable-row" onclick="location.href = '@Url.Action("InvoiceDetails", "Invoice", new { @id = invoice.Id })'">
                 <th scope="row">@invoice.Id</th>
                 <td>@invoice.Customer.FirstName</td>
                 <td>@invoice.Customer.LastName</td>
                 <td>@invoice.DateSend</td>
-                <td>@invoice.DatePayed</td>
+                     @if (invoice.DatePayed == new DateTime())
+                     {
+                            <td><b>Onbetaald</b></td>
+                     }
+                     else
+                     {
+                            <td>@invoice.DateSend</td>
+                     }
                 <td>€ @invoice.TotalPrice</td>
                 <input type="hidden" class="invoiceId" value="@invoice.Id" />
-            </tr>
+        </tr>
     }
     </tbody>
 </table>

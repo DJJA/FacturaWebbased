@@ -87,5 +87,10 @@ namespace LogicLayer
         {
             throw new NotImplementedException();
         }
+
+        public void InvoicePayed(Invoice invoice)
+        {
+            invoiceRepository.InvoicePayed(invoice);
+        }
     }
 }

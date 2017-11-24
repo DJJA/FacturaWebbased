@@ -39,3 +39,12 @@ D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\FacturaWeb.
 D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\FacturaWeb.LogicLayer.csproj.CoreCompileInputs.cache
 D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\LogicLayer.dll
 D:\Software projects\FacturaWeb\FacturaWebbased\LogicLayer\obj\Debug\LogicLayer.pdb
+D:\factura\FacturaWebbased\LogicLayer\bin\Debug\LogicLayer.dll
+D:\factura\FacturaWebbased\LogicLayer\bin\Debug\LogicLayer.pdb
+D:\factura\FacturaWebbased\LogicLayer\bin\Debug\DataLayer.dll
+D:\factura\FacturaWebbased\LogicLayer\bin\Debug\Models.dll
+D:\factura\FacturaWebbased\LogicLayer\bin\Debug\DataLayer.pdb
+D:\factura\FacturaWebbased\LogicLayer\bin\Debug\Models.pdb
+D:\factura\FacturaWebbased\LogicLayer\obj\Debug\FacturaWeb.LogicLayer.csprojResolveAssemblyReference.cache
+D:\factura\FacturaWebbased\LogicLayer\obj\Debug\LogicLayer.dll
+D:\factura\FacturaWebbased\LogicLayer\obj\Debug\LogicLayer.pdb

@@ -44,3 +44,14 @@ D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\FacturaWeb.Fac
 D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\FacturaWeb.Factory.csproj.CoreCompileInputs.cache
 D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\Factory.dll
 D:\Software projects\FacturaWeb\FacturaWebbased\Factory\obj\Debug\Factory.pdb
+D:\factura\FacturaWebbased\Factory\bin\Debug\Factory.dll
+D:\factura\FacturaWebbased\Factory\bin\Debug\Factory.pdb
+D:\factura\FacturaWebbased\Factory\bin\Debug\DataLayer.dll
+D:\factura\FacturaWebbased\Factory\bin\Debug\LogicLayer.dll
+D:\factura\FacturaWebbased\Factory\bin\Debug\Models.dll
+D:\factura\FacturaWebbased\Factory\bin\Debug\DataLayer.pdb
+D:\factura\FacturaWebbased\Factory\bin\Debug\LogicLayer.pdb
+D:\factura\FacturaWebbased\Factory\bin\Debug\Models.pdb
+D:\factura\FacturaWebbased\Factory\obj\Debug\FacturaWeb.Factory.csprojResolveAssemblyReference.cache
+D:\factura\FacturaWebbased\Factory\obj\Debug\Factory.dll
+D:\factura\FacturaWebbased\Factory\obj\Debug\Factory.pdb

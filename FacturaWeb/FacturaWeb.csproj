@@ -213,7 +213,7 @@
     <Content Include="Views\Invoice\CustomerDetails.cshtml" />
     <Content Include="Views\Invoice\InvoiceDetails.cshtml" />
     <Content Include="Views\Invoice\InvoicesPerCustomer.cshtml" />
-    <Content Include="Views\Invoice\GetFiles.cshtml" />
+    <Content Include="Views\Invoice\Confirmation.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

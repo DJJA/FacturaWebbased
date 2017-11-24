@@ -35,7 +35,7 @@ namespace DataLayer
         private Task TaskFromDataRow(DataRow datarow)
         {
             return new Task(
-                    id:Convert.ToInt32(datarow["id"]),
+                    id: Convert.ToInt32(datarow["id"]),
                     description: datarow["description"].ToString()
                 );
         }
@@ -61,7 +61,6 @@ namespace DataLayer
             }
             return tasks;
         }
-
         public override void Insert(Task task)
         {
             try
@@ -74,7 +73,6 @@ namespace DataLayer
                     $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
             }
         }
-
         public override Task GetById(int id)
         {
             Task customer = null;
@@ -97,6 +95,33 @@ namespace DataLayer
             }
             return customer;
         }
+        public IEnumerable<Task> GetTaskByDescription(string description)
+        {
+            var tasks = new List<Task>();
+            try
+            {
+                var dataTable = GetDataByView($"SELECT * FROM funcTaskByDescription('{description}')");
+                tasks.AddRange(from DataRow row in dataTable.Rows select TaskFromDataRow(row));
+
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new TaskException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new TaskException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+            return tasks;
+        }
+
+
+        public override void Update(Task entity)
+        {
+            throw new NotImplementedException();
+        }
+
 
 
         public IEnumerable<Task> _GetAll()
@@ -161,21 +186,15 @@ namespace DataLayer
 
                     case 547:
                         throw new TaskException("Het email adres voldoet niet aan de eisen van een email");
-                    default:      
+                    default:
                         throw new TaskException(sqlException.Number.ToString());
                 }
             }
-        }
-
-
-        public override void Update(Task entity)
-        {
-            string code; 
-        }
+        }             
 
         public Task _GetById(int id)
         {
-            
+
             conn = new SqlConnection(ConnectionString);
             try
             {
@@ -208,7 +227,7 @@ namespace DataLayer
             }
         }
 
-        public IEnumerable<Task> GetTaskByDescription(string description)
+        public IEnumerable<Task> _GetTaskByDescription(string description)
         {
             conn = new SqlConnection(ConnectionString);
             try

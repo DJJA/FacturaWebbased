@@ -14,7 +14,7 @@ namespace DataLayer
     {
         //TODO: kijken of de public methods internal of protected kunnen
         //TODO:IEnumerable .AddRange() method bij getall om niet van de opgehaalde data een list te maken
-
+        //TODO: Niet specifieke exceptions gewoon exception gebruike en bij specifieke sql met een message.
         #region all parameter settings
         private IEnumerable<SqlParameter> InvoiceSqlParameters(Invoice invoice)
         {
@@ -100,6 +100,7 @@ namespace DataLayer
         {
             try
             {
+                
                 var parameter = ExecuteProcedureWithOutput("spManageInvoice", InvoiceSqlParameters(invoice));
                 invoice.Id = Convert.ToInt32(parameter.Value.ToString());
                 InsertTasksToInvoice(invoice);
@@ -188,8 +189,23 @@ namespace DataLayer
             }
             return invoice;
         }
-
-
+        public void InvoicePayed(Invoice invoice)
+        {
+            //TODO: datetime instelbaar maken
+            try
+            {
+                ExecuteProcedure("spInvoicePayed", new List<SqlParameter>() { new SqlParameter("@Id", invoice.Id), new SqlParameter("@DatePayed", DateTime.Now) });
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvoiceException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+        }
 
 
 
@@ -211,6 +227,8 @@ namespace DataLayer
                 return DateTime.Parse(DP);
             }
         }
+
+      
         //TODO: hier loopt nog wat fout, bij klanten pagina doorklikken
         //public IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId)
         //{

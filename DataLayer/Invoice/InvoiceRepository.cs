@@ -28,5 +28,10 @@ namespace DataLayer
         {
             return invoiceContext.GetTasksOnInvoice(recentInvoice);
         }
+
+        public void InvoicePayed(Invoice invoice)
+        {
+            invoiceContext.InvoicePayed(invoice);
+        }
     }
 }
