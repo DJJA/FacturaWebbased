@@ -13,12 +13,7 @@ namespace DataLayer
 {
     public class SqlCustomerContext : SqlContext<Customer>, ICustomerContext
     {
-        private SqlConnection conn;
-        private SqlCommand cmd;
-        private SqlDataReader rdr;
-        private Customer customer;
-        private List<Customer> customers;
-        //TODO: kijken of de SqlDbTypes in de sp queries goed zijn
+        #region all parameter settings
         private IEnumerable<SqlParameter> CustomerSqlParameters(Customer customer)
         {
             var parameters = new List<SqlParameter>()
@@ -40,7 +35,6 @@ namespace DataLayer
             }
             return parameters;
         }
-
         private Customer CustomerFromDataRow(DataRow datarow)
         {
             Address address = new Address(
@@ -50,15 +44,16 @@ namespace DataLayer
             );
 
             return new Customer(
-                    id: Convert.ToInt16(datarow["id"]),
-                    firstName: datarow["firstname"].ToString(),
-                    preposition: datarow["prefix"].ToString(),
-                    lastName: datarow["lastname"].ToString(),
-                    email: datarow["email"].ToString(),
-                    phoneNumber: datarow["phonenumber"].ToString(),
-                    address: address
-                );
+                id: Convert.ToInt16(datarow["id"]),
+                firstName: datarow["firstname"].ToString(),
+                preposition: datarow["prefix"].ToString(),
+                lastName: datarow["lastname"].ToString(),
+                email: datarow["email"].ToString(),
+                phoneNumber: datarow["phonenumber"].ToString(),
+                address: address
+            );
         }
+        #endregion
 
         public override IEnumerable<Customer> GetAll()
         {
@@ -71,7 +66,8 @@ namespace DataLayer
             }
             catch (SqlException sqlEx)
             {
-                throw new CustomerException($"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+                throw new CustomerException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
             }
             catch (Exception ex)
             {
@@ -87,7 +83,8 @@ namespace DataLayer
             }
             catch (SqlException sqlEx)
             {
-                throw new CustomerException($"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+                throw new CustomerException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
             }
         }
         public override void Update(Customer customer)
@@ -106,7 +103,8 @@ namespace DataLayer
                     case 547:
                         throw new CustomerException("Het email adres voldoet niet aan de eisen van een email");
                     default:
-                        throw new CustomerException($"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+                        throw new CustomerException(
+                            $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
                 }
             }
         }
@@ -120,7 +118,8 @@ namespace DataLayer
             }
             catch (SqlException sqlEx)
             {
-                throw new CustomerException($"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+                throw new CustomerException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
             }
             catch (Exception ex)
             {
@@ -138,7 +137,8 @@ namespace DataLayer
             }
             catch (SqlException sqlEx)
             {
-                throw new CustomerException($"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+                throw new CustomerException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
             }
             catch (Exception ex)
             {
@@ -146,277 +146,297 @@ namespace DataLayer
             }
             return customers;
         }
-
-
-
-
-        //TODO: nog omzetten naar nieuwe sqlcontext generieke data
         public override Customer GetById(int id)
         {
-            conn = new SqlConnection(ConnectionString);
+            Customer customer = null;
             try
             {
-                conn.Open();
-                cmd = new SqlCommand($"SELECT * FROM CustomerById({id})", conn);
-
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
+                var dataTable = GetDataByView($"SELECT * FROM funcCustomerById({id})");
+                if (dataTable.Rows.Count > 0)
                 {
-                    Address address = new Address(
-                        streetName: rdr["street"].ToString(),
-                        place: rdr["place"].ToString(),
-                        zipCode: rdr["zipCode"].ToString()
-                    );
-
-                    customer = new Customer(
-                        id: Convert.ToInt16(rdr["id"]),
-                        firstName: rdr["firstname"].ToString(),
-                        preposition: rdr["prefix"].ToString(),
-                        lastName: rdr["lastname"].ToString(),
-                        email: rdr["email"].ToString(),
-                        phoneNumber: rdr["phonenumber"].ToString(),
-                        address: address
-                    );
-                }
-
-                return customer;
-            }
-            catch (SqlException sqlException)
-            {
-                switch (sqlException.Number)
-                {
-                    case 1:
-                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
-                    default:
-                        throw new CustomerException(sqlException.Number.ToString());
+                    customer = CustomerFromDataRow(dataTable.Rows[0]);
                 }
             }
-            finally
+            catch (SqlException sqlEx)
             {
-                conn.Close();
+                throw new CustomerException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
             }
+            catch (Exception ex)
+            {
+                throw new CustomerException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+            return customer;
         }
+
 
 
 
         #region old code
-        public IEnumerable<Customer> GetAllCus()
-        {
-            customers = new List<Customer>();
 
-            conn = new SqlConnection(ConnectionString);
-            try
-            {
-                conn.Open();
-                cmd = new SqlCommand("SELECT * FROM CUSTOMER", conn);
+        //    public Customer GetcusById(int id)
+        //    {
+        //        conn = new SqlConnection(ConnectionString);
+        //        try
+        //        {
+        //            conn.Open();
+        //            cmd = new SqlCommand($"SELECT * FROM CustomerById({id})", conn);
 
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    Address address = new Address(
-                        streetName: rdr["street"].ToString(),
-                        place: rdr["place"].ToString(),
-                        zipCode: rdr["zipCode"].ToString()
-                    );
+        //            rdr = cmd.ExecuteReader();
+        //            while (rdr.Read())
+        //            {
+        //                Address address = new Address(
+        //                    streetName: rdr["street"].ToString(),
+        //                    place: rdr["place"].ToString(),
+        //                    zipCode: rdr["zipCode"].ToString()
+        //                );
 
-                    customer = new Customer(
-                        id: Convert.ToInt16(rdr["id"]),
-                        firstName: rdr["firstname"].ToString(),
-                        preposition: rdr["prefix"].ToString(),
-                        lastName: rdr["lastname"].ToString(),
-                        email: rdr["email"].ToString(),
-                        phoneNumber: rdr["phonenumber"].ToString(),
-                        address: address
-                    );
-                    customers.Add(customer);
-                }
+        //                customer = new Customer(
+        //                    id: Convert.ToInt16(rdr["id"]),
+        //                    firstName: rdr["firstname"].ToString(),
+        //                    preposition: rdr["prefix"].ToString(),
+        //                    lastName: rdr["lastname"].ToString(),
+        //                    email: rdr["email"].ToString(),
+        //                    phoneNumber: rdr["phonenumber"].ToString(),
+        //                    address: address
+        //                );
+        //            }
 
-                return customers;
-            }
-            catch (SqlException sqlException)
-            {
-                switch (sqlException.Number)
-                {
-                    case 1:
-                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
-                    default:
-                        throw new CustomerException(sqlException.Number.ToString());
-                }
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-        public void Insertcus(Customer customer)
-        {
-            conn = new SqlConnection(ConnectionString);
+        //            return customer;
+        //        }
+        //        catch (SqlException sqlException)
+        //        {
+        //            switch (sqlException.Number)
+        //            {
+        //                case 1:
+        //                    throw new CustomerException("Er kon geen verbinding gemaakt worden");
+        //                default:
+        //                    throw new CustomerException(sqlException.Number.ToString());
+        //            }
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
 
-            try
-            {
-                cmd = new SqlCommand("spManageCustomer", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@id", SqlDbType.Int).Value = 5;
-                cmd.Parameters.Add("@FirstName", SqlDbType.Text).Value = customer.FirstName;
-                cmd.Parameters.Add("@LastName", SqlDbType.Text).Value = customer.LastName;
-                cmd.Parameters.Add("@Prefix", SqlDbType.Text).Value = customer.Preposition;
-                cmd.Parameters.Add("@Street", SqlDbType.Text).Value = customer.Address.StreetName;
-                cmd.Parameters.Add("@Place", SqlDbType.Text).Value = customer.Address.Place;
-                cmd.Parameters.Add("@ZipCode", SqlDbType.Text).Value = customer.Address.ZipCode;
-                cmd.Parameters.Add("@Email", SqlDbType.Text).Value = customer.Email;
-                cmd.Parameters.Add("@phoneNumber", SqlDbType.Text).Value = customer.PhoneNumber;
-                cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
+        //    public IEnumerable<Customer> GetAllCus()
+        //    {
+        //        customers = new List<Customer>();
+
+        //        conn = new SqlConnection(ConnectionString);
+        //        try
+        //        {
+        //            conn.Open();
+        //            cmd = new SqlCommand("SELECT * FROM CUSTOMER", conn);
+
+        //            rdr = cmd.ExecuteReader();
+        //            while (rdr.Read())
+        //            {
+        //                Address address = new Address(
+        //                    streetName: rdr["street"].ToString(),
+        //                    place: rdr["place"].ToString(),
+        //                    zipCode: rdr["zipCode"].ToString()
+        //                );
+
+        //                customer = new Customer(
+        //                    id: Convert.ToInt16(rdr["id"]),
+        //                    firstName: rdr["firstname"].ToString(),
+        //                    preposition: rdr["prefix"].ToString(),
+        //                    lastName: rdr["lastname"].ToString(),
+        //                    email: rdr["email"].ToString(),
+        //                    phoneNumber: rdr["phonenumber"].ToString(),
+        //                    address: address
+        //                );
+        //                customers.Add(customer);
+        //            }
+
+        //            return customers;
+        //        }
+        //        catch (SqlException sqlException)
+        //        {
+        //            switch (sqlException.Number)
+        //            {
+        //                case 1:
+        //                    throw new CustomerException("Er kon geen verbinding gemaakt worden");
+        //                default:
+        //                    throw new CustomerException(sqlException.Number.ToString());
+        //            }
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
+        //    public void Insertcus(Customer customer)
+        //    {
+        //        conn = new SqlConnection(ConnectionString);
+
+        //        try
+        //        {
+        //            cmd = new SqlCommand("spManageCustomer", conn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.Add("@id", SqlDbType.Int).Value = 5;
+        //            cmd.Parameters.Add("@FirstName", SqlDbType.Text).Value = customer.FirstName;
+        //            cmd.Parameters.Add("@LastName", SqlDbType.Text).Value = customer.LastName;
+        //            cmd.Parameters.Add("@Prefix", SqlDbType.Text).Value = customer.Preposition;
+        //            cmd.Parameters.Add("@Street", SqlDbType.Text).Value = customer.Address.StreetName;
+        //            cmd.Parameters.Add("@Place", SqlDbType.Text).Value = customer.Address.Place;
+        //            cmd.Parameters.Add("@ZipCode", SqlDbType.Text).Value = customer.Address.ZipCode;
+        //            cmd.Parameters.Add("@Email", SqlDbType.Text).Value = customer.Email;
+        //            cmd.Parameters.Add("@phoneNumber", SqlDbType.Text).Value = customer.PhoneNumber;
+        //            cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "insert";
 
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (SqlException sqlException)
-            {
-                switch (sqlException.Number)
-                {
-                    case 2627:
-                        throw new CustomerException("Er bestaat al een klant met dit email");
+        //            conn.Open();
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //        catch (SqlException sqlException)
+        //        {
+        //            switch (sqlException.Number)
+        //            {
+        //                case 2627:
+        //                    throw new CustomerException("Er bestaat al een klant met dit email");
 
-                    case 547:
-                        throw new CustomerException("Het email adres voldoet niet aan de eisen van een email");
-                    default:
-                        throw new CustomerException(sqlException.Number.ToString());
-                }
-            }
-        }
-        public void UpdateCus(Customer customer)
-        {
-            conn = new SqlConnection(ConnectionString);
+        //                case 547:
+        //                    throw new CustomerException("Het email adres voldoet niet aan de eisen van een email");
+        //                default:
+        //                    throw new CustomerException(sqlException.Number.ToString());
+        //            }
+        //        }
+        //    }
+        //    public void UpdateCus(Customer customer)
+        //    {
+        //        conn = new SqlConnection(ConnectionString);
 
-            try
-            {
-                cmd = new SqlCommand("spManageCustomer", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@id", SqlDbType.Int).Value = customer.ID;
-                cmd.Parameters.Add("@FirstName", SqlDbType.Text).Value = customer.FirstName;
-                cmd.Parameters.Add("@LastName", SqlDbType.Text).Value = customer.LastName;
-                cmd.Parameters.Add("@Prefix", SqlDbType.Text).Value = customer.Preposition;
-                cmd.Parameters.Add("@Street", SqlDbType.Text).Value = customer.Address.StreetName;
-                cmd.Parameters.Add("@Place", SqlDbType.Text).Value = customer.Address.Place;
-                cmd.Parameters.Add("@ZipCode", SqlDbType.Text).Value = customer.Address.ZipCode;
-                cmd.Parameters.Add("@Email", SqlDbType.Text).Value = customer.Email;
-                cmd.Parameters.Add("@phoneNumber", SqlDbType.Text).Value = customer.PhoneNumber;
-                cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "update";
+        //        try
+        //        {
+        //            cmd = new SqlCommand("spManageCustomer", conn);
+        //            cmd.CommandType = CommandType.StoredProcedure;
+        //            cmd.Parameters.Add("@id", SqlDbType.Int).Value = customer.ID;
+        //            cmd.Parameters.Add("@FirstName", SqlDbType.Text).Value = customer.FirstName;
+        //            cmd.Parameters.Add("@LastName", SqlDbType.Text).Value = customer.LastName;
+        //            cmd.Parameters.Add("@Prefix", SqlDbType.Text).Value = customer.Preposition;
+        //            cmd.Parameters.Add("@Street", SqlDbType.Text).Value = customer.Address.StreetName;
+        //            cmd.Parameters.Add("@Place", SqlDbType.Text).Value = customer.Address.Place;
+        //            cmd.Parameters.Add("@ZipCode", SqlDbType.Text).Value = customer.Address.ZipCode;
+        //            cmd.Parameters.Add("@Email", SqlDbType.Text).Value = customer.Email;
+        //            cmd.Parameters.Add("@phoneNumber", SqlDbType.Text).Value = customer.PhoneNumber;
+        //            cmd.Parameters.Add("@StatementType", SqlDbType.Text).Value = "update";
 
 
-                conn.Open();
-                cmd.ExecuteNonQuery();
-            }
-            catch (SqlException exc)
-            {
-                switch (exc.Number)
-                {
-                    case 2627:
-                        throw new CustomerException("Er bestaat al een klant met dit email");
+        //            conn.Open();
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //        catch (SqlException exc)
+        //        {
+        //            switch (exc.Number)
+        //            {
+        //                case 2627:
+        //                    throw new CustomerException("Er bestaat al een klant met dit email");
 
-                    case 547:
-                        throw new CustomerException("Het email adres voldoet niet aan de eisen van een email");
-                    default:
-                        throw new CustomerException(exc.Number.ToString());
-                }
-            }
-        }
-        public IEnumerable<Customer> GetCustomersByZipcodee(string zipcode)
-        {
-            conn = new SqlConnection(ConnectionString);
-            try
-            {
-                customers = new List<Customer>();
-                conn.Open();
-                cmd = new SqlCommand($"SELECT * FROM funcCustomerByZipcode('{zipcode}')", conn);
+        //                case 547:
+        //                    throw new CustomerException("Het email adres voldoet niet aan de eisen van een email");
+        //                default:
+        //                    throw new CustomerException(exc.Number.ToString());
+        //            }
+        //        }
+        //    }
+        //    public IEnumerable<Customer> GetCustomersByZipcodee(string zipcode)
+        //    {
+        //        conn = new SqlConnection(ConnectionString);
+        //        try
+        //        {
+        //            customers = new List<Customer>();
+        //            conn.Open();
+        //            cmd = new SqlCommand($"SELECT * FROM funcCustomerByZipcode('{zipcode}')", conn);
 
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    Address address = new Address(
-                        streetName: rdr["street"].ToString(),
-                        place: rdr["place"].ToString(),
-                        zipCode: rdr["zipCode"].ToString()
-                    );
+        //            rdr = cmd.ExecuteReader();
+        //            while (rdr.Read())
+        //            {
+        //                Address address = new Address(
+        //                    streetName: rdr["street"].ToString(),
+        //                    place: rdr["place"].ToString(),
+        //                    zipCode: rdr["zipCode"].ToString()
+        //                );
 
-                    customer = new Customer(
-                        id: Convert.ToInt16(rdr["id"]),
-                        firstName: rdr["firstname"].ToString(),
-                        lastName: rdr["lastname"].ToString(),
-                        email: rdr["email"].ToString(),
-                        phoneNumber: rdr["phonenumber"].ToString(),
-                        address: address
-                    );
-                    customers.Add(customer);
-                }
+        //                customer = new Customer(
+        //                    id: Convert.ToInt16(rdr["id"]),
+        //                    firstName: rdr["firstname"].ToString(),
+        //                    lastName: rdr["lastname"].ToString(),
+        //                    email: rdr["email"].ToString(),
+        //                    phoneNumber: rdr["phonenumber"].ToString(),
+        //                    address: address
+        //                );
+        //                customers.Add(customer);
+        //            }
 
-                return customers;
-            }
-            catch (SqlException sqlException)
-            {
-                switch (sqlException.Number)
-                {
-                    case 1:
-                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
-                    default:
-                        throw new CustomerException(sqlException.Number.ToString());
-                }
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
-        public IEnumerable<Customer> GetCustomersByLastNamee(string lastname)
-        {
-            conn = new SqlConnection(ConnectionString);
-            try
-            {
-                customers = new List<Customer>();
-                conn.Open();
-                cmd = new SqlCommand($"SELECT * FROM funcCustomerByLastName('{lastname}')", conn);
+        //            return customers;
+        //        }
+        //        catch (SqlException sqlException)
+        //        {
+        //            switch (sqlException.Number)
+        //            {
+        //                case 1:
+        //                    throw new CustomerException("Er kon geen verbinding gemaakt worden");
+        //                default:
+        //                    throw new CustomerException(sqlException.Number.ToString());
+        //            }
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
+        //    public IEnumerable<Customer> GetCustomersByLastNamee(string lastname)
+        //    {
+        //        conn = new SqlConnection(ConnectionString);
+        //        try
+        //        {
+        //            customers = new List<Customer>();
+        //            conn.Open();
+        //            cmd = new SqlCommand($"SELECT * FROM funcCustomerByLastName('{lastname}')", conn);
 
-                rdr = cmd.ExecuteReader();
-                while (rdr.Read())
-                {
-                    Address address = new Address(
-                        streetName: rdr["street"].ToString(),
-                        place: rdr["place"].ToString(),
-                        zipCode: rdr["zipCode"].ToString()
-                    );
+        //            rdr = cmd.ExecuteReader();
+        //            while (rdr.Read())
+        //            {
+        //                Address address = new Address(
+        //                    streetName: rdr["street"].ToString(),
+        //                    place: rdr["place"].ToString(),
+        //                    zipCode: rdr["zipCode"].ToString()
+        //                );
 
-                    customer = new Customer(
-                        id: Convert.ToInt16(rdr["id"]),
-                        firstName: rdr["firstname"].ToString(),
-                        lastName: rdr["lastname"].ToString(),
-                        email: rdr["email"].ToString(),
-                        phoneNumber: rdr["phonenumber"].ToString(),
-                        address: address
-                    );
-                    customers.Add(customer);
-                }
+        //                customer = new Customer(
+        //                    id: Convert.ToInt16(rdr["id"]),
+        //                    firstName: rdr["firstname"].ToString(),
+        //                    lastName: rdr["lastname"].ToString(),
+        //                    email: rdr["email"].ToString(),
+        //                    phoneNumber: rdr["phonenumber"].ToString(),
+        //                    address: address
+        //                );
+        //                customers.Add(customer);
+        //            }
 
-                return customers;
-            }
-            catch (SqlException sqlException)
-            {
-                switch (sqlException.Number)
-                {
-                    case 1:
-                        throw new CustomerException("Er kon geen verbinding gemaakt worden");
-                    default:
-                        throw new CustomerException(sqlException.Number.ToString());
-                }
-            }
-            finally
-            {
-                conn.Close();
-            }
-        }
+        //            return customers;
+        //        }
+        //        catch (SqlException sqlException)
+        //        {
+        //            switch (sqlException.Number)
+        //            {
+        //                case 1:
+        //                    throw new CustomerException("Er kon geen verbinding gemaakt worden");
+        //                default:
+        //                    throw new CustomerException(sqlException.Number.ToString());
+        //            }
+        //        }
+        //        finally
+        //        {
+        //            conn.Close();
+        //        }
+        //    }
+        //}
+
+        #endregion
     }
-
-    #endregion
-
 }
 

@@ -92,14 +92,9 @@ namespace FacturaWeb.Controllers
             }
         }
 
-        public ActionResult GetFiles()
-        {
-            return View();
-        }
-
+      
         public ActionResult InvoicesPerCustomer(int id)
         {
-
             invoiceLogic.GetInvoicesPercustomer(id);
             return View();
         }

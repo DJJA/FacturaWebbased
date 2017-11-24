@@ -19,29 +19,6 @@ namespace DataLayer
             }
         }
 
-        protected DataTable GetDataViaProcedure(string procedure, IEnumerable<SqlParameter> procedureParameters)
-        {
-            var datatable = new DataTable();
-            using (var connection = new SqlConnection(ConnectionString))
-            using (var adapter = new SqlDataAdapter(procedure, connection))
-            {
-                //connection.Open();
-                adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
-
-                if (procedureParameters != null)
-                {
-                    adapter.SelectCommand.Parameters.AddRange(procedureParameters.ToArray());
-                    //foreach (var parammeter in procedureParameters)
-                    //{
-                    //    adapter.SelectCommand.Parameters.Add(parammeter);
-                    //}
-                }
-
-                adapter.Fill(datatable);
-            }
-            return datatable;
-        }
-
         protected void ExecuteProcedure(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
         {
             using (var sqlConnection = new SqlConnection(ConnectionString))
@@ -54,12 +31,11 @@ namespace DataLayer
                     command.Parameters.AddRange(procedureParameters.ToArray());
                 }
 
-                sqlConnection.Open();  
+                sqlConnection.Open();
                 command.ExecuteNonQuery();
                 sqlConnection.Close();
             }
         }
-
         protected DataTable GetDataByView(string viewQuery)
         {
             DataTable dataTable = new DataTable();
@@ -74,9 +50,38 @@ namespace DataLayer
                     sqlConnection.Close();
                 }
             }
-            
+
             return dataTable;
         }
+        protected SqlParameter ExecuteProcedureWithOutput(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
+        {
+            SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
+
+            using (var sqlConnection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(procedureQuery, sqlConnection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                if (procedureParameters != null)
+                {
+
+                    output.Direction = ParameterDirection.Output;
+
+                    command.Parameters.Add(output);
+                    command.Parameters.AddRange(procedureParameters.ToArray());
+                }
+
+                sqlConnection.Open();
+                command.ExecuteNonQuery();
+                sqlConnection.Close();
+            }
+
+            return output;
+        }
+
+
+
+
 
         public abstract IEnumerable<TEntity> GetAll();
 
