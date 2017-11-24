@@ -6,3 +6,4 @@ D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\Models.pdb
 D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\bin\Release\itextsharp.xml
 D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.dll
 D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.pdb
+D:\FacturaWebBased\FacturaWebbased\PdfInvoiceCreator\obj\Release\FacturaWeb.PdfInvoiceCreator.csprojResolveAssemblyReference.cache

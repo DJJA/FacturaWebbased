@@ -390,3 +390,6 @@ D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\itextsharp.xml
 D:\FacturaWebBased\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.csprojResolveAssemblyReference.cache
 D:\FacturaWebBased\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.dll
 D:\FacturaWebBased\FacturaWebbased\FacturaWeb\obj\Debug\FacturaWeb.pdb
+D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\FacturaWeb.dll.config
+D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\FacturaWeb.dll
+D:\FacturaWebBased\FacturaWebbased\FacturaWeb\bin\FacturaWeb.pdb
