@@ -44,7 +44,7 @@
     <Compile Include="Customer.cs" />
     <Compile Include="Exceptions\InvoiceException.cs" />
     <Compile Include="PdfInvoice.cs" />
-    <Compile Include="TaskException.cs" />
+    <Compile Include="Exceptions\TaskException.cs" />
     <Compile Include="Exceptions\CustomerException.cs" />
     <Compile Include="Invoice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

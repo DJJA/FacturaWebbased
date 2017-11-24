@@ -85,17 +85,7 @@ namespace LogicLayer
 
         public List<Invoice> GetInvoicesPercustomer(int customerId)
         {
-            return invoiceRepository.GetInvoicesPerCustomer(customerId).ToList();
-        }
-
-        public void InsertInvoiceFile(PdfInvoice invoice)
-        {
-            invoiceRepository.InsertInvoiceFile(invoice);
-        }
-
-        public List<PdfInvoice> GetInvoiceFile()
-        {
-            return invoiceRepository.GetInvoiceFile().ToList();
+            throw new NotImplementedException();
         }
     }
 }

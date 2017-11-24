@@ -16,7 +16,6 @@ namespace LogicLayer
         Invoice GetTasksOnInvoice(Invoice invoice);
         List<Invoice> GetInvoicesPercustomer(int customerId);
         void GeneratePdf(Invoice invoice);
-        void InsertInvoiceFile(PdfInvoice invoice);
-        List<PdfInvoice> GetInvoiceFile();
+
     }
 }

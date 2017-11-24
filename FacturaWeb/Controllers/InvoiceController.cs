@@ -30,42 +30,42 @@ namespace FacturaWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult Pdfje(string id, HttpPostedFileBase postedFile)
-        {
-            Invoice invoice = invoiceLogic.GetById(Convert.ToInt16(id));
-            Customer customer = customerLogic.GetById(invoice.Customer.ID);
-            Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
+        //public ActionResult Pdfje(string id, HttpPostedFileBase postedFile)
+        //{
+        //    Invoice invoice = invoiceLogic.GetById(Convert.ToInt16(id));
+        //    Customer customer = customerLogic.GetById(invoice.Customer.ID);
+        //    Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
 
-            invoice.Customer = customer;
-            invoice.Tasks = invoiceTasks.Tasks;
+        //    invoice.Customer = customer;
+        //    invoice.Tasks = invoiceTasks.Tasks;
 
-            PdfInvoice invoicePdf = new PdfInvoice();
+        //    PdfInvoice invoicePdf = new PdfInvoice();
 
-            invoicePdf.ContentType = postedFile.ContentType;
-
-
+        //    invoicePdf.ContentType = postedFile.ContentType;
 
 
-            invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
-            invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
-            HttpPostedFileBase file = postedFile;
-            byte[] document = new byte[file.ContentLength];
-            file.InputStream.Read(document, 0, file.ContentLength);
-            invoicePdf.FileData = document;
-            invoicePdf.FileSize = document.Length;
-            invoicePdf.DisplayName = postedFile.FileName;
-
-            invoiceLogic.InsertInvoiceFile(invoicePdf);
 
 
-            PdfInvoice pdfie = new PdfInvoice();
-            List<PdfInvoice> pdfs = new List<PdfInvoice>();
-            pdfs = invoiceLogic.GetInvoiceFile();
-            pdfie = pdfs[1];
-            return View("GetFiles", pdfie);
-            //invoiceLogic.GeneratePdf(invoice);
-            //pdf.CreatePdfInvoice();
-        }
+        //    invoicePdf.Name_File = Path.GetFileName(postedFile.FileName);
+        //    invoicePdf.Extension = Path.GetExtension(invoicePdf.Name_File);
+        //    HttpPostedFileBase file = postedFile;
+        //    byte[] document = new byte[file.ContentLength];
+        //    file.InputStream.Read(document, 0, file.ContentLength);
+        //    invoicePdf.FileData = document;
+        //    invoicePdf.FileSize = document.Length;
+        //    invoicePdf.DisplayName = postedFile.FileName;
+
+        //    invoiceLogic.InsertInvoiceFile(invoicePdf);
+
+
+        //    PdfInvoice pdfie = new PdfInvoice();
+        //    List<PdfInvoice> pdfs = new List<PdfInvoice>();
+        //    pdfs = invoiceLogic.GetInvoiceFile();
+        //    pdfie = pdfs[1];
+        //    return View("GetFiles", pdfie);
+        //    //invoiceLogic.GeneratePdf(invoice);
+        //    //pdf.CreatePdfInvoice();
+        //}
 
         public void test(string id)
         {
