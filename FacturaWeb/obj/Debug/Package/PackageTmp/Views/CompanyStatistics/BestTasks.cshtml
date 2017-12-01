@@ -1,0 +1,16 @@
+﻿@model List<Models.Task>
+
+@{
+    Layout = null;
+}
+<ol>
+    @foreach (var item in Model)
+    {
+        <li>@item.Id  | €@item.TotalAmountOfAllSimilarTasks</li>
+    }
+</ol>
+
+
+
+
+

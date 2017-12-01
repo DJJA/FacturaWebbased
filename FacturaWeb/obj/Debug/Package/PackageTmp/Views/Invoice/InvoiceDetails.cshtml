@@ -1,0 +1,113 @@
+﻿@using Models
+@model Invoice
+@{
+    ViewBag.Title = "InvoiceDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .wrapper{
+        width:auto;
+        overflow: hidden;
+    }
+    .size{
+        width: 500px;
+        float:left;
+    }
+    .size2{
+        overflow: hidden;
+        padding-left: 120px;
+    }
+    button{
+        border: solid 2px;
+        background-color: white;
+        color:black;
+        border-radius: 5px;
+        padding: .1em .6em;
+    }
+        button:hover {
+            background-color: darkred;
+            color: white;
+            border-color:black;
+        }
+
+</style>
+
+<h2>Factuur overzicht: @Model.Customer.FirstName @Model.Customer.Preposition @Model.Customer.LastName</h2>
+<br />
+<div class="wrapper">
+    <div class="size">
+        <table class="table table-dark">
+            <tr>
+                <td><b>Factuurnummer:</b></td>
+                <td>@Model.Id</td>
+            </tr>
+            <tr>
+                <td><b>Factuur verzonden op:</b></td>
+                <td>@Model.DateSend</td>
+            </tr>
+            <tr>
+                <td><b>Factuur betaald op:</b></td>
+                @if (Model.DatePayed == new DateTime())
+                {
+                    <td><b>Onbetaald</b></td>
+                }
+                else
+                {
+                    <td>@Model.DatePayed</td>
+                }
+            </tr>
+            <tr>
+                <td><b>Totaal prijs</b></td>
+                <td>€ @Model.TotalPrice</td>
+            </tr>
+        </table>
+    </div>
+    <div class="size2">
+
+       @using (Html.BeginForm("test", "Invoice"))
+       {
+        <text> .pdf bestand maken:  </text>
+        <button>pdfje</button>
+        <input type="hidden" name="id" value="@Model.Id" />
+       }
+
+
+            <br />
+            <text> Factuur betaald:  </text>
+            <button onclick="ShowPopup();">Betaaldatum toevoegen</button>
+            <input type="hidden" name="id" value="@Model.Id" />
+     
+
+    </div>
+</div>
+
+<h3>Diensten:</h3>
+<table class="table table-bordered">
+    <tr>
+        <th>Datum</th>
+        <th>Omschrijving</th>
+        <th>Aantal</th>
+        <th>Stuks prijs</th>
+    </tr>
+    @foreach (Task task in @Model.Tasks)
+    {
+        <tr>
+            <td>@task.Date</td>
+            <td>@task.Description</td>
+            <td>@task.Amount</td>
+            <td>€ @task.Price</td>
+        </tr>
+
+    }
+</table>
+
+    <script type="text/javascript">
+
+        function ShowPopup() {
+            var myWindow = window.open("/Invoice/Confirmation/" + @Model.Id + "", "Invoice/Confirmation", "width=450,height=200, top=250, left=550");
+    }
+
+    </script>
+
+

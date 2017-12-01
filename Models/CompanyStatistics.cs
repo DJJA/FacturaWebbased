@@ -9,7 +9,14 @@ namespace Models
     public class CompanyStatistics
     {
         public List<Customer> TopCustomers { get; set; }
-        public decimal TotalIncomeByYear { get; set; }
+        public List<Task> TopTasks { get; set; }
+
+        private decimal totalAmount;
+        public decimal TotalIncomeByYear
+        {
+            get { return Convert.ToDecimal(totalAmount.ToString("0.00")); }
+            set { totalAmount = value; }
+        }
 
     }
 }

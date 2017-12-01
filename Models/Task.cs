@@ -17,6 +17,14 @@ namespace Models
         public DateTime Date { get; set; }
         public Unit Unit { get; set; }
 
+        private decimal totalAmountOfAllSimilarTasks;
+
+        public decimal TotalAmountOfAllSimilarTasks
+        {
+            get { return Convert.ToDecimal(totalAmountOfAllSimilarTasks.ToString("0.00")); }
+            set { totalAmountOfAllSimilarTasks = value; }
+        }
+
         public decimal TotalPrice
         {
             get { return Convert.ToDecimal((Amount * Price).ToString("0.00")); }
@@ -28,6 +36,12 @@ namespace Models
         {
             Description = description;
             Id = id;
+        }
+
+        public Task(int id, decimal totalAmountOfAllSimilarTasks)
+        {
+            Id = id;
+            TotalAmountOfAllSimilarTasks = totalAmountOfAllSimilarTasks;
         }
 
         public Task(string description, decimal amount, decimal price, DateTime date)

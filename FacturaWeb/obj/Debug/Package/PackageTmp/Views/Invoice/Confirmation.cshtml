@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+@using Models;
+@model Invoice
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Confirmation</title>
+</head>
+<body>
+    <div>
+        @*<form action="@Url.Action("InvoicePayed", "Invoice", new { @id = @Model.Id })" method="post">*@
+        <p>Voer het factuurnummer in: <input type="text" name="invoiceId" id="invoiceId" placeholder="Factuurnummer" /> </p>
+        <input type="hidden" id="requestedinvId" value="@Model.Id"/>
+
+            <p> Voer het bedrag in: <input type="text" name="totalPrice" id="totalPrice" placeholder="Totaal bedrag" /> </p>
+        <input type="hidden" id="requestedpriceId" value="@Model.TotalPrice" />
+            <button onclick="closeWin()">Betaaldatum toevoegen</button>
+        @*</form>*@
+    </div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+
+<script>
+
+    function payInvoice(id) {
+        $(document).ready(function() {
+            $.ajax({
+                url: '@Url.Action("InvoicePayed", "Invoice")',
+                type: 'POST',
+                // we set cache: false because GET requests are often cached by browsers
+                // IE is particularly aggressive in that respect
+                cache: false,
+                data: { id: id },
+                success: function() {
+                    alert("Factuur is betaald");
+                },
+                error: function() {
+                    alert("gaat weers mis");
+                }
+            });
+        });
+    }
+
+    function closeWin() {
+        //var totalprice;
+        //var invoiceid;
+        //totalprice = document.getElementById('totalPrice').value;
+        //invoiceid = document.getElementById('invoiceId').value;
+        //var requestedInvoiceId = document.getElementById('requestedinvId').value;
+        //var requestedPriceId = document.getElementById('requestedpriceId').value;
+
+        if ((document.getElementById('requestedinvId').value) == (document.getElementById('invoiceId').value) && (document.getElementById('totalPrice').value) == (document.getElementById('requestedpriceId').value))
+        {
+            alert("goed");
+            payInvoice(@Model.Id);
+            this.close();
+        }
+        else
+        {
+            alert("Gegevens zijn niet juist");
+        }
+    }
+
+
+
+</script>

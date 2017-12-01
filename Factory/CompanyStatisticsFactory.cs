@@ -10,7 +10,7 @@ namespace Factory
 {
     public class CompanyStatisticsFactory
     {
-        public static ICompanyStatisticsLogic ManageCustomers()
+        public static ICompanyStatisticsLogic ManageCompanyStatistics()
         {
             return new CompanyStatisticsLogic(new CompanyStatisticsRepository(new SqlCompanyStatisticsContext()));
         }

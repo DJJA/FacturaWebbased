@@ -15,6 +15,14 @@ namespace DataLayer
         CompanyStatistics companyStats = new CompanyStatistics();
         List<Customer> customers = new List<Customer>();
 
+        private Task TasksFromDataRow(DataRow datarow)
+        {
+            return new Task(
+                id: Convert.ToInt16(datarow["taskID"]),
+                totalAmountOfAllSimilarTasks: Convert.ToDecimal(datarow["totalTaskIncome"])
+            );
+        }
+
         private void StatisticsFromDataRow(DataRow datarow)
         {
             var customer = new Customer(
@@ -27,7 +35,25 @@ namespace DataLayer
 
         public CompanyStatistics GetTotalIncomeByYear(int year)
         {
-            throw new NotImplementedException();
+            CompanyStatistics companyStatistics = new CompanyStatistics();
+            try
+            {
+                var dataTable = GetDataByView($"SELECT dbo.funcGetTotalInvoicePriceByYear('2017')");
+                if (dataTable.Rows.Count > 0)
+                {
+                    companyStatistics.TotalIncomeByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvoiceException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+            return companyStatistics;
         }
 
         public CompanyStatistics GetTop3Customers()
@@ -55,6 +81,33 @@ namespace DataLayer
             
             companyStats.TopCustomers = customers;
             return companyStats;
+        }
+
+        public List<Task> GetTop3Tasks(string year)
+        {
+            var tasks = new List<Task>();
+            try
+            {
+                var dataTable = GetDataByView($"SELECT * FROM funcTop3TasksByYear('{year}')");
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        tasks.Add(TasksFromDataRow(row));
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvoiceException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+
+            return tasks;
         }
     }
 }

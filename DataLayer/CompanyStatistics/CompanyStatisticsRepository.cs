@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Models;
+using Task = Models.Task;
 
 namespace DataLayer
 {
@@ -17,12 +18,17 @@ namespace DataLayer
 
         public CompanyStatistics GetTotalIncomeByYear(int year)
         {
-            throw new NotImplementedException();
+            return companyStatisticsContext.GetTotalIncomeByYear(year);
         }
 
         public CompanyStatistics GetTop3Customers()
         {
             return companyStatisticsContext.GetTop3Customers();
+        }
+
+        public List<Task> GetTop3Tasks(string year)
+        {
+            return companyStatisticsContext.GetTop3Tasks(year);
         }
     }
 }

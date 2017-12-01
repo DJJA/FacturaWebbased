@@ -1,0 +1,144 @@
+﻿@model Models.CompanyStatistics
+
+@{
+    ViewBag.Title = "Stats";
+}
+
+<h2>Stats</h2>
+
+<html>
+<head>
+    <title>Cocos - Audun Hilden</title>
+    <style>
+        .fl-l {
+            float: left;
+            word-break: break-all;
+            width: 30%;
+            height: 100%;
+            margin: 10px;
+            padding-left: 10px;
+        }
+
+        #wrap {
+            width: auto;
+            margin: 0 auto;
+            border: 0px solid;
+            height: 200px;
+            display: block;
+        }
+
+        #one {
+            border: solid black;
+        }
+
+        #two {
+            border: solid black;
+        }
+
+        #three {
+            border: solid black;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="wrap">
+        <div id="one" class="fl-l">
+            <h4>
+                <b>
+                    Totaal inkomen jaar:
+                    <select class="selectionyear" id="mySelect" onchange="myFunction()">
+                        <option value="2016">2016
+                        <option value="2017">2017
+                        <option value="2018">2018
+                    </select>
+                </b>
+            </h4>
+
+            <br />
+            <div id="yearamount">
+                <h1 align="center"><b>€@Model.TotalIncomeByYear</b></h1>
+            </div>
+
+        </div>
+
+        <div id="two" class="fl-l">
+            <h4><b>Beste klant</b></h4>
+            <br/>
+            <div align="center">
+                <ol>
+                    @foreach (var item in @Model.TopCustomers)
+                    {
+                        <li>@item.FirstName @item.Preposition @item.LastName  |  € @item.TotalPriceOfAllInvoices</li>
+                    }
+                </ol>
+            </div>
+        </div>
+        <div id="three" class="fl-l">
+            <h4><b>Meest gevraagde diensten: 
+                <select class="task" id="Selectedtaskyear"onchange="myFunctionForTasks()">
+                    <option value="2016">2016
+                    <option value="2017">2017
+                    <option value="2018">2018
+                </select></b></h4>
+            <br/>
+            <div align="center">
+                <div id="besttasks">
+                    <ol>
+                        @foreach (var item in @Model.TopTasks)
+                        {
+                            <li>@item.Id | € @item.TotalAmountOfAllSimilarTasks</li>
+                        }
+                    </ol>
+                </div>
+            </div>
+            <br />
+        </div>
+    </div>
+</body>
+</html>
+
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>*@
+
+<script>
+
+    function myFunction() {
+        var e = document.getElementById("mySelect");
+        var strUser = e.options[e.selectedIndex].value;
+
+        $.ajax({
+            url: '@Url.Action("TotalIncome","CompanyStatistics")',
+            data: {
+                'selectedYear': strUser
+            },
+            type: "post",
+            cache: false,
+            success: function (response) {
+                $('#yearamount').html(response);
+            }
+
+        });
+    }
+    function myFunctionForTasks() {
+        //var x = document.getElementById("mySelect").value;
+        //document.getElementById("demo").innerHTML = "Inkomen van het jaar: " + x;
+
+        var e = document.getElementById("Selectedtaskyear");
+        var strUser = e.options[e.selectedIndex].value;
+
+        $.ajax({
+            url: '@Url.Action("BestTasks","CompanyStatistics")',
+            data: {
+                'year': strUser
+            },
+            type: "post",
+            cache: false,
+            success: function (response) {
+                $('#besttasks').html(response);
+            }
+        });
+    }
+
+</script>
+

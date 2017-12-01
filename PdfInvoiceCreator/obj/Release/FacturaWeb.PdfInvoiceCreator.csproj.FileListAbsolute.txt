@@ -15,3 +15,13 @@ D:\factura\FacturaWebbased\PdfInvoiceCreator\bin\Release\itextsharp.xml
 D:\factura\FacturaWebbased\PdfInvoiceCreator\obj\Release\FacturaWeb.PdfInvoiceCreator.csprojResolveAssemblyReference.cache
 D:\factura\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.dll
 D:\factura\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.pdb
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\bin\Release\PdfInvoiceCreator.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\bin\Release\PdfInvoiceCreator.pdb
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\bin\Release\itextsharp.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\bin\Release\Models.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\bin\Release\Models.pdb
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\bin\Release\itextsharp.xml
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\obj\Release\FacturaWeb.PdfInvoiceCreator.csprojResolveAssemblyReference.cache
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\obj\Release\FacturaWeb.PdfInvoiceCreator.csproj.CoreCompileInputs.cache
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\PdfInvoiceCreator\obj\Release\PdfInvoiceCreator.pdb

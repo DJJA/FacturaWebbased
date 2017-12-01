@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using Models;
 
 namespace LogicLayer
@@ -11,5 +10,6 @@ namespace LogicLayer
     {
         CompanyStatistics GetTotalIncomeByYear(int year);
         CompanyStatistics GetTop3Customers();
+        List<Task> GetTop3Tasks(string year);
     }
 }

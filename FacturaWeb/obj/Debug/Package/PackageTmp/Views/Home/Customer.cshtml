@@ -1,0 +1,69 @@
+﻿@using Models
+@{
+    ViewBag.Title = "Klanten";
+    @model List<Customer>
+    }
+
+
+
+    <h2>GEKKKKKK</h2>
+    <br /><br />Naam: <br />
+    <input type="text" name="tbFirstname" placeholder="Voornaam" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="tbPrefix" placeholder="Voorvoegsel" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <input type="text" name="tbSurname" placeholder="Achternaam" /> <br />Adresgegevens: <br />
+    <input type="text" name="tbStreet" placeholder="Straat + nummer" /><br />Email: <br />
+    <input type="text" name="tbEmail" placeholder="Email" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+    <asp:Button id="btnSubmit"
+                Text="Click here for greeting..."
+                OnClick="btnSubmit_Click"
+                runat="server" />
+
+    <input type="text" name="tbPhonenumber" placeholder="Telefoonnummer" /><br />
+    
+    <h3>@ViewBag.Message</h3>
+
+    <style type="text/css">
+        td {
+            padding: 0 15px 0 15px;
+        }
+
+        th {
+            padding: 0 15px 0 15px;
+        }
+    </style>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Klantnr</th>
+                <th>Naam</th>
+                <th>Voorvoegsel</th>
+                <th>Achternaam</th>
+                <th>Straat</th>
+                <th>Plaats</th>
+                <th>Postcode</th>
+                <th>Email</th>
+                <th>Telefoon</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Customer customer in @Model)
+            {
+            <tr>
+                <th scope="row">@customer.ID</th>
+                <td>@customer.FirstName</td>
+                <td>@customer.Preposition</td>
+                <td>@customer.LastName</td>
+                <td>@customer.Address.StreetName</td>
+                <td>@customer.Address.Place</td>
+                <td>@customer.Address.ZipCode</td>
+                <td>@customer.Email</td>
+                <td>@customer.PhoneNumber</td>
+
+                <td><a data-value="laatste" href="javascript:void(0)" class="btnEdit">Edit</a></td>
+            </tr>
+            }
+        </tbody>
+    </table>
+
+    <p>Use this area to provide additional information.</p>

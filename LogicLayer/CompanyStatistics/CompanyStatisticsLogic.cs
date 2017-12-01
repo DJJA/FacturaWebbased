@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DataLayer;
 using Models;
+using Task = Models.Task;
 
 namespace LogicLayer
 {
@@ -19,12 +20,17 @@ namespace LogicLayer
 
         public CompanyStatistics GetTotalIncomeByYear(int year)
         {
-            throw new NotImplementedException();
+            return companyStatisticsRepository.GetTotalIncomeByYear(year);
         }
 
         public CompanyStatistics GetTop3Customers()
         {
             return companyStatisticsRepository.GetTop3Customers();
+        }
+
+        public List<Task> GetTop3Tasks(string year)
+        {
+            return companyStatisticsRepository.GetTop3Tasks(year);
         }
     }
 }
