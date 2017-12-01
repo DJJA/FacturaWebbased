@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Address.cs" />
+    <Compile Include="CompanyStatistics.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Exceptions\InvoiceException.cs" />
     <Compile Include="PdfInvoice.cs" />

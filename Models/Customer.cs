@@ -9,6 +9,13 @@ namespace Models
     public class Customer
     {
         public int ID { get; private set; }
+
+        private decimal totalpriceofallinvoices;
+        public decimal TotalPriceOfAllInvoices
+        {
+            get { return Convert.ToDecimal(totalpriceofallinvoices.ToString("0.00")); }
+            set { totalpriceofallinvoices = value; }
+        }
         public string FirstName { get; private set; }
         public string LastName { get; private set; }
         public string Preposition { get; private set; }
@@ -27,6 +34,11 @@ namespace Models
         //    Address = address;
         //    Invoices = invoices;
         //}
+        public Customer(decimal totalpriceofallinv, int id)
+        {
+            ID = id;
+            TotalPriceOfAllInvoices = totalpriceofallinv;
+        }
         public Customer(string firstname, string lastname)
         {
             LastName = lastname;

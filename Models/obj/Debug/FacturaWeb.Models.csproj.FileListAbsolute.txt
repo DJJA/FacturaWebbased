@@ -15,12 +15,6 @@ D:\FacturaWebBased\FacturaWebbased\Models\bin\Debug\Models.dll
 D:\FacturaWebBased\FacturaWebbased\Models\bin\Debug\Models.pdb
 D:\FacturaWebBased\FacturaWebbased\Models\obj\Debug\Models.dll
 D:\FacturaWebBased\FacturaWebbased\Models\obj\Debug\Models.pdb
-D:\Software projects\FacturaWeb\FacturaWebbased\Models\bin\Debug\Models.dll
-D:\Software projects\FacturaWeb\FacturaWebbased\Models\bin\Debug\Models.pdb
-D:\Software projects\FacturaWeb\FacturaWebbased\Models\obj\Debug\FacturaWeb.Models.csproj.CoreCompileInputs.cache
-D:\Software projects\FacturaWeb\FacturaWebbased\Models\obj\Debug\Models.dll
-D:\Software projects\FacturaWeb\FacturaWebbased\Models\obj\Debug\Models.pdb
-D:\Software projects\FacturaWeb\FacturaWebbased\Models\obj\Debug\FacturaWeb.Models.csprojResolveAssemblyReference.cache
 D:\factura\FacturaWebbased\Models\bin\Debug\Models.dll
 D:\factura\FacturaWebbased\Models\bin\Debug\Models.pdb
 D:\factura\FacturaWebbased\Models\obj\Debug\FacturaWeb.Models.csprojResolveAssemblyReference.cache

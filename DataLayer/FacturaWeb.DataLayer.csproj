@@ -47,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompanyStatistics\CompanyStatisticsRepository.cs" />
+    <Compile Include="CompanyStatistics\SqlCompanyStatisticsContext.cs" />
+    <Compile Include="CompanyStatistics\ICompanyStatisticsContext.cs" />
+    <Compile Include="CompanyStatistics\ICompanyStatisticsRepository.cs" />
+    <Compile Include="DbHandler.cs" />
     <Compile Include="Invoice\IInvoiceContext.cs" />
     <Compile Include="Invoice\IInvoiceRepository.cs" />
     <Compile Include="Invoice\SqlInvoiceContext.cs" />

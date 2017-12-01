@@ -48,7 +48,14 @@
             </tr>
             <tr>
                 <td><b>Factuur betaald op:</b></td>
-                <td>@Model.DatePayed</td>
+                @if (Model.DatePayed == new DateTime())
+                {
+                    <td><b>Onbetaald</b></td>
+                }
+                else
+                {
+                    <td>@Model.DatePayed</td>
+                }
             </tr>
             <tr>
                 <td><b>Totaal prijs</b></td>
@@ -81,7 +88,7 @@
         <th>Datum</th>
         <th>Omschrijving</th>
         <th>Aantal</th>
-        <th>Totaal prijs</th>
+        <th>Stuks prijs</th>
     </tr>
     @foreach (Task task in @Model.Tasks)
     {
@@ -98,7 +105,7 @@
     <script type="text/javascript">
 
         function ShowPopup() {
-            var myWindow = window.open("/Invoice/Confirmation/" + @Model.Id + "", "Invoice/Confirmation", "width=250,height=200, top=250, left=550");
+            var myWindow = window.open("/Invoice/Confirmation/" + @Model.Id + "", "Invoice/Confirmation", "width=450,height=200, top=250, left=550");
     }
 
     </script>

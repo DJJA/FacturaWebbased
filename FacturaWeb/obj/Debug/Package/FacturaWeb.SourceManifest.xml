@@ -1,6 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <IisApp path="D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\Package\PackageTmp" />
-  <setAcl path="D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\Package\PackageTmp" setAclResourceType="Directory" />
-  <setAcl path="D:\Software projects\FacturaWeb\FacturaWebbased\FacturaWeb\obj\Debug\Package\PackageTmp" setAclUser="anonymousAuthenticationUser" setAclResourceType="Directory" />
-</sitemanifest>

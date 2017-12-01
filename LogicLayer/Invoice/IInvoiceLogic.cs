@@ -17,6 +17,7 @@ namespace LogicLayer
         List<Invoice> GetInvoicesPercustomer(int customerId);
         void GeneratePdf(Invoice invoice);
         void InvoicePayed(Invoice invoice);
+        Invoice GetTotalInvoiceAmountByYear(int year);
 
     }
 }

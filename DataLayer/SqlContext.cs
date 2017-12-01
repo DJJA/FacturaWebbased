@@ -9,75 +9,77 @@ using Models;
 
 namespace DataLayer
 {
-    public abstract class SqlContext<TEntity> : IContext<TEntity> where TEntity : class
+    public abstract class SqlContext<TEntity> : DbHandler, IContext<TEntity> where TEntity : class
     {
-        public string ConnectionString
-        {
-            get
-            {
-                return @"Data Source=facturasrv.database.windows.net;Initial Catalog=FacturaDB;Persist Security Info=True;User ID=daphnevandelaar;Password=HnUVN21994";
-            }
-        }
+        //public string ConnectionString
+        //{
+        //    get
+        //    {
+        //        return @"Data Source=facturasrv.database.windows.net;Initial Catalog=FacturaDB;Persist Security Info=True;User ID=daphnevandelaar;Password=HnUVN21994";
+        //    }
+        //}
 
-        protected void ExecuteProcedure(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
-        {
-            using (var sqlConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(procedureQuery, sqlConnection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
+        //protected void ExecuteProcedure(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
+        //{
+        //    using (var sqlConnection = new SqlConnection(ConnectionString))
+        //    using (var command = new SqlCommand(procedureQuery, sqlConnection))
+        //    {
+        //        command.CommandType = CommandType.StoredProcedure;
 
-                if (procedureParameters != null)
-                {
-                    command.Parameters.AddRange(procedureParameters.ToArray());
-                }
+        //        if (procedureParameters != null)
+        //        {
+        //            command.Parameters.AddRange(procedureParameters.ToArray());
+        //        }
 
-                sqlConnection.Open();
-                command.ExecuteNonQuery();
-                sqlConnection.Close();
-            }
-        }
-        protected DataTable GetDataByView(string viewQuery)
-        {
-            DataTable dataTable = new DataTable();
+        //        sqlConnection.Open();
+        //        command.ExecuteNonQuery();
+        //        sqlConnection.Close();
+        //    }
+        //}
+        //internal DataTable GetDataByView(string viewQuery)
+        //{
+        //    DataTable dataTable = new DataTable();
 
-            using (var sqlConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(viewQuery, sqlConnection))
-            {
-                using (var dataAdapter = new SqlDataAdapter(command))
-                {
-                    sqlConnection.Open();
-                    dataAdapter.Fill(dataTable);
-                    sqlConnection.Close();
-                }
-            }
+        //    using (var sqlConnection = new SqlConnection(ConnectionString))
+        //    using (var command = new SqlCommand(viewQuery, sqlConnection))
+        //    {
+        //        using (var dataAdapter = new SqlDataAdapter(command))
+        //        {
+        //            sqlConnection.Open();
+        //            dataAdapter.Fill(dataTable);
+        //            sqlConnection.Close();
+        //        }
+        //    }
 
-            return dataTable;
-        }
-        protected SqlParameter ExecuteProcedureWithOutput(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
-        {
-            SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
+        //    return dataTable;
+        //}
 
-            using (var sqlConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(procedureQuery, sqlConnection))
-            {
-                command.CommandType = CommandType.StoredProcedure;
+        ////todo: output parameter buite deze class maken
+        //protected SqlParameter ExecuteProcedureWithOutput(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
+        //{
+        //    SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
 
-                if (procedureParameters != null)
-                {
+        //    using (var sqlConnection = new SqlConnection(ConnectionString))
+        //    using (var command = new SqlCommand(procedureQuery, sqlConnection))
+        //    {
+        //        command.CommandType = CommandType.StoredProcedure;
 
-                    output.Direction = ParameterDirection.Output;
+        //        if (procedureParameters != null)
+        //        {
 
-                    command.Parameters.Add(output);
-                    command.Parameters.AddRange(procedureParameters.ToArray());
-                }
+        //            output.Direction = ParameterDirection.Output;
 
-                sqlConnection.Open();
-                command.ExecuteNonQuery();
-                sqlConnection.Close();
-            }
+        //            command.Parameters.Add(output);
+        //            command.Parameters.AddRange(procedureParameters.ToArray());
+        //        }
 
-            return output;
-        }
+        //        sqlConnection.Open();
+        //        command.ExecuteNonQuery();
+        //        sqlConnection.Close();
+        //    }
+
+        //    return output;
+        //}
 
 
 

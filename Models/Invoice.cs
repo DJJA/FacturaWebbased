@@ -14,7 +14,7 @@ namespace Models
             Customer = customer;
             DateSend = dateSend;
             DatePayed = datePayed;
-            TotalPrice = Convert.ToDecimal(totalPrice.ToString("0.00"));
+            TotalPrice = totalPrice;
         }
         public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed, List<Task> tasks)
         {
@@ -22,10 +22,14 @@ namespace Models
             Customer = customer;
             DateSend = dateSend;
             DatePayed = datePayed;
-            TotalPrice = Convert.ToDecimal(CalculateTotalPrice(tasks).ToString("0.00"));
+            TotalPrice = CalculateTotalPrice(tasks);
             Tasks = tasks;
         }
 
+        public Invoice()
+        {
+            
+        }
 
         public decimal CalculateTotalPrice(List<Task> tasks)
         {
@@ -43,7 +47,19 @@ namespace Models
         public DateTime DateSend { get; set; }
         //TODO:Kijken of date nullable weg kan
         public Nullable<DateTime> DatePayed { get; set; }
-        public decimal TotalPrice { get; set; }
+
+        public decimal TotalPrice
+        {
+            get { return Convert.ToDecimal(totalPrice.ToString("0.00")); }
+            set { totalPrice = value; }
+        }
+        private decimal totalPrice;
+        private decimal price;
+        public decimal TotalPriceByYear
+        {
+            get { return Convert.ToDecimal(price.ToString("0.00")); }
+            set { price = value; }
+        }
 
     }
 }

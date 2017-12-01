@@ -56,16 +56,17 @@ namespace FacturaWeb.Controllers
 
         public ActionResult InvoicePayed(int id)
         {
-            
-            Invoice invoice = invoiceLogic.GetById(id);
+            Invoice invoice = invoiceLogic.GetById(id); ;
+
+            invoiceLogic.InvoicePayed(invoice);
+            //TODO: update invoice with paydate
+
+            invoice = invoiceLogic.GetById(id);
             Customer customer = customerLogic.GetById(invoice.Customer.ID);
             Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
 
             invoice.Customer = customer;
             invoice.Tasks = invoiceTasks.Tasks;
-
-            invoiceLogic.InvoicePayed(invoice);
-            //TODO: update invoice with paydate
 
             return RedirectToAction("Invoice");
         }
@@ -92,6 +93,24 @@ namespace FacturaWeb.Controllers
             invoice.Tasks = invoiceTasks.Tasks;
 
             return View(invoice);
+        }
+
+        public ActionResult Stats(string selectedYear)
+        {
+            if (selectedYear == null)
+            {
+                selectedYear = 2016.ToString();
+            }
+            //invoiceLogic.GetTotalInvoiceAmountByYear(2017);
+            Invoice invoice = new Invoice();
+
+            return View("Stats", invoiceLogic.GetTotalInvoiceAmountByYear(Convert.ToInt32(selectedYear)));
+        }
+
+        public ActionResult CalculateStats(string selectedYear)
+        {
+
+           return View("CalculateStats", invoiceLogic.GetTotalInvoiceAmountByYear(Convert.ToInt32(selectedYear)))  ;
         }
 
         public void Add(ICollection<string> taskId)

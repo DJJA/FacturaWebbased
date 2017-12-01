@@ -12,5 +12,7 @@ namespace DataLayer
         Invoice GetTasksOnInvoice(Invoice recentInvoice);
         //IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId);
         void InvoicePayed(Invoice invoice);
+
+        Invoice GetTotalInvoicePriceByYear(int year);
     }
 }

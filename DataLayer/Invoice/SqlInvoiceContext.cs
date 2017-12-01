@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Serialization.Formatters;
@@ -15,6 +16,8 @@ namespace DataLayer
         //TODO: kijken of de public methods internal of protected kunnen
         //TODO:IEnumerable .AddRange() method bij getall om niet van de opgehaalde data een list te maken
         //TODO: Niet specifieke exceptions gewoon exception gebruike en bij specifieke sql met een message.
+
+            List<Task> alltasks = new List<Task>();
         #region all parameter settings
         private IEnumerable<SqlParameter> InvoiceSqlParameters(Invoice invoice)
         {
@@ -57,6 +60,7 @@ namespace DataLayer
         private Invoice InvoiceFromDataRow(DataRow datarow)
         {
             Customer customer = null;
+            
             if (datarow.Table.Columns.Contains("customerId"))
             {
                 customer = new Customer(
@@ -81,18 +85,16 @@ namespace DataLayer
 
             );
         }
-        private List<Task> TasksOnInvoiceFromDataRow(DataRow datarow)
+        private void TasksOnInvoiceFromDataRow(DataRow datarow)
         {
-            return new List<Task>()
-            {
+            alltasks.Add(
                 new Task(
-                    description: datarow["description"].ToString(),
-                    date: ReadPaymentDate(datarow["date"].ToString()),
-                    amount: Convert.ToDecimal(datarow["amount"]),
-                    price: Convert.ToDecimal(datarow["price"]),
-                    unit: (Unit)Convert.ToInt16(datarow["unit"])
-                )
-            }; 
+                description: datarow["description"].ToString(),
+                date: ReadPaymentDate(datarow["date"].ToString()),
+                amount: Convert.ToDecimal(datarow["amount"]),
+                price: Convert.ToDecimal(datarow["price"]),
+                unit: (Unit)Convert.ToInt16(datarow["unit"])
+            ));
         }
         #endregion
 
@@ -152,7 +154,11 @@ namespace DataLayer
                 var dataTable = GetDataByView($"SELECT * FROM funcTasksOnInvoice({invoice.Id})");
                 if (dataTable.Rows.Count > 0)
                 {
-                    tasks = TasksOnInvoiceFromDataRow(dataTable.Rows[0]);
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        TasksOnInvoiceFromDataRow(row);
+                    }
+                    //tasks = TasksOnInvoiceFromDataRow(dataTable.Rows[0]);
                 }
             }
             catch (SqlException sqlEx)
@@ -164,7 +170,7 @@ namespace DataLayer
             {
                 throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
             }
-            invoice.Tasks = tasks;
+            invoice.Tasks = alltasks;
             return invoice;
         }
         public override Invoice GetById(int id)
@@ -207,8 +213,6 @@ namespace DataLayer
             }
         }
 
-
-
         public override void Update(Invoice invoice)
         {
             throw new NotImplementedException();
@@ -228,7 +232,64 @@ namespace DataLayer
             }
         }
 
-      
+        public Invoice GetTotalPriceByYear(int year)
+        {
+            Invoice invoice = new Invoice();
+            try
+            {
+                var dataTable = GetDataByView($"SELECT dbo.funcGetTotalInvoicePriceByYear('{year}')");
+                if (dataTable.Rows.Count > 0)
+                {
+                    invoice.TotalPriceByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvoiceException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+            return invoice;
+        }
+
+        public Invoice GetTop3Customers()
+        {
+            //if (datarow.Table.Columns.Contains("TotalAmountByCustomer"))
+            //{
+            //    customer = new Customer(
+            //        id: Convert.ToInt16(datarow["customerId"]),
+            //        totalpriceofallinv: Convert.ToDecimal(datarow["TotalAmountByCustomer"])
+            //    );
+
+
+            //    return new Invoice(customer);
+            //}
+
+            Invoice invoice = new Invoice();
+            try
+            {
+                var dataTable = GetDataByView($"");
+                if (dataTable.Rows.Count > 0)
+                {
+                    invoice.TotalPriceByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvoiceException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+            return invoice;
+        }
+
+
         //TODO: hier loopt nog wat fout, bij klanten pagina doorklikken
         //public IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId)
         //{
