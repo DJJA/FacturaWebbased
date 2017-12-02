@@ -57,7 +57,7 @@
 
             <br />
             <div id="yearamount">
-                <h1 align="center"><b>€@Model.TotalIncomeByYear</b></h1>
+                <h1 align="center"><b>@Html.Action("TotalIncome")</b></h1>
             </div>
 
         </div>
@@ -84,12 +84,7 @@
             <br/>
             <div align="center">
                 <div id="besttasks">
-                    <ol>
-                        @foreach (var item in @Model.TopTasks)
-                        {
-                            <li>@item.Id | € @item.TotalAmountOfAllSimilarTasks</li>
-                        }
-                    </ol>
+                    @Html.Action("BestTasks")
                 </div>
             </div>
             <br />

@@ -220,6 +220,7 @@
     <Content Include="Views\CompanyStatistics\Statistics.cshtml" />
     <Content Include="Views\CompanyStatistics\TotalIncome.cshtml" />
     <Content Include="Views\CompanyStatistics\BestTasks.cshtml" />
+    <Content Include="Views\CompanyStatistics\BestCustomers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

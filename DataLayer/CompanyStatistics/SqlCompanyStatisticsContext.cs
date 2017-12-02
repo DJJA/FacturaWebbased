@@ -38,10 +38,17 @@ namespace DataLayer
             CompanyStatistics companyStatistics = new CompanyStatistics();
             try
             {
-                var dataTable = GetDataByView($"SELECT dbo.funcGetTotalInvoicePriceByYear('2017')");
+                var dataTable = GetDataByView($"SELECT dbo.funcGetTotalInvoicePriceByYear('{year}')");
                 if (dataTable.Rows.Count > 0)
                 {
-                    companyStatistics.TotalIncomeByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
+                    string test = dataTable.Rows[0][0].ToString();
+                    if (test == "")
+                    {
+                        companyStatistics.TotalIncomeByYear = 0;
+                    }
+                    else
+                        companyStatistics.TotalIncomeByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
+                    
                 }
             }
             catch (SqlException sqlEx)

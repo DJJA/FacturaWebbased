@@ -4,5 +4,16 @@
     Layout = null;
 }
 
-<h1 align="center"><b>€@Model.TotalIncomeByYear</b></h1>
+<h1 align="center"><b>
+    €
+    @if (@Model.TotalIncomeByYear == null)
+    {
+
+    }
+    else
+    {
+        @Model.TotalIncomeByYear
+        ;
+    }
+</b></h1>
 

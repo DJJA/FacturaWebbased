@@ -11,11 +11,11 @@ namespace FacturaWeb.Controllers
     public class CompanyStatisticsController : Controller
     {
         private ICompanyStatisticsLogic companyStatisticsLogic = CompanyStatisticsFactory.ManageCompanyStatistics();
-
+        private ITaskLogic taskLogic = TaskFactory.ManageTasks();
         private ICustomerLogic customerLogic = CustomerFactory.ManageCustomers();
 
         // GET: CompanyStatistics
-        public ActionResult Statistics(string year, string selectedYear)
+        public ActionResult Statistics()
         {
             var companyStats = companyStatisticsLogic.GetTop3Customers();
 
@@ -26,22 +26,24 @@ namespace FacturaWeb.Controllers
                 companyStats.TopCustomers[i].TotalPriceOfAllInvoices = totalprice;
             }
 
-
-            if (year == null & selectedYear == null)
-            {
-                year = 2016.ToString();
-                selectedYear = 2016.ToString();
-            }
-            companyStats.TotalIncomeByYear = companyStatisticsLogic.GetTotalIncomeByYear(Convert.ToInt32(selectedYear)).TotalIncomeByYear;
-            companyStats.TopTasks = companyStatisticsLogic.GetTop3Tasks(year);
-
             return View("Statistics", companyStats);
         }
 
         public ActionResult BestTasks(string year)
         {
+            if (year == null)
+            {
+                year = 2016.ToString();
+            }
 
             var tasks = companyStatisticsLogic.GetTop3Tasks(year);
+
+            for (int i = 0; i < tasks.Count; i++)
+            {
+                var totalprice = tasks[i].TotalAmountOfAllSimilarTasks;
+                tasks[i] = taskLogic.GetTaskById(tasks[i].Id);
+                tasks[i].TotalAmountOfAllSimilarTasks = totalprice;
+            }
 
             return View("BestTasks", tasks);
 
@@ -49,7 +51,10 @@ namespace FacturaWeb.Controllers
 
         public ActionResult TotalIncome(string selectedYear)
         {
-
+            if (selectedYear == null)
+            {
+                selectedYear = 2016.ToString();
+            }
             return View("TotalIncome", companyStatisticsLogic.GetTotalIncomeByYear(Convert.ToInt32(selectedYear)));
         }
     }

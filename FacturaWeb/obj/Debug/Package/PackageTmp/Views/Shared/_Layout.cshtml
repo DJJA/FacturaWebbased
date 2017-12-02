@@ -75,6 +75,9 @@
         appInsights.trackPageView();
 
     </script>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -92,11 +95,11 @@
                     <li>@Html.ActionLink("Klanten", "Customer", "Customer")</li>
                     <li>@Html.ActionLink("Diensten", "Index", "Task")</li>
                     <li class="dropdown">
-                        @Html.ActionLink("Facturen", "Invoice", "Invoice")
+                        <a href="">Facturen  <i class="fa fa-caret-down"></i></a>
+                        
                         <div class="dropdown-content">
+                            @Html.ActionLink("Facturen", "Invoice", "Invoice")
                             @Html.ActionLink("Statistieken", "Statistics", "CompanyStatistics")
-                            <a href="#">nog niks</a>
-                            <a href="#">nog niks</a>
                         </div>
                     </li>
                 </ul>
