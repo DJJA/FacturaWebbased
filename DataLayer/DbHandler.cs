@@ -54,9 +54,9 @@ namespace DataLayer
         }
 
         //todo: output parameter buite deze class maken
-        protected SqlParameter ExecuteProcedureWithOutput(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
+        protected SqlParameter ExecuteProcedureWithOutput(string procedureQuery, IEnumerable<SqlParameter> procedureParameters, string queryoutput)
         {
-            SqlParameter output = new SqlParameter("@InvoiceId", SqlDbType.Int);
+            SqlParameter output = new SqlParameter(queryoutput, SqlDbType.Int);
 
             using (var sqlConnection = new SqlConnection(ConnectionString))
             using (var command = new SqlCommand(procedureQuery, sqlConnection))

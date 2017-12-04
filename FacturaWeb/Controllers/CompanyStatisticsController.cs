@@ -57,5 +57,11 @@ namespace FacturaWeb.Controllers
             }
             return View("TotalIncome", companyStatisticsLogic.GetTotalIncomeByYear(Convert.ToInt32(selectedYear)));
         }
+
+        public ActionResult CustomersWithInvoice()
+        {
+            var lijst = customerLogic.GetCustomersWithInvoice();
+            return View(lijst);
+        }
     }
 }

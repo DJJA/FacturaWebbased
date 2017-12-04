@@ -103,7 +103,7 @@ namespace DataLayer
             try
             {
                 
-                var parameter = ExecuteProcedureWithOutput("spManageInvoice", InvoiceSqlParameters(invoice));
+                var parameter = ExecuteProcedureWithOutput("spManageInvoice", InvoiceSqlParameters(invoice), "@invoiceId");
                 invoice.Id = Convert.ToInt32(parameter.Value.ToString());
                 InsertTasksToInvoice(invoice);
             }

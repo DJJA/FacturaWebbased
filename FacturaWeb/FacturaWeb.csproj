@@ -221,6 +221,7 @@
     <Content Include="Views\CompanyStatistics\TotalIncome.cshtml" />
     <Content Include="Views\CompanyStatistics\BestTasks.cshtml" />
     <Content Include="Views\CompanyStatistics\BestCustomers.cshtml" />
+    <Content Include="Views\CompanyStatistics\CustomersWithInvoice.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

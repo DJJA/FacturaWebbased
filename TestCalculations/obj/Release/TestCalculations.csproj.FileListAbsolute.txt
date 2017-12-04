@@ -1,0 +1,15 @@
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\TestCalculations.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\TestCalculations.pdb
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Models.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Models.pdb
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.xml
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\bin\Release\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\obj\Release\TestCalculations.csprojResolveAssemblyReference.cache
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\obj\Release\TestCalculations.csproj.CoreCompileInputs.cache
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\obj\Release\TestCalculations.dll
+D:\Software projects\FacturaWeb\FacturaWebbased\TestCalculations\obj\Release\TestCalculations.pdb

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacturaWeb", "FacturaWeb\FacturaWeb.csproj", "{253B705E-C646-457D-AFCF-E9927C34BEE1}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -17,6 +17,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacturaWeb.Factory", "Factory\FacturaWeb.Factory.csproj", "{026752C2-BFBA-4847-9119-6926A21733A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacturaWeb.PdfInvoiceCreator", "PdfInvoiceCreator\FacturaWeb.PdfInvoiceCreator.csproj", "{2FE9AC9E-52B0-4F92-8405-15AA34DF9F69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCustomerDatabase", "TestCustomer\TestCustomerDatabase.csproj", "{D7C05E3E-1D92-48A0-8F7A-6E5FA33A10A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestCalculations", "TestCalculations\TestCalculations.csproj", "{9E8E989A-06EA-4B88-968C-16FA544B19EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,6 +53,14 @@ Global
 		{2FE9AC9E-52B0-4F92-8405-15AA34DF9F69}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{2FE9AC9E-52B0-4F92-8405-15AA34DF9F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2FE9AC9E-52B0-4F92-8405-15AA34DF9F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7C05E3E-1D92-48A0-8F7A-6E5FA33A10A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7C05E3E-1D92-48A0-8F7A-6E5FA33A10A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7C05E3E-1D92-48A0-8F7A-6E5FA33A10A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7C05E3E-1D92-48A0-8F7A-6E5FA33A10A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E8E989A-06EA-4B88-968C-16FA544B19EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E8E989A-06EA-4B88-968C-16FA544B19EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E8E989A-06EA-4B88-968C-16FA544B19EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E8E989A-06EA-4B88-968C-16FA544B19EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,7 +9,6 @@ namespace DataLayer
 {
     public interface ICustomerRepository : IRepository<Customer> 
     {
-        IEnumerable<Customer> GetTopCustomers(int count);
         IEnumerable<Customer> GetCustomersByLastName(string lastname);
         IEnumerable<Customer> GetCustomersByZipcode(string zipcode);
     }

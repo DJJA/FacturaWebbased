@@ -1,0 +1,45 @@
+﻿@using Models
+@model List<Models.Customer>
+
+<style>
+    .widediv {
+        width: 100%;
+        height: 30%;
+        overflow: auto;
+    }
+</style>
+
+<div class="widediv">
+    <table>
+        <thead>
+        <tr>
+            <th>Klantnr</th>
+            <th>Naam</th>
+            <th>Voorvoegsel</th>
+            <th>Achternaam</th>
+            <th>Straat</th>
+            <th>Plaats</th>
+            <th>Postcode</th>
+            <th>Email</th>
+            <th>Telefoon</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (Customer customer in @Model)
+        {
+            <tr>
+                <th scope="row">@customer.ID</th>
+                <td>@customer.FirstName</td>
+                <td>@customer.Preposition</td>
+                <td>@customer.LastName</td>
+                <td>@customer.Address.StreetName</td>
+                <td>@customer.Address.Place</td>
+                <td>@customer.Address.ZipCode</td>
+                <td>@customer.Email</td>
+                <td>@customer.PhoneNumber</td>
+
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>

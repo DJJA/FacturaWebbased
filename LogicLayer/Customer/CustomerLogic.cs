@@ -46,5 +46,10 @@ namespace LogicLayer
         {
             return customerRepository.GetCustomersByZipcode(zipcode).ToList();
         }
+
+        public List<Customer> GetCustomersWithInvoice()
+        {
+            return customerRepository.GetCustomersWithInvoice().ToList();
+        }
     }
 }

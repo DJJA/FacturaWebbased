@@ -33,12 +33,5 @@ namespace DataLayer
             return customerContext.GetCustomersByZipcode(zipcode);
         }
 
-        public IEnumerable<Customer> GetTopCustomers(int count)
-        {
-            //var context = (IDbCustomerContext)Context;
-            //context.GetCustomerById(1);
-            throw new NotImplementedException();
-        }
-
     }
 }

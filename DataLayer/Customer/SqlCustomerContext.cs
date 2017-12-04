@@ -11,8 +11,12 @@ using Models;
 
 namespace DataLayer
 {
+    
+
     public class SqlCustomerContext : SqlContext<Customer>, ICustomerContext
     {
+        public int CustomerIdAfterInsertion { get; set; }
+
         #region all parameter settings
         private IEnumerable<SqlParameter> CustomerSqlParameters(Customer customer)
         {
@@ -79,7 +83,8 @@ namespace DataLayer
         {
             try
             {
-                ExecuteProcedure("spManageCustomer", CustomerSqlParameters(customer));
+                var parameter = ExecuteProcedureWithOutput("spManageCustomer", CustomerSqlParameters(customer), "@customerId");
+                CustomerIdAfterInsertion = Convert.ToInt32(parameter.Value.ToString());
             }
             catch (SqlException sqlEx)
             {
@@ -146,6 +151,9 @@ namespace DataLayer
             }
             return customers;
         }
+
+        
+
         public override Customer GetById(int id)
         {
             Customer customer = null;

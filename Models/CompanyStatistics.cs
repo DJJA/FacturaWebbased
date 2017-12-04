@@ -8,14 +8,29 @@ namespace Models
 {
     public class CompanyStatistics
     {
+        //TODO: constructor maken en properties private
         public List<Customer> TopCustomers { get; set; }
         public List<Task> TopTasks { get; set; }
+
+
 
         private decimal totalAmount;
         public decimal TotalIncomeByYear
         {
             get { return Convert.ToDecimal(totalAmount.ToString("0.00")); }
             set { totalAmount = value; }
+        }
+
+        public CompanyStatistics(List<Customer> topCustomers, List<Task> topTasks, decimal totalAmount)
+        {
+            TopCustomers = topCustomers;
+            TopTasks = topTasks;
+            TotalIncomeByYear = totalAmount;
+        }
+
+        public CompanyStatistics()
+        {
+            
         }
 
     }
