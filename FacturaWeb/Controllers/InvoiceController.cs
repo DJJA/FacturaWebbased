@@ -19,6 +19,7 @@ namespace FacturaWeb.Controllers
         private IInvoiceLogic invoiceLogic = InvoiceFactory.ManageInvoices();
         private ITaskLogic taskLogic = TaskFactory.ManageTasks();
         private ICustomerLogic customerLogic = CustomerFactory.ManageCustomers();
+        private ICompanyStatisticsLogic companyStatisticsLogic = CompanyStatisticsFactory.ManageCompanyStatistics();
 
         public ActionResult Invoice()
         {
@@ -95,23 +96,25 @@ namespace FacturaWeb.Controllers
             return View(invoice);
         }
 
-        public ActionResult Stats(string selectedYear)
-        {
-            if (selectedYear == null)
-            {
-                selectedYear = 2016.ToString();
-            }
-            //invoiceLogic.GetTotalInvoiceAmountByYear(2017);
-            Invoice invoice = new Invoice();
+        //public ActionResult Stats(string selectedYear)
+        //{
+        //    if (selectedYear == null)
+        //    {
+        //        selectedYear = 2016.ToString();
+        //    }
+        //    //invoiceLogic.GetTotalInvoiceAmountByYear(2017);
+        //    Invoice invoice = new Invoice();
 
-            return View("Stats", invoiceLogic.GetTotalInvoiceAmountByYear(Convert.ToInt32(selectedYear)));
-        }
+        //    var income = companyStatisticsLogic.GetTotalIncomeByYear(Convert.ToInt32(selectedYear));
 
-        public ActionResult CalculateStats(string selectedYear)
-        {
+        //    return View("Stats", income);
+        //}
 
-           return View("CalculateStats", invoiceLogic.GetTotalInvoiceAmountByYear(Convert.ToInt32(selectedYear)))  ;
-        }
+        //public ActionResult CalculateStats(string selectedYear)
+        //{
+
+        //   return View("CalculateStats", invoiceLogic.GetTotalInvoiceAmountByYear(Convert.ToInt32(selectedYear)))  ;
+        //}
 
         public void Add(ICollection<string> taskId)
         {

@@ -44,6 +44,12 @@ namespace Models
             LastName = lastname;
             FirstName = firstname;
         }
+        public Customer(string firstname, string preposition, string lastname)
+        {
+            LastName = lastname;
+            Preposition = preposition;
+            FirstName = firstname;
+        }
 
         public Customer(int id)
         {

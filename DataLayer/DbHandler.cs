@@ -10,13 +10,7 @@ namespace DataLayer
 {
     public class DbHandler
     {
-        private string ConnectionString
-        {
-            get
-            {
-                return @"Data Source=facturasrv.database.windows.net;Initial Catalog=FacturaDB;Persist Security Info=True;User ID=daphnevandelaar;Password=HnUVN21994";
-            }
-        }
+        private string ConnectionString => @"Data Source=facturasrv.database.windows.net;Initial Catalog=FacturaDB;Persist Security Info=True;User ID=daphnevandelaar;Password=HnUVN21994";
 
         protected void ExecuteProcedure(string procedureQuery, IEnumerable<SqlParameter> procedureParameters)
         {

@@ -4,7 +4,7 @@
     ViewBag.Title = "Stats";
 }
 
-<h2>Stats</h2>
+<h3>Bedrijfsstatisstieken</h3>
 
 <html>
 <head>
@@ -42,56 +42,66 @@
 
 </head>
 <body>
-    <div id="wrap">
-        <div id="one" class="fl-l">
-            <h4>
-                <b>
-                    Totaal inkomen jaar:
-                    <select class="selectionyear" id="mySelect" onchange="myFunction()">
-                        <option value="2016">2016
-                        <option value="2017">2017
-                        <option value="2018">2018
-                    </select>
-                </b>
-            </h4>
-
-            <br />
-            <div id="yearamount">
-                <h1 align="center"><b>@Html.Action("TotalIncome")</b></h1>
-            </div>
-
-        </div>
-
-        <div id="two" class="fl-l">
-            <h4><b>Beste klant</b></h4>
-            <br/>
-            <div align="center">
-                <ol>
-                    @foreach (var item in @Model.TopCustomers)
-                    {
-                        <li>@item.FirstName @item.Preposition @item.LastName  |  € @item.TotalPriceOfAllInvoices</li>
-                    }
-                </ol>
-            </div>
-        </div>
-        <div id="three" class="fl-l">
-            <h4><b>Meest gevraagde diensten: 
-                <select class="task" id="Selectedtaskyear"onchange="myFunctionForTasks()">
+<div id="wrap">
+    <div id="one" class="fl-l">
+        <h4>
+            <b>
+                Totaal inkomen jaar:
+                <select class="selectionyear" id="mySelect" onchange="myFunction()">
                     <option value="2016">2016
                     <option value="2017">2017
                     <option value="2018">2018
-                </select></b></h4>
-            <br/>
-            <div align="center">
-                <div id="besttasks">
-                    @Html.Action("BestTasks")
-                </div>
-            </div>
-            <br />
+                </select>
+            </b>
+        </h4>
+
+        <br />
+        <div id="yearamount">
+            <h1 align="center"><b>@Html.Action("TotalIncome")</b></h1>
+        </div>
+
+    </div>
+
+    <div id="two" class="fl-l">
+        <h4><b>Beste klant</b></h4>
+        <br />
+        <div align="center">
+            <ol>
+                @foreach (var item in @Model.TopCustomers)
+                {
+                    <li>@item.FirstName @item.Preposition @item.LastName  |  € @item.TotalPriceOfAllInvoices</li>
+                }
+            </ol>
         </div>
     </div>
+    <div id="three" class="fl-l">
+        <h4>
+            <b>
+                Meest gevraagde diensten:
+                <select class="task" id="Selectedtaskyear" onchange="myFunctionForTasks()">
+                    <option value="2016">2016
+                    <option value="2017">2017
+                    <option value="2018">2018
+                </select>
+            </b>
+        </h4>
+        <br />
+        <div align="center">
+            <div id="besttasks">
+                @Html.Action("BestTasks")
+            </div>
+        </div>
+        <br />
+    </div>
+</div>
+    <br/>
+<div>
+    @Html.Action("CustomersWithInvoice", "CompanyStatistics")
+</div>
+
 </body>
 </html>
+
 
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>*@
@@ -103,7 +113,7 @@
         var strUser = e.options[e.selectedIndex].value;
 
         $.ajax({
-            url: '@Url.Action("TotalIncome","CompanyStatistics")',
+            url: '@Url.Action("TotalIncome", "CompanyStatistics")',
             data: {
                 'selectedYear': strUser
             },

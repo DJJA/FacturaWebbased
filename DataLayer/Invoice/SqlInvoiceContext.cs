@@ -232,64 +232,6 @@ namespace DataLayer
             }
         }
 
-        public Invoice GetTotalPriceByYear(int year)
-        {
-            Invoice invoice = new Invoice();
-            try
-            {
-                var dataTable = GetDataByView($"SELECT dbo.funcGetTotalInvoicePriceByYear('{year}')");
-                if (dataTable.Rows.Count > 0)
-                {
-                    invoice.TotalPriceByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new InvoiceException(
-                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
-            }
-            catch (Exception ex)
-            {
-                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
-            }
-            return invoice;
-        }
-
-        public Invoice GetTop3Customers()
-        {
-            //if (datarow.Table.Columns.Contains("TotalAmountByCustomer"))
-            //{
-            //    customer = new Customer(
-            //        id: Convert.ToInt16(datarow["customerId"]),
-            //        totalpriceofallinv: Convert.ToDecimal(datarow["TotalAmountByCustomer"])
-            //    );
-
-
-            //    return new Invoice(customer);
-            //}
-
-            Invoice invoice = new Invoice();
-            try
-            {
-                var dataTable = GetDataByView($"");
-                if (dataTable.Rows.Count > 0)
-                {
-                    invoice.TotalPriceByYear = Convert.ToDecimal(dataTable.Rows[0][0].ToString());
-                }
-            }
-            catch (SqlException sqlEx)
-            {
-                throw new InvoiceException(
-                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
-            }
-            catch (Exception ex)
-            {
-                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
-            }
-            return invoice;
-        }
-
-
         //TODO: hier loopt nog wat fout, bij klanten pagina doorklikken
         //public IEnumerable<Invoice> GetInvoicesPerCustomer(int customerId)
         //{

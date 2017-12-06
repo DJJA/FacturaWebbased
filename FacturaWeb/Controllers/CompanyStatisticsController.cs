@@ -60,8 +60,8 @@ namespace FacturaWeb.Controllers
 
         public ActionResult CustomersWithInvoice()
         {
-            var lijst = customerLogic.GetCustomersWithInvoice();
-            return View(lijst);
+            var stats = companyStatisticsLogic.GetCustomersWithInvoices();
+            return View(stats);
         }
     }
 }

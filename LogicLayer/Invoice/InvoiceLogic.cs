@@ -92,10 +92,5 @@ namespace LogicLayer
         {
             invoiceRepository.InvoicePayed(invoice);
         }
-
-        public Invoice GetTotalInvoiceAmountByYear(int year)
-        {
-            return invoiceRepository.GetTotalInvoicePriceByYear(year);
-        }
     }
 }

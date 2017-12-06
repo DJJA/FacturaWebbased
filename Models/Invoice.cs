@@ -26,6 +26,14 @@ namespace Models
             Tasks = tasks;
         }
 
+        public Invoice(int id, decimal totalPrice, DateTime datePayed, Customer customer)
+        {
+            Id = id;
+            TotalPrice = totalPrice;
+            DatePayed = datePayed;
+            Customer = customer;
+        }
+
         public Invoice()
         {
             

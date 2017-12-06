@@ -32,5 +32,7 @@ namespace LogicLayer
         {
             return companyStatisticsRepository.GetTop3Tasks(year);
         }
+
+        public CompanyStatistics GetCustomersWithInvoices() => companyStatisticsRepository.GetCustomersWithInvoices();
     }
 }

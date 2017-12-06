@@ -33,10 +33,5 @@ namespace DataLayer
         {
             invoiceContext.InvoicePayed(invoice);
         }
-
-        public Invoice GetTotalInvoicePriceByYear(int year)
-        {
-            return invoiceContext.GetTotalPriceByYear(year);
-        }
     }
 }

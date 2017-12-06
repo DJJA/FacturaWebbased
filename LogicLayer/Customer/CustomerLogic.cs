@@ -49,7 +49,8 @@ namespace LogicLayer
 
         public List<Customer> GetCustomersWithInvoice()
         {
-            return customerRepository.GetCustomersWithInvoice().ToList();
+            
+            throw new NotImplementedException();
         }
     }
 }

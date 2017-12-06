@@ -29,5 +29,10 @@ namespace TestCustomer
             Assert.AreEqual(customerexpected.LastName, customerbyid.LastName);
 
         }
+
+        private void DeleteTestCustomer(int id)
+        {
+            
+        }
     }
 }

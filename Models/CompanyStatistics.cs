@@ -11,8 +11,7 @@ namespace Models
         //TODO: constructor maken en properties private
         public List<Customer> TopCustomers { get; set; }
         public List<Task> TopTasks { get; set; }
-
-
+        public List<Invoice> CustomerInvoices { get; set; }
 
         private decimal totalAmount;
         public decimal TotalIncomeByYear
@@ -26,6 +25,11 @@ namespace Models
             TopCustomers = topCustomers;
             TopTasks = topTasks;
             TotalIncomeByYear = totalAmount;
+        }
+
+        public CompanyStatistics(List<Invoice> customerInvoices)
+        {
+            CustomerInvoices = customerInvoices;
         }
 
         public CompanyStatistics()

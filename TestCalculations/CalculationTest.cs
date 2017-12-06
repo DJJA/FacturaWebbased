@@ -41,5 +41,6 @@ namespace TestCalculations
             // Assert
             Assert.AreEqual(expected, task.TotalPrice);
         }
+
     }
 }

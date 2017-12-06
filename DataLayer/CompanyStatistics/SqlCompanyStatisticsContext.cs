@@ -23,6 +23,58 @@ namespace DataLayer
             );
         }
 
+        private DateTime ReadPaymentDate(string date)
+        {
+            if (date == string.Empty)
+            {
+                return new DateTime();
+            }
+            else
+            {
+                return DateTime.Parse(date);
+            }
+        }
+
+        private decimal ReadTotalPrice(string price)
+        {
+            if (price == string.Empty)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToDecimal(price);
+            }
+        }
+
+        private int ReadId(string id)
+        {
+            if (id == string.Empty)
+            {
+                return 0;
+            }
+            else
+            {
+                return Convert.ToInt32(id);
+            }
+        }
+
+        private Invoice StatisticsCustomerInvoice(DataRow datarow)
+        {
+            var customer = new Customer(
+                firstname: datarow["firstname"].ToString(),
+                preposition: datarow["prefix"].ToString(),
+                lastname: datarow["lastname"].ToString()
+            );
+
+            return new Invoice(
+                id: ReadId(datarow["id"].ToString()),
+                datePayed: ReadPaymentDate(datarow["datePayed"].ToString()),
+                totalPrice: ReadTotalPrice(datarow["totalprice"].ToString()),
+                customer: customer
+                );
+        }
+
         private void StatisticsFromDataRow(DataRow datarow)
         {
             var customer = new Customer(
@@ -85,7 +137,7 @@ namespace DataLayer
             {
                 throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
             }
-            
+            //TODO: kijken naar property
             companyStats.TopCustomers = customers;
             return companyStats;
         }
@@ -115,6 +167,33 @@ namespace DataLayer
             }
 
             return tasks;
+        }
+
+        public CompanyStatistics GetCustomersWithInvoices()
+        {
+            List<Invoice> invoices = new List<Invoice>();
+            try
+            {
+                var dataTable = GetDataByView($"SELECT * FROM vwCustomersWithInvoice");
+                if (dataTable.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dataTable.Rows)
+                    {
+                        invoices.Add(StatisticsCustomerInvoice(row));
+                    }
+                }
+            }
+            catch (SqlException sqlEx)
+            {
+                throw new InvoiceException(
+                    $"Neem contact op met de beheerder onder sqldatabase exceptionCode:{sqlEx.Number}");
+            }
+            catch (Exception ex)
+            {
+                throw new InvoiceException($"Neem contact op met de beheerder onder exceptionCode:{ex.HResult}");
+            }
+            
+            return new CompanyStatistics(invoices); 
         }
     }
 }

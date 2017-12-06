@@ -30,5 +30,7 @@ namespace DataLayer
         {
             return companyStatisticsContext.GetTop3Tasks(year);
         }
+        //TODO: Alles zoals dit maken
+        public CompanyStatistics GetCustomersWithInvoices() => companyStatisticsContext.GetCustomersWithInvoices();
     }
 }
