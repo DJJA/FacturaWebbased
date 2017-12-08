@@ -102,9 +102,10 @@ namespace DataLayer
         {
             try
             {
-                
+                //Todo: invoice.id private maken
                 var parameter = ExecuteProcedureWithOutput("spManageInvoice", InvoiceSqlParameters(invoice), "@invoiceId");
                 invoice.Id = Convert.ToInt32(parameter.Value.ToString());
+                
                 InsertTasksToInvoice(invoice);
             }
             catch (SqlException sqlEx)

@@ -15,6 +15,5 @@ namespace LogicLayer
         Customer GetById(int id);
         List<Customer> GetCustomersByLastName(string lastname);
         List<Customer> GetCustomersByZipcode(string zipcode);
-        List<Customer> GetCustomersWithInvoice();
     }
 }

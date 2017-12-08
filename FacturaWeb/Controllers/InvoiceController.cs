@@ -57,19 +57,20 @@ namespace FacturaWeb.Controllers
 
         public ActionResult InvoicePayed(int id)
         {
-            Invoice invoice = invoiceLogic.GetById(id); ;
+            Invoice invoice = invoiceLogic.GetById(id); 
 
             invoiceLogic.InvoicePayed(invoice);
-            //TODO: update invoice with paydate
 
             invoice = invoiceLogic.GetById(id);
             Customer customer = customerLogic.GetById(invoice.Customer.ID);
             Invoice invoiceTasks = invoiceLogic.GetTasksOnInvoice(invoice);
 
+            //TODO: invoice.customer private maken
+
             invoice.Customer = customer;
             invoice.Tasks = invoiceTasks.Tasks;
 
-            return RedirectToAction("Invoice");
+            return View("Invoice");
         }
 
         public ActionResult Confirmation(int id)

@@ -11,28 +11,16 @@ namespace LogicLayer
 {
     public class CompanyStatisticsLogic : ICompanyStatisticsLogic
     {
-        private ICompanyStatisticsRepository companyStatisticsRepository;
+        private readonly ICompanyStatisticsRepository companyStatisticsRepository;
 
         public CompanyStatisticsLogic(ICompanyStatisticsRepository companyStatisticsRepository)
         {
             this.companyStatisticsRepository = companyStatisticsRepository;
         }
 
-        public CompanyStatistics GetTotalIncomeByYear(int year)
-        {
-            return companyStatisticsRepository.GetTotalIncomeByYear(year);
-        }
-
-        public CompanyStatistics GetTop3Customers()
-        {
-            return companyStatisticsRepository.GetTop3Customers();
-        }
-
-        public List<Task> GetTop3Tasks(string year)
-        {
-            return companyStatisticsRepository.GetTop3Tasks(year);
-        }
-
+        public CompanyStatistics GetTotalIncomeByYear(int year) => companyStatisticsRepository.GetTotalIncomeByYear(year);
+        public CompanyStatistics GetTop3Customers() => companyStatisticsRepository.GetTop3Customers();
+        public List<Task> GetTop3Tasks(string year) => companyStatisticsRepository.GetTop3Tasks(year);
         public CompanyStatistics GetCustomersWithInvoices() => companyStatisticsRepository.GetCustomersWithInvoices();
     }
 }

@@ -44,7 +44,6 @@
     <Compile Include="CompanyStatistics.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Exceptions\InvoiceException.cs" />
-    <Compile Include="PdfInvoice.cs" />
     <Compile Include="Exceptions\TaskException.cs" />
     <Compile Include="Exceptions\CustomerException.cs" />
     <Compile Include="Invoice.cs" />

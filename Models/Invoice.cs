@@ -19,10 +19,10 @@ namespace Models
         public Invoice(int id, Customer customer, DateTime dateSend, DateTime datePayed, List<Task> tasks)
         {
             Id = id;
+            
             Customer = customer;
             DateSend = dateSend;
             DatePayed = datePayed;
-            TotalPrice = CalculateTotalPrice(tasks);
             Tasks = tasks;
         }
 
@@ -34,40 +34,38 @@ namespace Models
             Customer = customer;
         }
 
-        public Invoice()
+        public Invoice(int id)
         {
-            
-        }
-
-        public decimal CalculateTotalPrice(List<Task> tasks)
-        {
-            foreach(var task in tasks)
-            {
-                TotalPrice += (task.Amount * task.Price);
-            }
-
-            return TotalPrice;
+            Id = id;
         }
 
         public int Id { get; set; }
         public Customer Customer { get; set; }
         public List<Task> Tasks { get; set; }
-        public DateTime DateSend { get; set; }
-        //TODO:Kijken of date nullable weg kan
-        public Nullable<DateTime> DatePayed { get; set; }
+        public DateTime DateSend { get; private set; }
+        public DateTime DatePayed { get; private set; }
 
+        private decimal totalPrice;
         public decimal TotalPrice
         {
-            get { return Convert.ToDecimal(totalPrice.ToString("0.00")); }
-            set { totalPrice = value; }
-        }
-        private decimal totalPrice;
-        private decimal price;
-        public decimal TotalPriceByYear
-        {
-            get { return Convert.ToDecimal(price.ToString("0.00")); }
-            set { price = value; }
-        }
+            get
+            {
+                if (totalPrice != 0)
+                {
+                    return Convert.ToDecimal(totalPrice.ToString("0.00"));
+                }
+                else
+                {
+                    foreach (Task task in Tasks)
+                    {
+                        totalPrice += task.Amount * task.Price;
+                    }
+                    return totalPrice;
+                }
 
+            }
+            private set { totalPrice = value; }
+        }
+        
     }
 }

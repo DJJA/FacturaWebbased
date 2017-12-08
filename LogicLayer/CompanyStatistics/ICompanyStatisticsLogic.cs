@@ -9,8 +9,8 @@ namespace LogicLayer
     public interface ICompanyStatisticsLogic
     {
         CompanyStatistics GetTotalIncomeByYear(int year);
-        CompanyStatistics GetTop3Customers();
-        List<Task> GetTop3Tasks(string year);
+        CompanyStatistics GetTop3Customers(); //TODO: evt. list maken
+        List<Task> GetTop3Tasks(string year); //TODO: evt. company object maken
         CompanyStatistics GetCustomersWithInvoices();
     }
 }

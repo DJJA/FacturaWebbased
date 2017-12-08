@@ -73,10 +73,14 @@
        }
 
 
-            <br />
+        <br />
+        @if (@Model.DatePayed == new DateTime())
+        {
             <text> Factuur betaald:  </text>
             <button onclick="ShowPopup();">Betaaldatum toevoegen</button>
             <input type="hidden" name="id" value="@Model.Id" />
+        }
+            
      
 
     </div>

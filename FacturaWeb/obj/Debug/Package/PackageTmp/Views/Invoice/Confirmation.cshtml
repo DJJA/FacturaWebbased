@@ -40,10 +40,9 @@
                 cache: false,
                 data: { id: id },
                 success: function() {
-                    alert("Factuur is betaald");
                 },
                 error: function() {
-                    alert("gaat weers mis");
+                    window.close();
                 }
             });
         });
@@ -56,16 +55,17 @@
         //invoiceid = document.getElementById('invoiceId').value;
         //var requestedInvoiceId = document.getElementById('requestedinvId').value;
         //var requestedPriceId = document.getElementById('requestedpriceId').value;
+        var input = (document.getElementById('totalPrice').value);
+        var checkinp = input.replace(",", "."); //replace is voor azure, vanwege de notatie
 
-        if ((document.getElementById('requestedinvId').value) == (document.getElementById('invoiceId').value) && (document.getElementById('totalPrice').value) == (document.getElementById('requestedpriceId').value))
+        if ((document.getElementById('requestedinvId').value) == (document.getElementById('invoiceId').value) && checkinp == (document.getElementById('requestedpriceId').value))
         {
-            alert("goed");
+            alert("Betaaldatum wordt toegevoegd");
             payInvoice(@Model.Id);
-            this.close();
         }
         else
         {
-            alert("Gegevens zijn niet juist");
+            alert("Controleer of je het juiste factuur bedoelt");
         }
     }
 
