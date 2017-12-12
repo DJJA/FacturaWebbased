@@ -139,7 +139,7 @@ namespace PdfInvoiceCreator
 
             return details;
         }
-        public Paragraph CreatePdfInvoiceDetails(Invoice invoice)
+        private Paragraph CreatePdfInvoiceDetails(Invoice invoice)
         {
             string date = invoice.DateSend.ToShortDateString();
             Paragraph detailed = new Paragraph(

@@ -28,6 +28,26 @@ namespace TestCalculations
         }
 
         [TestMethod]
+        public void Test_TotalPriceCalculationFailure()
+        {
+            //Arrange
+            decimal expected = 15.78m;
+            Task task = new Task("Planten watergeven", 2, 7.65m, new DateTime());
+            int invoiceId = 1;
+            Customer customer = new Customer("Daphne", "Pouwels");
+
+            List<Task> tasks = new List<Task>();
+            tasks.Add(task);
+
+            //Act
+            Invoice invoice = new Invoice(invoiceId, customer, new DateTime(), new DateTime(), tasks);
+
+            //Assert
+            Assert.AreNotEqual(expected, invoice.TotalPrice);
+        }
+
+
+        [TestMethod]
         public void Test_TotalInvoicePrice()
         {
             //Arrange
@@ -57,6 +77,19 @@ namespace TestCalculations
 
             // Assert
             Assert.AreEqual(expected, task.TotalPrice);
+        }
+
+        [TestMethod]
+        public void Test_TotalTaskPriceCalculationFailure()
+        {
+            // Arrange
+            decimal expected = 2.60m;
+
+            // Act
+            Task task = new Task("planten sproeien", 4, 70.15m, new DateTime());
+
+            // Assert
+            Assert.AreNotEqual(expected, task.TotalPrice);
         }
 
     }
